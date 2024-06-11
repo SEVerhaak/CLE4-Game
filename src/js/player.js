@@ -1,5 +1,5 @@
-import { Actor, Animation, CollisionType, Engine, Keys, range, SpriteSheet, Vector } from "excalibur";
-import { Resources, ResourceLoader } from './resources.js'
+import {Actor, Animation, CollisionType, Engine, Input, Keys, range, SpriteSheet, Vector} from "excalibur";
+import {Resources, ResourceLoader} from './resources.js'
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -102,8 +102,12 @@ export class Player extends Actor {
 
         // vector voor de snelheid
         let velocity = new Vector(0, 0);
+        // controller logic
+        let xAxis = engine.input.gamepads.at(0).getAxes(Input.Axes.LeftStickX);
+        let yAxis = engine.input.gamepads.at(0).getAxes(Input.Axes.LeftStickY);
 
-        if (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up)) {
+
+        if (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5) {
             velocity.y = -this.playerSpeed;
             this.keyPressArray[0] = 1;
             this.graphics.use(this.animationUp);
@@ -112,7 +116,7 @@ export class Player extends Actor {
             this.keyPressArray[0] = 0;
         }
 
-        if (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down)) {
+        if (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) {
             velocity.y = this.playerSpeed;
             this.keyPressArray[1] = 1;
             this.graphics.use(this.animationDown);
@@ -122,7 +126,7 @@ export class Player extends Actor {
             this.keyPressArray[1] = 0;
         }
 
-        if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left)) {
+        if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5) {
             velocity.x = -this.playerSpeed;
             this.keyPressArray[2] = 1;
             this.graphics.use(this.animationLeft);
@@ -132,7 +136,7 @@ export class Player extends Actor {
             this.keyPressArray[2] = 0;
         }
 
-        if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) {
+        if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5) {
             velocity.x = this.playerSpeed;
             this.keyPressArray[3] = 1;
             this.graphics.use(this.animationRight);
