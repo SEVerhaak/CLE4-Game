@@ -1,7 +1,7 @@
 import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
-import {Player} from "./player.js"
+import {OverworldLevel} from "./overworldLevel.js";
 
 export class Game extends Engine {
 
@@ -16,12 +16,26 @@ export class Game extends Engine {
         this.start(ResourceLoader).then(() => this.startGame())
     }
 
+    onInitialize(engine) {
+        super.onInitialize(engine);
+
+    }
+
     startGame() {
         console.log("start de game!")
-        const player = new Player();
-        player.pos = new Vector(400,400);
-        this.add(player)
+        // go to specific scene
+        this.goToOverWorld();
     }
+
+    goToOverWorld(){
+        // Create and add the new scene
+        const overWorldScene = new OverworldLevel();
+        this.add('overworld', overWorldScene);
+
+        // Go to the new scene
+        this.goToScene('overworld');
+    }
+
 }
 
 new Game()
