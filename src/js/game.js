@@ -2,6 +2,7 @@ import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import {OverworldLevel} from "./overworldLevel.js";
+import { Level3 } from './level3.js';
 
 export class Game extends Engine {
 
@@ -34,6 +35,14 @@ export class Game extends Engine {
 
         // Go to the new scene
         this.goToScene('overworld');
+    }
+    goToLevel3() {
+        // Create and add the new scene
+        const level3 = new Level3();
+        this.add('level3', level3);
+
+        // Go to the new scene
+        this.goToScene('level3');
     }
 
 }
