@@ -1,5 +1,6 @@
 import {Actor, Animation, CollisionType, Engine, Input, Keys, range, SpriteSheet, Vector} from "excalibur";
 import {Resources, ResourceLoader} from './resources.js'
+import {Healthbar} from "./healthBar.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -8,6 +9,8 @@ export class Player extends Actor {
     playerSpeed = 100;
 
     lastPressed
+
+    healthBar
 
     animationLeft
     animationRight
@@ -28,6 +31,10 @@ export class Player extends Actor {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+
+        this.healthBar = new Healthbar();
+        this.addChild(this.healthBar);
+        this.healthBar.pos = new Vector(-8,-17);
 
         this.collider.useBoxCollider(
             16,
