@@ -18,7 +18,24 @@ export class Game extends Engine {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+        engine.input.gamepads.setMinimumGamepadConfiguration({
+            axis: 4,
+            buttons: 6,
+        });
+        engine.input.gamepads.enabled = true;
 
+        engine.input.gamepads.on('connect', (connectEvent) => {
+            console.log('controllers connected')
+            this.goToOverWorld();
+            this.gamepadConnected = true;
+        });
+
+        setTimeout(() => {
+            if (!this.gamepadConnected) {
+                console.log('no controllers connected!')
+                this.goToOverWorld()
+            }
+        }, 2000);
     }
 
     startGame() {
