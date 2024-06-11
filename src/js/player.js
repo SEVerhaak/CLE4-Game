@@ -6,7 +6,10 @@ import {
 import {Resources, ResourceLoader} from './resources.js'
 
 export class Player extends Actor {
+    // keyPressArray up, down, left, right
     keyPressArray = [0,0,0,0];
+    // speler snelheid
+    playerSpeed = 100;
 
     constructor() {
         super();
@@ -22,28 +25,38 @@ export class Player extends Actor {
 
         // vector voor de snelheid
         let velocity = new Vector(0, 0);
-        // speler snelheid
-        const speed = 100;
 
         if (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up)) {
-            velocity.y = -speed;
+            velocity.y = -this.playerSpeed;
+            this.keyPressArray[0] = 1;
+        } else{
+            this.keyPressArray[0] = 0;
         }
 
         if (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down)) {
-            velocity.y = speed;
-        }
-
-        if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) {
-            velocity.x = speed;
+            velocity.y = this.playerSpeed;
+            this.keyPressArray[1] = 1;
+        } else {
+            this.keyPressArray[1] = 0;
         }
 
         if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left)) {
-            velocity.x = -speed;
+            velocity.x = -this.playerSpeed;
+            this.keyPressArray[2] = 1;
+        } else {
+            this.keyPressArray[2] = 0;
+        }
+
+        if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) {
+            velocity.x = this.playerSpeed;
+            this.keyPressArray[3] = 1;
+        } else {
+            this.keyPressArray[3] = 0;
         }
 
         // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
         if (velocity.x !== 0 || velocity.y !== 0) {
-            velocity = velocity.normalize().scale(new Vector(speed, speed));
+            velocity = velocity.normalize().scale(new Vector(this.playerSpeed, this.playerSpeed));
         }
 
         this.vel = velocity;
