@@ -1,19 +1,19 @@
 import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
-import {OverworldLevel} from "./overworldLevel.js";
+import { OverworldLevel } from "./overworldLevel.js";
 import { Level3 } from './level3.js';
 
 export class Game extends Engine {
 
     constructor() {
-        super({ 
+        super({
             width: 1280,
             height: 720,
             maxFps: 60,
             displayMode: DisplayMode.FitScreen,
             antialiasing: false
-         })
+        })
         this.start(ResourceLoader).then(() => this.startGame())
     }
 
@@ -34,7 +34,7 @@ export class Game extends Engine {
         setTimeout(() => {
             if (!this.gamepadConnected) {
                 console.log('no controllers connected!')
-                this.goToOverWorld()
+                // this.goToOverWorld()
             }
         }, 2000);
     }
@@ -42,10 +42,10 @@ export class Game extends Engine {
     startGame() {
         console.log("start de game!")
         // go to specific scene
-        this.goToOverWorld();
+        this.goToLevel3();
     }
 
-    goToOverWorld(){
+    goToOverWorld() {
         // Create and add the new scene
         const overWorldScene = new OverworldLevel();
         this.add('overworld', overWorldScene);

@@ -1,9 +1,9 @@
-import {Actor, Animation, CollisionType, Engine, Keys, range, SpriteSheet, Vector} from "excalibur";
-import {Resources, ResourceLoader} from './resources.js'
+import { Actor, Animation, CollisionType, Engine, Keys, range, SpriteSheet, Vector } from "excalibur";
+import { Resources, ResourceLoader } from './resources.js'
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
-    keyPressArray = [0,0,0,0];
+    keyPressArray = [0, 0, 0, 0];
     // speler snelheid
     playerSpeed = 100;
 
@@ -21,9 +21,9 @@ export class Player extends Actor {
 
     constructor() {
         super({
-            width: 16, height: 16, collisionType: CollisionType.Active
+            width: 16, height: 16, collisionType: CollisionType.Active, z: 999
         });
-        this.scale = new Vector(4, 4);
+        this.scale = new Vector(1.5, 1.5);
     }
 
     onInitialize(engine) {
@@ -32,8 +32,8 @@ export class Player extends Actor {
         this.collider.useBoxCollider(
             16,
             16,
-            new Vector (0,0),
-            new Vector (-9,-14)
+            new Vector(0, 0),
+            new Vector(-9, -14)
         )
 
         // spritesheets
@@ -74,7 +74,7 @@ export class Player extends Actor {
         this.graphics.use(this.animationIdleRight);
     }
 
-    add(accumulator, a){
+    add(accumulator, a) {
         return accumulator + a;
     }
 
@@ -84,7 +84,7 @@ export class Player extends Actor {
         const arraySum = this.keyPressArray.reduce(this.add, 0);
 
         if (arraySum <= 0) {
-            switch (this.lastPressed){
+            switch (this.lastPressed) {
                 case 'up':
                     this.graphics.use(this.animationIdleUp);
                     break;
@@ -108,7 +108,7 @@ export class Player extends Actor {
             this.keyPressArray[0] = 1;
             this.graphics.use(this.animationUp);
             this.lastPressed = 'up'
-        } else{
+        } else {
             this.keyPressArray[0] = 0;
         }
 
