@@ -1,17 +1,17 @@
-import { Actor, Animation, CollisionType, Engine, Keys, range, SpriteSheet, Vector } from "excalibur";
-import { Resources, ResourceLoader } from './resources.js'
-import { Enemy } from "./enemy.js";
+import { Actor, Animation, CollisionType, range, SpriteSheet, Vector } from "excalibur";
+import { Resources } from './resources.js';
 import { Player } from "./player.js";
 
-export class Bat extends Enemy {
+export class Bat extends Actor {
     currentAnimation = null;
-    target = null;
-    detectionRadius = 100; // Radius to detect the player
-    score = 0;
+    detectionRadius = 70; // Radius to detect the player
+    attackradius = 50;
+    normalSpeed = 50; // Normal movement speed
+    attackSpeed = 100; // Movement speed when attacking
 
     constructor() {
         super({
-            width: 32, height: 32, collisionType: CollisionType.Active, z: 999
+            width: 10, height: 10, collisionType: CollisionType.Active, z: 999
         });
         this.scale = new Vector(2, 2);
         this.direction = new Vector(0, 0);
@@ -20,10 +20,9 @@ export class Bat extends Enemy {
     }
 
     onInitialize(engine) {
-
-        // spritesheets
+        // Spritesheets
         const spriteSheetBatFly = SpriteSheet.fromImageSource({
-            image: Resources.BatFly, // BubbleImage should be an instance of the image resource
+            image: Resources.BatFly,
             grid: {
                 columns: 4,
                 rows: 1,
@@ -31,14 +30,29 @@ export class Bat extends Enemy {
                 spriteHeight: 32
             },
         });
+        const spriteSheetBatAttack = SpriteSheet.fromImageSource({
+            image: Resources.BatAttack,
+            grid: {
+                columns: 8,
+                rows: 1,
+                spriteWidth: 32,
+                spriteHeight: 32
+            },
+        });
 
-        // laad bewegings animaties in
+        // Load movement animations
         this.animationRight = Animation.fromSpriteSheet(spriteSheetBatFly, range(0, 3), 100);
-        // standaard start animatie
+        this.animationLeft = Animation.fromSpriteSheet(spriteSheetBatFly, range(0, 3), 100);
+        this.animationLeft.flipHorizontal = true;
+        this.animationAttack = Animation.fromSpriteSheet(spriteSheetBatAttack, range(0, 7), 100);
+
+        // Default start animation
         this.graphics.use(this.animationRight);
         this.currentAnimation = this.animationRight;
         this.changeDirection();
+        // this.on('collisionstart', (evt) => this.onCollisionStart(evt));
     }
+
     changeDirection() {
         const directions = [
             new Vector(1, 0),   // Right
@@ -54,65 +68,68 @@ export class Bat extends Enemy {
 
     updateAnimation() {
         if (this.direction.equals(new Vector(1, 0))) {
-            if (this.currentAnimation !== this.runAnimationRight) {
-                this.graphics.use(this.runAnimationRight);
+            if (this.currentAnimation !== this.animationRight) {
+                this.graphics.use(this.animationRight);
                 this.currentAnimation = this.animationRight;
             }
         } else if (this.direction.equals(new Vector(-1, 0))) {
-            if (this.currentAnimation !== this.runAnimationLeft) {
-                this.graphics.use(this.runAnimationLeft);
-                this.currentAnimation = this.graphics.flipHorizontal;
+            if (this.currentAnimation !== this.animationLeft) {
+                this.graphics.use(this.animationLeft);
+                this.currentAnimation = this.animationLeft;
             }
         }
-        //else if (this.direction.equals(new Vector(0, 1))) {
-        //     if (this.currentAnimation !== this.runAnimationDown) {
-        //         this.graphics.use(this.runAnimationDown);
-        //         this.currentAnimation = this.runAnimationDown;
-        //     }
-        // } else if (this.direction.equals(new Vector(0, -1))) {
-        //     if (this.currentAnimation !== this.runAnimationTop) {
-        //         this.graphics.use(this.runAnimationTop);
-        //         this.currentAnimation = this.runAnimationTop;
-        //     }
-        // } else if (this.direction.equals(new Vector(0, 0))) {
-        //     if (this.currentAnimation !== this.AnimationPhone) {
-        //         this.graphics.use(this.AnimationPhone);
-        //         this.currentAnimation = this.AnimationPhone;
-        //     }
-        // }
     }
 
     onPreUpdate(engine, delta) {
-        let nearestPlayer = null;
-        let minDistance = Number.MAX_VALUE;
-
+        let playerFound = false;
+        let playerPosition = 0; // Initialize player position
 
         engine.currentScene.actors.forEach(actor => {
             if (actor instanceof Player) {
+                playerFound = true;
                 const distanceToPlayer = this.pos.distance(actor.pos);
-                if (distanceToPlayer < minDistance) {
-                    minDistance = distanceToPlayer;
-                    nearestPlayer = actor;
+
+                if (distanceToPlayer <= this.detectionRadius) {
+                    this.collisionType = CollisionType.Passive;
+                    this.direction = actor.pos.sub(this.pos).normalize();
+                    playerPosition = actor.pos.x - this.pos.x; // Calculate player position relative to the bat
+                    this.animationAttack.flipHorizontal = !(playerPosition > 0);
+                    if (!(playerPosition > 0)) {
+                        this.graphics.use(this.animationLeft)
+                        this.currentAnimation = this.animationLeft
+                    } else {
+                        this.graphics.use(this.animationRight)
+                        this.currentAnimation = this.animationRight
+                    }
+                    if (distanceToPlayer <= this.attackradius) {
+                        // Set animation flip based on player position relative to the bat
+                        this.graphics.use(this.animationAttack);
+                        this.currentAnimation = this.animationAttack;
+                        this.vel = this.direction.scale(this.attackSpeed);
+                    } else {
+                        this.vel = this.direction.scale(this.normalSpeed);
+                    }
+                } else {
+                    this.collisionType = CollisionType.Active;
+                    this.timeSinceLastChange += delta;
+                    if (this.timeSinceLastChange >= this.changeDirectionInterval) {
+                        this.changeDirection();
+                        this.timeSinceLastChange = 0;
+                    }
+                    this.vel = this.direction.scale(this.normalSpeed);
                 }
             }
+
         });
 
-        if (nearestPlayer) {
-            const distanceToPlayer = minDistance;
-            if (distanceToPlayer <= this.detectionRadius) {
-                this.direction = nearestPlayer.pos.sub(this.pos).normalize();
-                this.updateAnimation();
-            } else {
-                this.timeSinceLastChange += delta;
-                if (this.timeSinceLastChange >= this.changeDirectionInterval) {
-                    this.changeDirection();
-                    this.timeSinceLastChange = 0;
-                }
+        if (!playerFound) {
+            this.timeSinceLastChange += delta;
+            if (this.timeSinceLastChange >= this.changeDirectionInterval) {
+                this.changeDirection();
+                this.timeSinceLastChange = 0;
             }
+            this.vel = this.direction.scale(this.normalSpeed);
         }
-
-        const movementSpeed = 100;
-        this.vel = this.direction.scale(movementSpeed);
     }
 
 }
