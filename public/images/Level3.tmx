@@ -8,6 +8,70 @@
  </tileset>
  <tileset firstgid="743" name="Tree Village" tilewidth="24" tileheight="24" tilecount="450" columns="15">
   <image source="Asset Pack 8/Tree Village.png" width="360" height="720"/>
+  <tile id="4">
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="0" y="0" width="24" height="24"/>
+   </objectgroup>
+  </tile>
+  <tile id="18">
+   <objectgroup draworder="index" id="3">
+    <object id="2" x="11.1221" y="0" width="12.8779" height="10.0814"/>
+   </objectgroup>
+  </tile>
+  <tile id="19">
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="0" y="0" width="24" height="24"/>
+   </objectgroup>
+  </tile>
+  <tile id="66">
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="10.423" y="11.423" width="13.577" height="12.577"/>
+    <object id="2" x="15.4121" y="1" width="8.58788" height="10.3843"/>
+    <object id="3" x="0" y="17.3972" width="10.4945" height="6.60278"/>
+   </objectgroup>
+  </tile>
+  <tile id="67">
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="0" y="0" width="24" height="24"/>
+   </objectgroup>
+  </tile>
+  <tile id="68">
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="0" y="10.8193" width="12.147" height="13.1807"/>
+    <object id="2" x="0" y="4.08242" width="6.93545" height="19.9176"/>
+    <object id="3" x="-0.635551" y="18.1917" width="22.6018" height="5.80834"/>
+   </objectgroup>
+  </tile>
+  <tile id="81">
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="0" y="0" width="24" height="24"/>
+   </objectgroup>
+  </tile>
+  <tile id="83">
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="0" y="0" width="24" height="24"/>
+    <object id="2" x="0" y="0" width="24" height="24"/>
+   </objectgroup>
+  </tile>
+  <tile id="96">
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="9.31082" y="0" width="14.6892" height="14.4032"/>
+    <object id="2" x="4.25819" y="0" width="19.8054" height="8.11122"/>
+    <object id="3" x="16.3654" y="0" width="7.63456" height="20.7269"/>
+   </objectgroup>
+  </tile>
+  <tile id="97">
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="0" y="0" width="24" height="24"/>
+   </objectgroup>
+  </tile>
+  <tile id="98">
+   <objectgroup draworder="index" id="2">
+    <object id="1" x="0" y="0" width="13.863" height="14.5621"/>
+    <object id="2" x="0.158888" y="0.0953327" width="21.0765" height="7.18967"/>
+    <object id="3" x="0" y="0" width="7.857" height="20.6316"/>
+   </objectgroup>
+  </tile>
  </tileset>
  <layer id="3" name="floor" width="25" height="25">
   <data encoding="csv">
