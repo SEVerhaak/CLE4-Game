@@ -7,7 +7,12 @@ const Resources = {
     BeeIdle: new ImageSource('images/player/Bee_Idle.png'),
     BeeWalk: new ImageSource('images/player/Bee_Walk.png'),
     BatFly: new ImageSource('images/Bat/batFly.png'),
+    BeeAttack: new ImageSource('images/player/Bee_Attack.png'),
     BatAttack: new ImageSource('images/Bat/BatAttack.png'),
+    Level3: new TiledResource('images/Level_3.tmx'),
+    Level4: new TiledResource('images/Level_4.tmx'),
+    PigeonFly: new ImageSource('images/Pigeon/Vulture_walk.png'),
+    PigeonAttack: new ImageSource('images/Pigeon/Vulture_attack.png')
     Level3: new TiledResource('images/Level3.tmx'),
 
     SpiderWalk: new ImageSource('images/spiderBoss/Walk_Body.png'),
