@@ -8,6 +8,7 @@ const Resources = {
     BeeWalk: new ImageSource('images/player/Bee_Walk.png'),
     BatFly: new ImageSource('images/Bat/batFly.png'),
     BeeAttack: new ImageSource('images/player/Bee_Attack.png'),
+    BeeDeath: new ImageSource('images/player/Bee_Death.png'),
     BatAttack: new ImageSource('images/Bat/BatAttack.png'),
     BatDeath: new ImageSource('images/Bat/batDeath.png'),
     Level4: new TiledResource('images/Level_4.tmx'),
@@ -21,7 +22,7 @@ const Resources = {
     SpiderDie: new ImageSource('images/spiderBoss/Die_02_Body.png'),
     SpiderHit: new ImageSource('images/spiderBoss/Hit_Body.png'),
     SmallSpider: new ImageSource('images/SpiderSpriteSheet.png'),
-    Level1: new TiledResource ('images/Level_1.tmx'),
+    Level1: new TiledResource('images/Level_1.tmx'),
     MainScene: new TiledResource('images/mainScene.tmx'),
 
     Phoenix: new ImageSource('images/Phoenix_SpriteSheet_1.png'),

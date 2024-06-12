@@ -17,7 +17,7 @@ export class Level3 extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
-        this.player = new Player();
+        this.player = new Player(this.game);
         this.player.pos = new Vector(400, 400);
         this.add(this.player);
 
