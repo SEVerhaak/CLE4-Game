@@ -45,7 +45,6 @@ export class Game extends Engine {
         console.log("start de game!")
         // go to specific scene
         this.goToLevel4();
-        this.goToLevel1();
     }
 
     goToOverWorld() {
