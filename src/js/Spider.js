@@ -57,6 +57,7 @@ export class Spider extends Enemy {
         this.animationLeft = Animation.fromSpriteSheet(spriteSheetSmallSpider, range(9, 14), 100);
         this.animationRight.flipHorizontal = true;
         this.animationAttack = Animation.fromSpriteSheet(spriteSheetSmallSpider, range(90, 98), 100);
+        this.animationDeath = Animation.fromSpriteSheet(spriteSheetSmallSpider, range(54, 62), 100);
 
         // Default start animation
         this.graphics.use(this.animationRight);
