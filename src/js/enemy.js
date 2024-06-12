@@ -15,6 +15,7 @@ export class Enemy extends Actor {
     animationRight
     animationLeft
     animationAttack
+    animationHurt
     healthBar
     health = 1;
     scene
@@ -44,6 +45,7 @@ export class Enemy extends Actor {
         if (evt.other instanceof Projectile) {
             this.health -= 0.1;
             this.healthBar.reduceHealth(0.1);
+            this.graphics.use(this.animationHurt);
             console.log(this.health)
             if (this.health <= 0) {
                 this.graphics.use(this.animationDeath);

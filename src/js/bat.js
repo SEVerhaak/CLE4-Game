@@ -14,6 +14,7 @@ export class Bat extends Enemy {
     animationLeft
     animationAttack
     animationDeath
+    animationHurt
 
     constructor() {
         super();
@@ -51,6 +52,15 @@ export class Bat extends Enemy {
                 spriteHeight: 32
             },
         });
+        const spriteSheetBatHurt = SpriteSheet.fromImageSource({
+            image: Resources.BatHurt,
+            grid: {
+                columns: 4,
+                rows: 1,
+                spriteWidth: 32,
+                spriteHeight: 32
+            },
+        });
 
         // Load movement animations
         this.animationRight = Animation.fromSpriteSheet(spriteSheetBatFly, range(0, 3), 100);
@@ -58,6 +68,7 @@ export class Bat extends Enemy {
         this.animationLeft.flipHorizontal = true;
         this.animationAttack = Animation.fromSpriteSheet(spriteSheetBatAttack, range(0, 7), 100);
         this.animationDeath = Animation.fromSpriteSheet(spriteSheetBatDeath, range(0, 4), 100, AnimationStrategy.Freeze);
+        this.animationHurt = Animation.fromSpriteSheet(spriteSheetBatHurt, range(0, 3), 100);
 
         // Default start animation
         this.graphics.use(this.animationRight);
