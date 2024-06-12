@@ -1,4 +1,15 @@
-import {Actor, Animation, CollisionType, Engine, Input, Keys, range, SpriteSheet, Vector} from "excalibur";
+import {
+    Actor,
+    Animation,
+    AnimationStrategy,
+    CollisionType,
+    Engine,
+    Input,
+    Keys,
+    range,
+    SpriteSheet,
+    Vector
+} from "excalibur";
 import {Resources, ResourceLoader} from './resources.js'
 import {Healthbar} from "./healthBar.js";
 
@@ -12,6 +23,8 @@ export class Player extends Actor {
 
     healthBar
 
+    attacking = false;
+
     animationLeft
     animationRight
     animationUp
@@ -20,6 +33,10 @@ export class Player extends Actor {
     animationIdleRight
     animationIdleUp
     animationIdleDown
+    animationAtackLeft
+    animationAtackRight
+    animationAtackUp
+    animationAtackDown
 
 
     constructor() {
@@ -65,17 +82,33 @@ export class Player extends Actor {
             },
         });
 
+        const spriteSheetAttack = SpriteSheet.fromImageSource({
+            image: Resources.BeeAttack, // BubbleImage should be an instance of the image resource
+            grid: {
+                columns: 4,
+                rows: 4,
+                spriteWidth: 64,
+                spriteHeight: 64
+            },
+        });
+
         // laad bewegings animaties in
         this.animationLeft = Animation.fromSpriteSheet(spriteSheetWalk, range(4, 7), 100);
-        this.animationRight = Animation.fromSpriteSheet(spriteSheetWalk, range(9, 11), 100);
+        this.animationRight = Animation.fromSpriteSheet(spriteSheetWalk, range(8, 11), 100);
         this.animationUp = Animation.fromSpriteSheet(spriteSheetWalk, range(0, 3), 100);
         this.animationDown = Animation.fromSpriteSheet(spriteSheetWalk, range(12, 15), 100);
 
         // laad idle animaties in
         this.animationIdleLeft = Animation.fromSpriteSheet(spriteSheetIdle, range(4, 7), 100);
-        this.animationIdleRight = Animation.fromSpriteSheet(spriteSheetIdle, range(9, 11), 100);
+        this.animationIdleRight = Animation.fromSpriteSheet(spriteSheetIdle, range(8, 11), 100);
         this.animationIdleUp = Animation.fromSpriteSheet(spriteSheetIdle, range(0, 3), 100);
         this.animationIdleDown = Animation.fromSpriteSheet(spriteSheetIdle, range(12, 15), 100);
+
+        // laad atack animaties in
+        this.animationAtackLeft = Animation.fromSpriteSheet(spriteSheetAttack, range(4, 7), 100, AnimationStrategy.Loop);
+        this.animationAtackRight = Animation.fromSpriteSheet(spriteSheetAttack, range(8, 11), 100, AnimationStrategy.Loop);
+        this.animationAtackUp = Animation.fromSpriteSheet(spriteSheetAttack, range(0, 3), 100, AnimationStrategy.Loop);
+        this.animationAtackDown = Animation.fromSpriteSheet(spriteSheetAttack, range(12, 15), 100, AnimationStrategy.Loop);
 
         // standaard start animatie
         this.graphics.use(this.animationIdleRight);
@@ -88,9 +121,10 @@ export class Player extends Actor {
     onPreUpdate(engine, delta) {
         super.onPreUpdate(engine, delta);
 
+        // check om te kijken of er geen knoppen ingedrukt worden (De som van de array moet 0 zijn en dan wordt er niks ingedrukt)
         const arraySum = this.keyPressArray.reduce(this.add, 0);
-
-        if (arraySum <= 0) {
+        // speel idle animaties
+        if (arraySum <= 0 && this.attacking === false) {
             switch (this.lastPressed) {
                 case 'up':
                     this.graphics.use(this.animationIdleUp);
@@ -152,11 +186,53 @@ export class Player extends Actor {
             this.keyPressArray[3] = 0;
         }
 
+        if (engine.input.keyboard.wasPressed(Keys.Space) ||
+            engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) || this.attacking
+        ) {
+            // attack anim
+            console.log('pressed spacebar')
+            switch (this.lastPressed) {
+                case 'up':
+                    this.attacking = true
+                    this.graphics.use(this.animationAtackUp);
+                    this.animationAtackUp.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break;
+                case 'down':
+                    this.attacking = true
+                    this.graphics.use(this.animationAtackDown);
+                    this.animationAtackDown.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break;
+                case 'left':
+                    this.attacking = true
+                    this.graphics.use(this.animationAtackLeft);
+                    this.animationAtackLeft.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break;
+                case 'right':
+                    this.attacking = true
+                    this.graphics.use(this.animationAtackRight);
+                    this.animationAtackRight.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break;
+            }
+
+        }
+
         // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
         if (velocity.x !== 0 || velocity.y !== 0) {
             velocity = velocity.normalize().scale(new Vector(this.playerSpeed, this.playerSpeed));
         }
 
         this.vel = velocity;
+    }
+
+    startAttackAnimation(direction) {
+
     }
 }

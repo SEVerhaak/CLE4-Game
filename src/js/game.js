@@ -3,13 +3,15 @@ import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { OverworldLevel } from "./overworldLevel.js";
 import { Level3 } from './level3.js';
+import { Level4 } from './level4.js';
+import { Level1 } from './level1.js'
 
 export class Game extends Engine {
 
     constructor() {
         super({
-            width: 1280,
-            height: 720,
+            width: 1440,
+            height: 900,
             maxFps: 60,
             displayMode: DisplayMode.FitScreen,
             antialiasing: false
@@ -42,7 +44,7 @@ export class Game extends Engine {
     startGame() {
         console.log("start de game!")
         // go to specific scene
-        this.goToLevel3();
+        this.goToLevel1();
     }
 
     goToOverWorld() {
@@ -55,11 +57,27 @@ export class Game extends Engine {
     }
     goToLevel3() {
         // Create and add the new scene
-        const level3 = new Level3();
+        const level3 = new Level3(this);
         this.add('level3', level3);
 
         // Go to the new scene
         this.goToScene('level3');
+    }
+    goToLevel4() {
+        // Create and add the new scene
+        const level4 = new Level4(this);
+        this.add('level4', level4);
+
+        // Go to the new scene
+        this.goToScene('level4');
+    }
+    goToLevel1() {
+        // Create and add the new scene
+        const level1 = new Level1(this);
+        this.add('level1', level1);
+
+        // Go to the new scene
+        this.goToScene('level1');
     }
 
 }
