@@ -4,7 +4,8 @@ import { Resources, ResourceLoader } from './resources.js'
 import { OverworldLevel } from "./overworldLevel.js";
 import { Level3 } from './level3.js';
 import { Level4 } from './level4.js';
-import { Level1 } from './level1.js'
+import { Level1 } from './level1.js';
+import { Level2 } from './level2.js';
 
 export class Game extends Engine {
 
@@ -44,7 +45,11 @@ export class Game extends Engine {
     startGame() {
         console.log("start de game!")
         // go to specific scene
+<<<<<<< HEAD
         this.goToLevel4();
+=======
+        this.goToLevel2();
+>>>>>>> 5c32fa31f3740bcb682d6a5968cfdc05219dae01
     }
 
     goToOverWorld() {
@@ -78,6 +83,15 @@ export class Game extends Engine {
 
         // Go to the new scene
         this.goToScene('level1');
+    }
+
+    goToLevel2() {
+        // Create and add the new scene
+        const level2 = new Level2(this);
+        this.add('level2', level2);
+
+        // Go to the new scene
+        this.goToScene('level2');
     }
 
 }
