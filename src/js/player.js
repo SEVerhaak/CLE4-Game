@@ -131,15 +131,14 @@ export class Player extends Actor {
 
     onCollisionStart(evt) {
         if (evt.other instanceof Enemy) {
-            this.health -= 1;
-            this.healthBar.reduceHealth(1);
+            this.health -= 0.1;
+            this.healthBar.reduceHealth(0.1);
             console.log(this.health)
             if (this.health <= 0) {
                 this.graphics.use(this.animationDeath);
                 this.healthBar.kill();
                 this.animationDeath.events.on('end', (a) => {
-                    console.log("ik ben hier")
-                    this.game.goToOverWorld();
+                    this.timerOverWorld();
                 })
             }
         }
@@ -263,6 +262,12 @@ export class Player extends Actor {
 
             this.vel = velocity;
         }
+    }
+    timerOverWorld() {
+        setTimeout(() => {
+            this.game.goToOverWorld();
+
+        }, 1000);
     }
 
     startAttackAnimation(direction) {
