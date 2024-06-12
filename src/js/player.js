@@ -10,9 +10,11 @@ import {
     SpriteSheet,
     Vector
 } from "excalibur";
-import { Resources, ResourceLoader } from './resources.js'
-import { Healthbar } from "./healthBar.js";
+import {Resources, ResourceLoader} from './resources.js'
+import {Healthbar} from "./healthBar.js";
+import {Projectile} from "./projectile.js";
 import { Enemy } from "./enemy.js";
+
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -20,12 +22,14 @@ export class Player extends Actor {
     // speler snelheid
     playerSpeed = 100;
 
-    lastPressed
+    lastPressed = 'right'
 
     healthBar
     health = 1;
 
     attacking = false;
+
+    canShoot = true;
 
     animationLeft
     animationRight
@@ -217,60 +221,111 @@ export class Player extends Actor {
                 this.keyPressArray[3] = 0;
             }
 
-            if (engine.input.keyboard.wasPressed(Keys.Space) ||
-                engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) || this.attacking
-            ) {
-                // attack anim
-                console.log('pressed spacebar')
-                switch (this.lastPressed) {
-                    case 'up':
-                        this.attacking = true
-                        this.graphics.use(this.animationAtackUp);
-                        this.animationAtackUp.events.on('loop', (a) => {
-                            this.attacking = false;
-                        })
-                        break;
-                    case 'down':
-                        this.attacking = true
-                        this.graphics.use(this.animationAtackDown);
-                        this.animationAtackDown.events.on('loop', (a) => {
-                            this.attacking = false;
-                        })
-                        break;
-                    case 'left':
-                        this.attacking = true
-                        this.graphics.use(this.animationAtackLeft);
-                        this.animationAtackLeft.events.on('loop', (a) => {
-                            this.attacking = false;
-                        })
-                        break;
-                    case 'right':
-                        this.attacking = true
-                        this.graphics.use(this.animationAtackRight);
-                        this.animationAtackRight.events.on('loop', (a) => {
-                            this.attacking = false;
-                        })
-                        break;
-                }
+        if (engine.input.keyboard.wasPressed(Keys.Space) ||
+            engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) || this.attacking
+        ) {
+            this.shoot()
+            this.projectileDirection()
+        }
 
-            }
+        // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
+        if (velocity.x !== 0 || velocity.y !== 0) {
+            velocity = velocity.normalize().scale(new Vector(this.playerSpeed, this.playerSpeed));
+        }
 
-            // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
-            if (velocity.x !== 0 || velocity.y !== 0) {
-                velocity = velocity.normalize().scale(new Vector(this.playerSpeed, this.playerSpeed));
-            }
-
-            this.vel = velocity;
+        this.vel = velocity;
         }
     }
-    timerOverWorld() {
-        setTimeout(() => {
-            this.game.goToOverWorld();
 
-        }, 1000);
+    shoot(){
+        if (this.canShoot){
+            this.canShoot = false; // Set the flag to false to prevent immediate shooting
+            switch (this.lastPressed) {
+                case 'up':
+                    this.attacking = true
+                    this.graphics.use(this.animationAtackUp);
+                    const projectileUp = new Projectile(0,-5,5)
+                    this.addChild(projectileUp);
+                    this.animationAtackUp.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break;
+                case 'down':
+                    this.attacking = true
+                    this.graphics.use(this.animationAtackDown);
+                    const projectileDown = new Projectile(0,5,5)
+                    this.addChild(projectileDown);
+                    this.animationAtackDown.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break;
+                case 'left':
+                    this.attacking = true
+                    this.graphics.use(this.animationAtackLeft);
+                    const projectileLeft = new Projectile(-5,0,5)
+                    this.addChild(projectileLeft);
+                    this.animationAtackLeft.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break;
+                case 'right':
+                    this.attacking = true
+                    this.graphics.use(this.animationAtackRight);
+                    const projectileRight = new Projectile(5,0,20)
+                    this.addChild(projectileRight);
+                    this.animationAtackRight.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break;
+            }
+            this.resetShootTimer(); // Call the method to reset the shoot timer
+        }
     }
 
-    startAttackAnimation(direction) {
+    projectileDirection(){
+        switch (this.lastPressed) {
+            case 'up':
+                this.attacking = true
+                this.graphics.use(this.animationAtackUp);
+                const projectileUp = new Projectile(0,-5,5)
+                this.addChild(projectileUp);
+                this.animationAtackUp.events.on('loop', (a) => {
+                    this.attacking = false;
+                })
+                break;
+            case 'down':
+                this.attacking = true
+                this.graphics.use(this.animationAtackDown);
+                const projectileDown = new Projectile(0,5,5)
+                this.addChild(projectileDown);
+                this.animationAtackDown.events.on('loop', (a) => {
+                    this.attacking = false;
+                })
+                break;
+            case 'left':
+                this.attacking = true
+                this.graphics.use(this.animationAtackLeft);
+                const projectileLeft = new Projectile(-5,0,5)
+                this.addChild(projectileLeft);
+                this.animationAtackLeft.events.on('loop', (a) => {
+                    this.attacking = false;
+                })
+                break;
+            case 'right':
+                this.attacking = true
+                this.graphics.use(this.animationAtackRight);
+                const projectileRight = new Projectile(5,0,20)
+                this.addChild(projectileRight);
+                this.animationAtackRight.events.on('loop', (a) => {
+                    this.attacking = false;
+                })
+                break;
+        }
+    }
 
+    resetShootTimer() {
+        setTimeout(() => {
+            this.canShoot = true; // Reset the flag after 500ms
+        }, 500);
     }
 }

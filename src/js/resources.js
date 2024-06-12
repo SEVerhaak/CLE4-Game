@@ -16,7 +16,7 @@ const Resources = {
     PigeonAttack: new ImageSource('images/Pigeon/Vulture_attack.png'),
     PigeonDeath: new ImageSource('images/Pigeon/Vulture_death.png'),
     Level3: new TiledResource('images/Level_3.tmx'),
-
+    Projectile: new ImageSource('images/projectile/Pixel_Magic_Effects_Animations.png'),
     SpiderWalk: new ImageSource('images/spiderBoss/Walk_Body.png'),
     SpiderAttack: new ImageSource('images/spiderBoss/Attack_03_Body.png'),
     SpiderDie: new ImageSource('images/spiderBoss/Die_02_Body.png'),
@@ -25,9 +25,9 @@ const Resources = {
     Level1: new TiledResource ('images/Level_1.tmx'),
     tinySpider: new ImageSource('images/Spider_Sprite_Sheet.png'),
     MainScene: new TiledResource('images/mainScene.tmx'),
-
     Phoenix: new ImageSource('images/Phoenix_SpriteSheet_1.png'),
-    Level2: new TiledResource('images/Level_2.tmx')
+    Level2: new TiledResource('images/Level_2.tmx'),
+    Nectar: new ImageSource('images/nectar.png')
 }
 
 

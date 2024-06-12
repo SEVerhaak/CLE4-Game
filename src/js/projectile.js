@@ -11,40 +11,28 @@ import {
 import {Resources} from "./resources.js";
 
 export class Projectile extends Actor {
-    x
-    y
-    constructor(x,y) {
+
+    sprite
+    directionX
+    directionY
+    velocity
+
+    constructor(directionX, directionY, vel) {
         super({ width: 8, height: 8, collisionType: CollisionType.PreventCollision});
-        this.x = x;
-        this.y = y;
+        this.scale = new Vector(0.005, 0.005);
+        this.directionX = directionX;
+        this.directionY = directionY;
+        this.velocity = vel
     }
 
     onInitialize(engine) {
-        console.log('new bubbles added');
-        this.pos.y = this.y;
-        this.pos.x = this.x;
-        // Define the sprite sheet
-        const spriteSheet = SpriteSheet.fromImageSource({
-            image: Resources.BubbleAnim, // BubbleImage should be an instance of the image resource
-            grid: {
-                columns: 10,
-                rows: 1,
-                spriteWidth: 8,
-                spriteHeight: 8
-            },
-        });
-        this.z = 3;
-        this.scale = new Vector(1,1);
-        this.Animation = Animation.fromSpriteSheet(spriteSheet, range(0, 9), 100, AnimationStrategy.End);
-        this.graphics.use(this.Animation);
-
+        //this.pos = new Vector(this.x, this.y);
+        this.sprite = this.graphics.use(Resources.Nectar.toSprite())
+        this.vel = new Vector(this.directionX * this.velocity, this.directionY * this.velocity);
     }
 
     onPreUpdate(engine, delta) {
         super.onPreUpdate(engine, delta);
-        if (this.Animation.done){
-            //this.kill()
-            console.log('killed anim')
-        }
+
     }
 }
