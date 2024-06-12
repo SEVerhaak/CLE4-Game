@@ -4,12 +4,14 @@ import { Resources, ResourceLoader } from './resources.js'
 import { Bat } from "./bat.js";
 import { Spider } from "./Spider.js";
 import { Door } from "./door.js";
+import { TinySpider } from "./smallSpider.js";
 export class Level1 extends Scene {
 
     player
     bat
     spider
     game
+    tinyspider
 
     constructor(game) {
         super();
@@ -26,6 +28,16 @@ export class Level1 extends Scene {
         this.spider = new Spider();
         this.spider.pos = new Vector(300, 300);
         this.add(this.spider);
+
+        for(let i = 0; i < 50 ;i++){
+            this.tinyspider = new TinySpider();
+            this.tinyspider.pos = new Vector((300+i), 350);
+            this.add(this.tinyspider);
+
+        }
+
+        
+        
 
         this.door = new Door(301, 50, this.game);
         this.add(this.door);
