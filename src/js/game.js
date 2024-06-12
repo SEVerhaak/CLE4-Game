@@ -44,7 +44,6 @@ export class Game extends Engine {
     startGame() {
         console.log("start de game!")
         // go to specific scene
-        this.goToLevel4();
         this.goToLevel1();
     }
 
@@ -74,7 +73,7 @@ export class Game extends Engine {
     }
     goToLevel1() {
         // Create and add the new scene
-        const level1 = new Level1();
+        const level1 = new Level1(this);
         this.add('level1', level1);
 
         // Go to the new scene
