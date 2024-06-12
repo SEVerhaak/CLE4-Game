@@ -12,9 +12,9 @@ export class Pigeon extends Enemy {
 
     constructor() {
         super({
-            width: 10, height: 10, collisionType: CollisionType.Active, z: 999
+            width: 30, height: 20, collisionType: CollisionType.Active, z: 999
         });
-        this.scale = new Vector(2, 2);
+        this.scale = new Vector(1, 1);
         this.direction = new Vector(0, 0);
         this.changeDirectionInterval = 2000;
         this.timeSinceLastChange = 0;
@@ -22,30 +22,30 @@ export class Pigeon extends Enemy {
 
     onInitialize(engine) {
         // Spritesheets
-        const spriteSheetBatFly = SpriteSheet.fromImageSource({
-            image: Resources.BatFly,
+        const spriteSheetPigeonFly = SpriteSheet.fromImageSource({
+            image: Resources.PigeonFly,
             grid: {
                 columns: 4,
                 rows: 1,
-                spriteWidth: 32,
-                spriteHeight: 32
+                spriteWidth: 48,
+                spriteHeight: 48
             },
         });
-        const spriteSheetBatAttack = SpriteSheet.fromImageSource({
-            image: Resources.BatAttack,
+        const spriteSheetPigeonAttack = SpriteSheet.fromImageSource({
+            image: Resources.PigeonAttack,
             grid: {
-                columns: 8,
+                columns: 4,
                 rows: 1,
-                spriteWidth: 32,
-                spriteHeight: 32
+                spriteWidth: 48,
+                spriteHeight: 48
             },
         });
 
         // Load movement animations
-        this.animationRight = Animation.fromSpriteSheet(spriteSheetBatFly, range(0, 3), 100);
-        this.animationLeft = Animation.fromSpriteSheet(spriteSheetBatFly, range(0, 3), 100);
-        this.animationLeft.flipHorizontal = true;
-        this.animationAttack = Animation.fromSpriteSheet(spriteSheetBatAttack, range(0, 7), 100);
+        this.animationRight = Animation.fromSpriteSheet(spriteSheetPigeonFly, range(0, 3), 100);
+        this.animationLeft = Animation.fromSpriteSheet(spriteSheetPigeonFly, range(0, 3), 100);
+        this.animationRight.flipHorizontal = true;
+        this.animationAttack = Animation.fromSpriteSheet(spriteSheetPigeonAttack, range(0, 3), 100);
 
         // Default start animation
         this.graphics.use(this.animationRight);
@@ -94,7 +94,7 @@ export class Pigeon extends Enemy {
                     this.collisionType = CollisionType.Passive;
                     this.direction = actor.pos.sub(this.pos).normalize();
                     playerPosition = actor.pos.x - this.pos.x; // Calculate player position relative to the bat
-                    this.animationAttack.flipHorizontal = !(playerPosition > 0);
+                    this.animationAttack.flipHorizontal = playerPosition > 0;
                     if (!(playerPosition > 0)) {
                         this.graphics.use(this.animationLeft)
                         this.currentAnimation = this.animationLeft
