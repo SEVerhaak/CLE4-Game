@@ -22,7 +22,7 @@ export class Player extends Actor {
     // speler snelheid
     playerSpeed = 100;
 
-    projectileSpeed = 200;
+    projectileSpeed = 125;
 
     lastPressed = 'right'
 
@@ -140,7 +140,7 @@ export class Player extends Actor {
             this.health -= 0.1;
             this.healthBar.reduceHealth(0.1);
             console.log(this.health)
-            if (this.health <= 0) {
+            if (this.health <= 0.01) {
                 this.graphics.use(this.animationDeath);
                 this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
@@ -156,7 +156,7 @@ export class Player extends Actor {
     }
 
     onPreUpdate(engine, delta) {
-        if (this.health > 0) {
+        if (this.health > 0.01) {
             super.onPreUpdate(engine, delta);
 
             // check om te kijken of er geen knoppen ingedrukt worden (De som van de array moet 0 zijn en dan wordt er niks ingedrukt)
