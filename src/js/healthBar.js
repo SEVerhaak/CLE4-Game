@@ -22,7 +22,7 @@ export class Healthbar extends ScreenElement {
 
         this.healthbar = new Actor({ x: 0, y: 0, color: Color.Green, width: 15, height: 1, anchor: Vector.Zero })
         this.addChild(this.healthbar)
-        this.healthbar.z = 3
+        this.healthbar.z = 666
 
 
         this.body.collisionType = CollisionType.PreventCollision

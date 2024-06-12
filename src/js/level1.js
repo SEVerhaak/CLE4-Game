@@ -27,7 +27,7 @@ export class Level1 extends Scene {
         this.spider.pos = new Vector(300, 300);
         this.add(this.spider);
 
-        this.door = new Door(347.83, 120, this.game);
+        this.door = new Door(301, 50, this.game);
         this.add(this.door);
 
         engine.currentScene.camera.strategy.lockToActor(this.player);
