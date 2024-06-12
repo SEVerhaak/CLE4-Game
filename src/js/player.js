@@ -10,9 +10,11 @@ import {
     SpriteSheet,
     Vector
 } from "excalibur";
-import { Resources, ResourceLoader } from './resources.js'
-import { Healthbar } from "./healthBar.js";
+import {Resources, ResourceLoader} from './resources.js'
+import {Healthbar} from "./healthBar.js";
+import {Projectile} from "./projectile.js";
 import { Enemy } from "./enemy.js";
+
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -20,12 +22,14 @@ export class Player extends Actor {
     // speler snelheid
     playerSpeed = 100;
 
-    lastPressed
+    lastPressed = 'right'
 
     healthBar
     health = 1;
 
     attacking = false;
+
+    canShoot = true;
 
     animationLeft
     animationRight
@@ -220,39 +224,8 @@ export class Player extends Actor {
             if (engine.input.keyboard.wasPressed(Keys.Space) ||
                 engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) || this.attacking
             ) {
-                // attack anim
-                console.log('pressed spacebar')
-                switch (this.lastPressed) {
-                    case 'up':
-                        this.attacking = true
-                        this.graphics.use(this.animationAtackUp);
-                        this.animationAtackUp.events.on('loop', (a) => {
-                            this.attacking = false;
-                        })
-                        break;
-                    case 'down':
-                        this.attacking = true
-                        this.graphics.use(this.animationAtackDown);
-                        this.animationAtackDown.events.on('loop', (a) => {
-                            this.attacking = false;
-                        })
-                        break;
-                    case 'left':
-                        this.attacking = true
-                        this.graphics.use(this.animationAtackLeft);
-                        this.animationAtackLeft.events.on('loop', (a) => {
-                            this.attacking = false;
-                        })
-                        break;
-                    case 'right':
-                        this.attacking = true
-                        this.graphics.use(this.animationAtackRight);
-                        this.animationAtackRight.events.on('loop', (a) => {
-                            this.attacking = false;
-                        })
-                        break;
-                }
-
+                this.atack()
+                this.shoot(velocity, false)
             }
 
             // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
@@ -263,14 +236,78 @@ export class Player extends Actor {
             this.vel = velocity;
         }
     }
-    timerOverWorld() {
-        setTimeout(() => {
-            this.game.goToOverWorld();
 
-        }, 1000);
+    shoot(velocityVector, overRide){
+        if (this.canShoot === true || overRide === true) {
+            this.canShoot = false
+            console.log('player vel' + velocityVector)
+            if (velocityVector.x === 0 && velocityVector.y === 0) {
+                switch (this.lastPressed) {
+                    case 'up':
+                        this.shoot(new Vector(0,-100), true)
+                        break;
+                    case 'down':
+                        this.shoot(new Vector(0,100), true)
+                        break;
+                    case 'left':
+                        this.shoot(new Vector(-100,0), true)
+                        break;
+                    case 'right':
+                        this.shoot(new Vector(100,0), true)
+                        break;
+                }
+            } else{
+                const projectile = new Projectile(velocityVector);
+                this.addChild(projectile);
+                this.resetShootTimer(); // Call the method to reset the shoot timer
+            }
+
+
+        }
     }
 
-    startAttackAnimation(direction) {
+    atack() {
+        switch (this.lastPressed) {
+            case 'up':
+                this.attacking = true
+                this.graphics.use(this.animationAtackUp);
+                this.animationAtackUp.events.on('loop', (a) => {
+                    this.attacking = false;
+                })
+                break;
+            case 'down':
+                this.attacking = true
+                this.graphics.use(this.animationAtackDown);
+                this.animationAtackDown.events.on('loop', (a) => {
+                    this.attacking = false;
+                })
+                break;
+            case 'left':
+                this.attacking = true
+                this.graphics.use(this.animationAtackLeft);
+                this.animationAtackLeft.events.on('loop', (a) => {
+                    this.attacking = false;
+                })
+                break;
+            case 'right':
+                this.attacking = true
+                this.graphics.use(this.animationAtackRight);
+                this.animationAtackRight.events.on('loop', (a) => {
+                    this.attacking = false;
+                })
+                break;
+        }
+    }
 
+    resetShootTimer() {
+        setTimeout(() => {
+            this.canShoot = true; // Reset the flag after 500ms
+        }, 500);
+    }
+
+    timerOverWorld(){
+        setTimeout(() => {
+            this.game.goToOverWorld();
+        }, 1000)
     }
 }
