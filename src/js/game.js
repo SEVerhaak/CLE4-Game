@@ -55,7 +55,7 @@ export class Game extends Engine {
     }
     goToLevel3() {
         // Create and add the new scene
-        const level3 = new Level3();
+        const level3 = new Level3(this);
         this.add('level3', level3);
 
         // Go to the new scene

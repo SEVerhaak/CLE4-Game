@@ -4,7 +4,7 @@ import { Resources, ResourceLoader } from './resources.js'
 import { Bat } from "./bat.js";
 import { Door } from "./door.js";
 
-export class Level3 extends Scene {
+export class Level4 extends Scene {
 
     player
     bat
@@ -21,7 +21,7 @@ export class Level3 extends Scene {
         this.player.pos = new Vector(400, 400);
         this.add(this.player);
 
-        Resources.Level3.addToScene(this);
+        Resources.Level4.addToScene(this);
         this.bat = new Bat();
         this.bat.pos = new Vector(300, 300);
         this.add(this.bat);

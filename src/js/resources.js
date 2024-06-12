@@ -8,7 +8,8 @@ const Resources = {
     BeeWalk: new ImageSource('images/player/Bee_Walk.png'),
     BatFly: new ImageSource('images/Bat/batFly.png'),
     BatAttack: new ImageSource('images/Bat/BatAttack.png'),
-    Level3: new TiledResource('images/Level_3.tmx')
+    Level3: new TiledResource('images/Level_3.tmx'),
+    Level4: new TiledResource('images/Level_4.tmx')
 }
 
 
