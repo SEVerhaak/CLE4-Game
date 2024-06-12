@@ -4,14 +4,14 @@ import { Resources, ResourceLoader } from './resources.js'
 import { Bat } from "./bat.js";
 import { Spider } from "./Spider.js";
 import { Door } from "./door.js";
-import { TinySpider } from "./smallSpider.js";
-export class Level1 extends Scene {
+import { Phoenix } from "./phoenix.js";
+export class Level2 extends Scene {
 
     player
     bat
     spider
     game
-    tinyspider
+    phoenix
 
     constructor(game) {
         super();
@@ -24,22 +24,12 @@ export class Level1 extends Scene {
         this.player.pos = new Vector(400, 400);
         this.add(this.player);
 
-        Resources.Level1.addToScene(this);
-        this.spider = new Spider(this);
-        this.spider.pos = new Vector(300, 300);
-        this.add(this.spider);
+        Resources.Level2.addToScene(this);
+        this.phoenix = new Phoenix(this);
+        this.phoenix.pos = new Vector(300, 300);
+        this.add(this.phoenix);
 
-        for(let i = 0; i < 50 ;i++){
-            this.tinyspider = new TinySpider();
-            this.tinyspider.pos = new Vector((300+i), 350);
-            this.add(this.tinyspider);
-
-        }
-
-        
-        
-
-        this.door = new Door(301, 50, this.game);
+        this.door = new Door(373, 100, this.game);
         this.add(this.door);
 
         engine.currentScene.camera.strategy.lockToActor(this.player);
