@@ -42,8 +42,8 @@ export class Enemy extends Actor {
 
     onCollisionStart(evt) {
         if (evt.other instanceof Projectile) {
-            this.health -= 0.1;
-            this.healthBar.reduceHealth(0.1);
+            this.health -= evt.other.damage;
+            this.healthBar.reduceHealth(evt.other.damage);
             console.log(this.health)
             if (this.health <= 0) {
                 this.graphics.use(this.animationDeath);
@@ -51,6 +51,7 @@ export class Enemy extends Actor {
                 this.healthBar.kill();
                 this.collisionType = CollisionType.Passive
             }
+            evt.other.kill();
         }
     }
 
