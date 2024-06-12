@@ -153,86 +153,88 @@ export class Player extends Actor {
     }
 
     onPreUpdate(engine, delta) {
-        super.onPreUpdate(engine, delta);
+        if (this.health > 0) {
+            super.onPreUpdate(engine, delta);
 
-        // check om te kijken of er geen knoppen ingedrukt worden (De som van de array moet 0 zijn en dan wordt er niks ingedrukt)
-        const arraySum = this.keyPressArray.reduce(this.add, 0);
-        // speel idle animaties
-        if (arraySum <= 0 && this.attacking === false) {
-            switch (this.lastPressed) {
-                case 'up':
-                    this.graphics.use(this.animationIdleUp);
-                    break;
-                case 'down':
-                    this.graphics.use(this.animationIdleDown);
-                    break;
-                case 'left':
-                    this.graphics.use(this.animationIdleLeft);
-                    break;
-                case 'right':
-                    this.graphics.use(this.animationIdleRight);
-                    break;
+            // check om te kijken of er geen knoppen ingedrukt worden (De som van de array moet 0 zijn en dan wordt er niks ingedrukt)
+            const arraySum = this.keyPressArray.reduce(this.add, 0);
+            // speel idle animaties
+            if (arraySum <= 0 && this.attacking === false) {
+                switch (this.lastPressed) {
+                    case 'up':
+                        this.graphics.use(this.animationIdleUp);
+                        break;
+                    case 'down':
+                        this.graphics.use(this.animationIdleDown);
+                        break;
+                    case 'left':
+                        this.graphics.use(this.animationIdleLeft);
+                        break;
+                    case 'right':
+                        this.graphics.use(this.animationIdleRight);
+                        break;
+                }
             }
+
+            // vector voor de snelheid
+            let velocity = new Vector(0, 0);
+            // controller logic
+            let xAxis = engine.input.gamepads.at(0).getAxes(Input.Axes.LeftStickX);
+            let yAxis = engine.input.gamepads.at(0).getAxes(Input.Axes.LeftStickY);
+
+
+            if (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5) {
+                velocity.y = -this.playerSpeed;
+                this.keyPressArray[0] = 1;
+                this.graphics.use(this.animationUp);
+                this.lastPressed = 'up'
+            } else {
+                this.keyPressArray[0] = 0;
+            }
+
+            if (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) {
+                velocity.y = this.playerSpeed;
+                this.keyPressArray[1] = 1;
+                this.graphics.use(this.animationDown);
+                this.lastPressed = 'down'
+
+            } else {
+                this.keyPressArray[1] = 0;
+            }
+
+            if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5) {
+                velocity.x = -this.playerSpeed;
+                this.keyPressArray[2] = 1;
+                this.graphics.use(this.animationLeft);
+                this.lastPressed = 'left'
+
+            } else {
+                this.keyPressArray[2] = 0;
+            }
+
+            if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5) {
+                velocity.x = this.playerSpeed;
+                this.keyPressArray[3] = 1;
+                this.graphics.use(this.animationRight);
+                this.lastPressed = 'right'
+            } else {
+                this.keyPressArray[3] = 0;
+            }
+
+            if (engine.input.keyboard.wasPressed(Keys.Space) ||
+                engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) || this.attacking
+            ) {
+                this.atack()
+                this.shoot(velocity, false)
+            }
+
+            // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
+            if (velocity.x !== 0 || velocity.y !== 0) {
+                velocity = velocity.normalize().scale(new Vector(this.playerSpeed, this.playerSpeed));
+            }
+
+            this.vel = velocity;
         }
-
-        // vector voor de snelheid
-        let velocity = new Vector(0, 0);
-        // controller logic
-        let xAxis = engine.input.gamepads.at(0).getAxes(Input.Axes.LeftStickX);
-        let yAxis = engine.input.gamepads.at(0).getAxes(Input.Axes.LeftStickY);
-
-
-        if (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5) {
-            velocity.y = -this.playerSpeed;
-            this.keyPressArray[0] = 1;
-            this.graphics.use(this.animationUp);
-            this.lastPressed = 'up'
-        } else {
-            this.keyPressArray[0] = 0;
-        }
-
-        if (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) {
-            velocity.y = this.playerSpeed;
-            this.keyPressArray[1] = 1;
-            this.graphics.use(this.animationDown);
-            this.lastPressed = 'down'
-
-        } else {
-            this.keyPressArray[1] = 0;
-        }
-
-        if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5) {
-            velocity.x = -this.playerSpeed;
-            this.keyPressArray[2] = 1;
-            this.graphics.use(this.animationLeft);
-            this.lastPressed = 'left'
-
-        } else {
-            this.keyPressArray[2] = 0;
-        }
-
-        if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5) {
-            velocity.x = this.playerSpeed;
-            this.keyPressArray[3] = 1;
-            this.graphics.use(this.animationRight);
-            this.lastPressed = 'right'
-        } else {
-            this.keyPressArray[3] = 0;
-        }
-
-        if (engine.input.keyboard.wasPressed(Keys.Space) ||
-            engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) || this.attacking
-        ) {
-            this.atack()
-            this.shoot(velocity, false)
-        }
-
-        // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
-        if (velocity.x !== 0 || velocity.y !== 0) {
-            velocity = velocity.normalize().scale(new Vector(this.playerSpeed, this.playerSpeed));
-        }
-
-        this.vel = velocity;
     }
 
     shoot(velocityVector, overRide){
@@ -301,5 +303,11 @@ export class Player extends Actor {
         setTimeout(() => {
             this.canShoot = true; // Reset the flag after 500ms
         }, 500);
+    }
+
+    timerOverWorld(){
+        setTimeout(() => {
+            this.game.goToOverWorld();
+        }, 1000)
     }
 }
