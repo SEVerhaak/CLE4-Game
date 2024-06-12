@@ -19,8 +19,8 @@ const Resources = {
     SpiderDie: new ImageSource('images/spiderBoss/Die_02_Body.png'),
     SpiderHit: new ImageSource('images/spiderBoss/Hit_Body.png'),
     SmallSpider: new ImageSource('images/SpiderSpriteSheet.png'),
-    Level1: new TiledResource ('images/Level_1.tmx')
-
+    Level1: new TiledResource ('images/Level_1.tmx'),
+    MainScene: new TiledResource('images/mainScene.tmx')
 }
 
 

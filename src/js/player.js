@@ -205,7 +205,6 @@ export class Player extends Actor {
                     this.animationAtackDown.events.on('loop', (a) => {
                         this.attacking = false;
                     })
-
                     break;
                 case 'left':
                     this.attacking = true
