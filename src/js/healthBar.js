@@ -1,4 +1,4 @@
-import {Actor, Color, Vector, ScreenElement, CollisionType} from "excalibur";
+import { Actor, Color, Vector, ScreenElement, CollisionType } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
 
 export class Healthbar extends ScreenElement {
@@ -16,8 +16,8 @@ export class Healthbar extends ScreenElement {
     onInitialize(engine) {
         console.log('healthbar init')
         this.currentHealth = 1;
-        this.background = new Actor({ x: 0, y: 0, color: Color.fromRGB(255, 255, 255, 0.4), width: 15, height: 1, anchor: Vector.Zero})
-        this.background.z = 3
+        this.background = new Actor({ x: 0, y: 0, color: Color.fromRGB(255, 255, 255, 0.4), width: 15, height: 1, anchor: Vector.Zero })
+        this.background.z = 666
         this.addChild(this.background)
 
         this.healthbar = new Actor({ x: 0, y: 0, color: Color.Green, width: 15, height: 1, anchor: Vector.Zero })
@@ -32,24 +32,24 @@ export class Healthbar extends ScreenElement {
     }
 
     reduceHealth(amount) {
-        if (this.currentHealth <= 0){
+        if (this.currentHealth <= 0) {
             // player dead
-        }else{
+        } else {
             this.healthbar.scale = new Vector(this.currentHealth - amount, 1) // de health is nu 50%
             this.currentHealth = this.currentHealth - amount
-            if (this.currentHealth > 0){
+            if (this.currentHealth > 0) {
                 // player also dead
             }
         }
     }
 
     increaseHealth(amount) {
-        if (this.currentHealth >= 1){
+        if (this.currentHealth >= 1) {
             // player fully healed
-        }else{
+        } else {
             this.healthbar.scale = new Vector(this.currentHealth + amount, 1) // de health is nu 50%
             this.currentHealth = this.currentHealth + amount
-            if (this.currentHealth >= 1){
+            if (this.currentHealth >= 1) {
                 // player also dead
             }
         }

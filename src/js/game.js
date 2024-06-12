@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode } from "excalibur"
+import { Actor, Engine,AnimationStrategy, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { OverworldLevel } from "./overworldLevel.js";
 import { Level3 } from './level3.js';
@@ -45,7 +45,11 @@ export class Game extends Engine {
     startGame() {
         console.log("start de game!")
         // go to specific scene
+<<<<<<< HEAD
+        this.goToLevel4();
+=======
         this.goToLevel2();
+>>>>>>> 5c32fa31f3740bcb682d6a5968cfdc05219dae01
     }
 
     goToOverWorld() {

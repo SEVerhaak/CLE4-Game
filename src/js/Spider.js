@@ -1,7 +1,7 @@
 import { Actor, Animation, CollisionType, range, SpriteSheet, Vector } from "excalibur";
 import { Resources } from './resources.js';
 import { Player } from "./player.js";
-import {Enemy} from "./enemy.js";
+import { Enemy } from "./enemy.js";
 
 export class Spider extends Enemy {
     currentAnimation = null;
@@ -21,6 +21,8 @@ export class Spider extends Enemy {
     }
 
     onInitialize(engine) {
+        super.onInitialize(engine);
+
         // Spritesheets
         const spriteSheetSpiderWalk = SpriteSheet.fromImageSource({
             image: Resources.SpiderWalk,
