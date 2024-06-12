@@ -2,9 +2,5 @@ import { Actor, Animation, CollisionType, Engine, Keys, range, SpriteSheet, Vect
 import { Resources, ResourceLoader } from './resources.js'
 
 export class Enemy extends Actor {
-    constructor() {
-        super({
-            collisionType: CollisionType.Active
-        });
-    }
+    
 }

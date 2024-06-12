@@ -1,13 +1,14 @@
 import { Actor, Animation, CollisionType, range, SpriteSheet, Vector } from "excalibur";
 import { Resources } from './resources.js';
 import { Player } from "./player.js";
+import { Enemy } from "./enemy.js";
 
-export class Bat extends Actor {
+export class Bat extends Enemy {
     currentAnimation = null;
     detectionRadius = 70; // Radius to detect the player
     attackradius = 50;
     normalSpeed = 50; // Normal movement speed
-    attackSpeed = 100; // Movement speed when attacking
+    attackSpeed = 80; // Movement speed when attacking
 
     constructor() {
         super({
