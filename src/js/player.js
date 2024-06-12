@@ -22,6 +22,8 @@ export class Player extends Actor {
     // speler snelheid
     playerSpeed = 100;
 
+    projectileSpeed = 200;
+
     lastPressed = 'right'
 
     healthBar
@@ -141,6 +143,7 @@ export class Player extends Actor {
             if (this.health <= 0) {
                 this.graphics.use(this.animationDeath);
                 this.healthBar.kill();
+                this.body.collisionType = CollisionType.PreventCollision
                 this.animationDeath.events.on('end', (a) => {
                     this.timerOverWorld();
                 })
@@ -244,20 +247,21 @@ export class Player extends Actor {
             if (velocityVector.x === 0 && velocityVector.y === 0) {
                 switch (this.lastPressed) {
                     case 'up':
-                        this.shoot(new Vector(0,-100), true)
+                        this.shoot(new Vector(0,-1 * this.projectileSpeed), true)
                         break;
                     case 'down':
-                        this.shoot(new Vector(0,100), true)
+                        this.shoot(new Vector(0, this.projectileSpeed), true)
                         break;
                     case 'left':
-                        this.shoot(new Vector(-100,0), true)
+                        this.shoot(new Vector(-1 * this.projectileSpeed,0), true)
                         break;
                     case 'right':
-                        this.shoot(new Vector(100,0), true)
+                        this.shoot(new Vector(this.projectileSpeed,0), true)
                         break;
                 }
             } else{
-                const projectile = new Projectile(velocityVector);
+                const projectile = new Projectile(velocityVector.normalize().scale(new Vector(this.projectileSpeed, this.projectileSpeed)));
+                projectile.pos = new Vector(0, 5)
                 this.addChild(projectile);
                 this.resetShootTimer(); // Call the method to reset the shoot timer
             }
