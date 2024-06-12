@@ -17,8 +17,9 @@ export class Enemy extends Actor {
     animationAttack
     healthBar
     health = 1;
+    scene
 
-    constructor() {
+    constructor(scene) {
         super({
             width: 10, height: 10, collisionType: CollisionType.Active, z: 999
         });
@@ -26,6 +27,7 @@ export class Enemy extends Actor {
         this.direction = new Vector(0, 0);
         this.changeDirectionInterval = 2000;
         this.timeSinceLastChange = 0;
+        this.scene = scene;
     }
 
     onInitialize(engine) {

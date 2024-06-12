@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine,AnimationStrategy, Vector, DisplayMode } from "excalibur"
+import { Actor, Engine, AnimationStrategy, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { OverworldLevel } from "./overworldLevel.js";
 import { Level3 } from './level3.js';

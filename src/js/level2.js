@@ -25,7 +25,7 @@ export class Level2 extends Scene {
         this.add(this.player);
 
         Resources.Level2.addToScene(this);
-        this.phoenix = new Phoenix();
+        this.phoenix = new Phoenix(this);
         this.phoenix.pos = new Vector(300, 300);
         this.add(this.phoenix);
 

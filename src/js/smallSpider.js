@@ -7,8 +7,14 @@ export class TinySpider extends Actor {
     currentAnimation = null;
     detectionRadius = 120; // Radius to detect the player
     attackradius = 70;
-    normalSpeed = 120; // Normal movement speed
+    normalSpeed = 90; // Normal movement speed
     attackSpeed = 120; // Movement speed when attacking
+    bounds = {
+        left: 40,
+        right: 500,
+        top: 65,
+        bottom: 500
+    };
 
     constructor() {
         super({
@@ -62,53 +68,67 @@ export class TinySpider extends Actor {
         // Default start animation
         this.graphics.use(this.animationRight);
         this.currentAnimation = this.animationRight;
-        // this.on('collisionstart', (evt) => this.onCollisionStart(evt));
 
         this.changeDirection();
     }
 
     changeDirection() {
-        
-            const directions = [
-                new Vector(1, 0),   // Right
-                new Vector(-1, 0),  // Left
-                new Vector(0, 1),   // Down
-                new Vector(0, -1),  // Up
-                new Vector(0, 0),    // Still
-                new Vector(1, 1),
-                new Vector(-1, -1),
-                new Vector(1, -1),
-                new Vector(-1, 1),
-            ];
-            const randomDirection = directions[Math.floor(Math.random() * directions.length)];
-            this.direction = randomDirection;
-            this.updateAnimation(); // Update animation based on direction
-        
+        const directions = [
+            new Vector(1, 0),   // Right
+            new Vector(-1, 0),  // Left
+            new Vector(0, 1),   // Down
+            new Vector(0, -1),  // Up
+            new Vector(0, 0),    // Still
+            new Vector(1, 1),
+            new Vector(-1, -1),
+            new Vector(1, -1),
+            new Vector(-1, 1),
+        ];
+        const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+        this.direction = randomDirection;
+        this.updateAnimation(); // Update animation based on direction
     }
 
     updateAnimation() {
-        
-            if (this.direction.equals(new Vector(1, 0))) {
-                if (this.currentAnimation !== this.animationRight) {
-                    this.graphics.use(this.animationRight);
-                    this.currentAnimation = this.animationRight;
-                }
-            } else if (this.direction.equals(new Vector(-1, 0))) {
-                if (this.currentAnimation !== this.animationLeft) {
-                    this.graphics.use(this.animationLeft);
-                    this.currentAnimation = this.animationLeft;
-                }
+        if (this.direction.equals(new Vector(1, 0))) {
+            if (this.currentAnimation !== this.animationRight) {
+                this.graphics.use(this.animationRight);
+                this.currentAnimation = this.animationRight;
             }
-        
+        } else if (this.direction.equals(new Vector(-1, 0))) {
+            if (this.currentAnimation !== this.animationLeft) {
+                this.graphics.use(this.animationLeft);
+                this.currentAnimation = this.animationLeft;
+            }
+        }
     }
+
     onPreUpdate(engine, delta) {
-       
-                        this.timeSinceLastChange += delta;
-                        if (this.timeSinceLastChange >= this.changeDirectionInterval) {
-                            this.changeDirection();
-                            this.timeSinceLastChange = 0;
-                        }
-                        this.vel = this.direction.scale(this.normalSpeed);
-                
-                    }
+        this.timeSinceLastChange += delta;
+        if (this.timeSinceLastChange >= this.changeDirectionInterval) {
+            this.changeDirection();
+            this.timeSinceLastChange = 0;
+        }
+        this.vel = this.direction.scale(this.normalSpeed);
+
+        // Check bounds
+        if (this.pos.x < this.bounds.left) {
+            this.pos.x = this.bounds.left;
+            this.changeDirection(); // Change direction if it hits the bound
+        } else if (this.pos.x > this.bounds.right) {
+            this.pos.x = this.bounds.right;
+            this.changeDirection(); // Change direction if it hits the bound
+        }
+
+        if (this.pos.y < this.bounds.top) {
+            this.pos.y = this.bounds.top;
+            this.changeDirection(); // Change direction if it hits the bound
+        } else if (this.pos.y > this.bounds.bottom) {
+            this.pos.y = this.bounds.bottom;
+            this.changeDirection(); // Change direction if it hits the bound
+        }
+    }
 }
+
+// Example usage
+

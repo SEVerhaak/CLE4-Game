@@ -22,7 +22,7 @@ export class Level4 extends Scene {
         this.add(this.player);
 
         Resources.Level4.addToScene(this);
-        this.pigeon = new Pigeon();
+        this.pigeon = new Pigeon(this);
         this.pigeon.pos = new Vector(300, 300);
         this.add(this.pigeon);
 
