@@ -39,7 +39,7 @@ export class Enemy extends Actor {
     }
 
     onCollisionStart(evt) {
-        if (evt.other instanceof Player) {
+        if (evt.other instanceof {Player}) {
             this.health -= 0.1;
             this.healthBar.reduceHealth(0.1);
             console.log(this.health)

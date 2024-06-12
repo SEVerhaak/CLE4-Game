@@ -1,4 +1,4 @@
-import { Actor, Animation, CollisionType, range, SpriteSheet, Vector } from "excalibur";
+import { Actor, Animation, AnimationStrategy, CollisionType, range, SpriteSheet, Vector } from "excalibur";
 import { Resources } from './resources.js';
 import { Player } from "./player.js";
 import { Enemy } from "./enemy.js";
@@ -57,7 +57,7 @@ export class Spider extends Enemy {
         this.animationLeft = Animation.fromSpriteSheet(spriteSheetSmallSpider, range(9, 14), 100);
         this.animationRight.flipHorizontal = true;
         this.animationAttack = Animation.fromSpriteSheet(spriteSheetSmallSpider, range(90, 98), 100);
-        this.animationDeath = Animation.fromSpriteSheet(spriteSheetSmallSpider, range(54, 62), 100);
+        this.animationDeath = Animation.fromSpriteSheet(spriteSheetSmallSpider, range(54, 62), 100, AnimationStrategy.Freeze);
 
         // Default start animation
         this.graphics.use(this.animationRight);
