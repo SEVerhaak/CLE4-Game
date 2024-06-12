@@ -12,7 +12,7 @@ const Resources = {
     Level3: new TiledResource('images/Level_3.tmx'),
     Level4: new TiledResource('images/Level_4.tmx'),
     PigeonFly: new ImageSource('images/Pigeon/Vulture_walk.png'),
-    PigeonAttack: new ImageSource('images/Pigeon/Vulture_attack.png')
+    PigeonAttack: new ImageSource('images/Pigeon/Vulture_attack.png'),
     Level3: new TiledResource('images/Level3.tmx'),
 
     SpiderWalk: new ImageSource('images/spiderBoss/Walk_Body.png'),
