@@ -16,7 +16,7 @@ export class OverworldLevel extends Scene {
     onInitialize(engine) {
         super.onInitialize(engine);
         this.player = new Player();
-        this.player.pos = new Vector(400, 400);
+        this.player.pos = new Vector(1050, 1005);
         this.add(this.player);
         Resources.MainScene.addToScene(this);
 
