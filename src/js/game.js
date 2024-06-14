@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, AnimationStrategy, Vector, DisplayMode } from "excalibur"
+import {Actor, Engine, AnimationStrategy, Vector, DisplayMode, Color} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { OverworldLevel } from "./overworldLevel.js";
 import { Level3 } from './level3.js';
@@ -16,7 +16,8 @@ export class Game extends Engine {
             height: 900,
             maxFps: 60,
             displayMode: DisplayMode.FitScreen,
-            antialiasing: false
+            antialiasing: false,
+            backgroundColor: Color.Black
         })
         this.start(ResourceLoader).then(() => this.startGame())
     }

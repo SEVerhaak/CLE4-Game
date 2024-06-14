@@ -96,12 +96,14 @@ export class Enemy extends Actor {
         if (this.health > 0.01) {
             this.playerSeen = false;
             let playerPosition = 0; // Initialize player position
-
             engine.currentScene.actors.forEach(actor => {
                 if (actor instanceof Player) {
                     this.playerSeen = true;
                     const distanceToPlayer = this.pos.distance(actor.pos);
                     if (distanceToPlayer <= this.detectionRadius || this.damageTaken) {
+                        if (distanceToPlayer <= this.detectionRadius){
+                            this.damageTaken =  false;
+                        }
                         this.direction = actor.pos.sub(this.pos).normalize();
                         playerPosition = actor.pos.x - this.pos.x; // Calculate player position relative to the bat
                         this.animationAttack.flipHorizontal = !(playerPosition > 0);

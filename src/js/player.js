@@ -16,6 +16,7 @@ import {Projectile} from "./projectile.js";
 import { Enemy } from "./enemy.js";
 import {Inventory} from "./inventory.js";
 import {Shadow} from "./shadow.js";
+import {FireProjectile1} from "./fireProjectile1.js";
 
 
 export class Player extends Actor {
@@ -25,6 +26,7 @@ export class Player extends Actor {
     playerSpeed = 100;
 
     projectileSpeed = 125;
+    projectileSpeedModifier = 1.2;
 
     lastPressed = 'right'
 
@@ -317,22 +319,19 @@ export class Player extends Actor {
                         break;
                 }
             } else{
-                const projectileVector = velocityVector.normalize().scale(new Vector(this.projectileSpeed, this.projectileSpeed))
+                const projectileVector = velocityVector.normalize().scale(new Vector(this.projectileSpeed * this.projectileSpeedModifier, this.projectileSpeed * this.projectileSpeedModifier))
                 if (this.invertShootDirectionUpDown){
                     projectileVector.y = -1 * projectileVector.y
-                    const projectile = new Projectile(projectileVector);
-                    projectile.pos = new Vector(0, -5)
+                    const projectile = new FireProjectile1(projectileVector);
                     this.addChild(projectile);
                     this.resetShootTimer(); // Call the method to reset the shoot timer
                 } else if (this.invertShootDirectionLeftRight){
                     projectileVector.x = -1 * projectileVector.x
-                    const projectile = new Projectile(projectileVector);
-                    projectile.pos = new Vector(0, -5)
+                    const projectile = new FireProjectile1(projectileVector);
                     this.addChild(projectile);
                     this.resetShootTimer(); // Call the method to reset the shoot timer
                 } else{
-                    const projectile = new Projectile(projectileVector);
-                    projectile.pos = new Vector(0, -5)
+                    const projectile = new FireProjectile1(projectileVector);
                     this.addChild(projectile);
                     this.resetShootTimer(); // Call the method to reset the shoot timer
                 }
