@@ -14,6 +14,8 @@ import {Resources, ResourceLoader} from './resources.js'
 import {Healthbar} from "./healthBar.js";
 import {Projectile} from "./projectile.js";
 import { Enemy } from "./enemy.js";
+import {Inventory} from "./inventory.js";
+import {Shadow} from "./shadow.js";
 
 
 export class Player extends Actor {
@@ -26,12 +28,15 @@ export class Player extends Actor {
 
     lastPressed = 'right'
 
+    inventory
+    shadow
     healthBar
     health = 1;
 
     attacking = false;
-
     canShoot = true;
+    invertShootDirectionUpDown = false;
+    invertShootDirectionLeftRight = false;
 
     animationLeft
     animationRight
@@ -59,9 +64,17 @@ export class Player extends Actor {
     onInitialize(engine) {
         super.onInitialize(engine);
 
-        this.healthBar = new Healthbar();
+        this.inventory = new Inventory(engine,0,0)
+        this.addChild(this.inventory);
+
+        this.healthBar = new Healthbar(this.game, false);
         this.addChild(this.healthBar);
         this.healthBar.pos = new Vector(-8, -17);
+
+        this.shadow = new Shadow()
+        this.shadow.pos = new Vector(-2, 5);
+        this.shadow.graphics.opacity = 0.5
+        this.addChild(this.shadow);
 
         this.collider.useBoxCollider(
             16,
@@ -132,13 +145,13 @@ export class Player extends Actor {
 
         // standaard start animatie
         this.graphics.use(this.animationIdleRight);
-        this.on('collisionstart', (evt) => this.onCollisionStart(evt));
+        this.on('precollision', (evt) => this.onCollisionStart(evt));
     }
 
     onCollisionStart(evt) {
         if (evt.other instanceof Enemy) {
-            this.health -= 0.1;
-            this.healthBar.reduceHealth(0.1);
+            this.health -= 0.005;
+            this.healthBar.reduceHealth(0.005);
             console.log(this.health)
             if (this.health <= 0.01) {
                 this.graphics.use(this.animationDeath);
@@ -158,25 +171,11 @@ export class Player extends Actor {
     onPreUpdate(engine, delta) {
         if (this.health > 0.01) {
             super.onPreUpdate(engine, delta);
-
             // check om te kijken of er geen knoppen ingedrukt worden (De som van de array moet 0 zijn en dan wordt er niks ingedrukt)
             const arraySum = this.keyPressArray.reduce(this.add, 0);
             // speel idle animaties
-            if (arraySum <= 0 && this.attacking === false) {
-                switch (this.lastPressed) {
-                    case 'up':
-                        this.graphics.use(this.animationIdleUp);
-                        break;
-                    case 'down':
-                        this.graphics.use(this.animationIdleDown);
-                        break;
-                    case 'left':
-                        this.graphics.use(this.animationIdleLeft);
-                        break;
-                    case 'right':
-                        this.graphics.use(this.animationIdleRight);
-                        break;
-                }
+            if (arraySum <= 0) {
+                this.idleAnim();
             }
 
             // vector voor de snelheid
@@ -186,27 +185,31 @@ export class Player extends Actor {
             let yAxis = engine.input.gamepads.at(0).getAxes(Input.Axes.LeftStickY);
 
 
-            if (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5) {
+            if ((engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5) && !engine.input.keyboard.isHeld(Keys.Down)) {
                 velocity.y = -this.playerSpeed;
+                this.movementAnim('up')
                 this.keyPressArray[0] = 1;
-                this.graphics.use(this.animationUp);
                 this.lastPressed = 'up'
             } else {
                 this.keyPressArray[0] = 0;
             }
 
-            if (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) {
+            if ((engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) && !engine.input.keyboard.isHeld(Keys.Up)) {
                 velocity.y = this.playerSpeed;
+                this.movementAnim('down')
                 this.keyPressArray[1] = 1;
                 this.graphics.use(this.animationDown);
                 this.lastPressed = 'down'
-
             } else {
                 this.keyPressArray[1] = 0;
             }
 
-            if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5) {
+            this.invertShootDirectionUpDown = (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) && (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5);
+            this.invertShootDirectionLeftRight = (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5) && (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5);
+
+            if ((engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5) && !engine.input.keyboard.isHeld(Keys.Right)) {
                 velocity.x = -this.playerSpeed;
+                this.movementAnim('left')
                 this.keyPressArray[2] = 1;
                 this.graphics.use(this.animationLeft);
                 this.lastPressed = 'left'
@@ -215,8 +218,9 @@ export class Player extends Actor {
                 this.keyPressArray[2] = 0;
             }
 
-            if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5) {
+            if ((engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5) && !engine.input.keyboard.isHeld(Keys.Left))  {
                 velocity.x = this.playerSpeed;
+                this.movementAnim('right')
                 this.keyPressArray[3] = 1;
                 this.graphics.use(this.animationRight);
                 this.lastPressed = 'right'
@@ -227,7 +231,7 @@ export class Player extends Actor {
             if (engine.input.keyboard.wasPressed(Keys.Space) ||
                 engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) || this.attacking
             ) {
-                this.atack()
+                this.attack()
                 this.shoot(velocity, false)
             }
 
@@ -237,6 +241,59 @@ export class Player extends Actor {
             }
 
             this.vel = velocity;
+        }
+    }
+
+    movementAnim(direction){
+        if (this.attacking === false) {
+            switch (direction) {
+                case 'up':
+                    this.graphics.use(this.animationUp);
+                    this.shadow.rotation = Math.PI / 2;
+                    this.shadow.pos.x = 0
+                    this.shadow.pos.y = 0
+                    break
+                case 'down':
+                    this.graphics.use(this.animationDown);
+                    this.shadow.rotation = Math.PI / 2;
+                    this.shadow.pos.x = 0
+                    this.shadow.pos.y = -10
+                    break
+                case 'left':
+                    this.graphics.use(this.animationLeft);
+                    this.shadow.pos.x = 4
+                    this.shadow.rotation = 0
+                    this.shadow.pos.y = 5
+                    break
+                case 'right':
+                    this.graphics.use(this.animationRight);
+                    this.shadow.rotation = 0
+                    this.shadow.pos.x = -2
+                    this.shadow.pos.y = 5
+                    break
+                default:
+                    this.graphics.use(this.animationLeft);
+                    break
+            }
+        }
+    }
+
+    idleAnim(){
+        if (this.attacking === false){
+            switch (this.lastPressed) {
+                case 'up':
+                    this.graphics.use(this.animationIdleUp);
+                    break;
+                case 'down':
+                    this.graphics.use(this.animationIdleDown);
+                    break;
+                case 'left':
+                    this.graphics.use(this.animationIdleLeft);
+                    break;
+                case 'right':
+                    this.graphics.use(this.animationIdleRight);
+                    break;
+            }
         }
     }
 
@@ -260,46 +317,91 @@ export class Player extends Actor {
                         break;
                 }
             } else{
-                const projectile = new Projectile(velocityVector.normalize().scale(new Vector(this.projectileSpeed, this.projectileSpeed)));
-                projectile.pos = new Vector(0, 5)
-                this.addChild(projectile);
-                this.resetShootTimer(); // Call the method to reset the shoot timer
+                const projectileVector = velocityVector.normalize().scale(new Vector(this.projectileSpeed, this.projectileSpeed))
+                if (this.invertShootDirectionUpDown){
+                    projectileVector.y = -1 * projectileVector.y
+                    const projectile = new Projectile(projectileVector);
+                    projectile.pos = new Vector(0, -5)
+                    this.addChild(projectile);
+                    this.resetShootTimer(); // Call the method to reset the shoot timer
+                } else if (this.invertShootDirectionLeftRight){
+                    projectileVector.x = -1 * projectileVector.x
+                    const projectile = new Projectile(projectileVector);
+                    projectile.pos = new Vector(0, -5)
+                    this.addChild(projectile);
+                    this.resetShootTimer(); // Call the method to reset the shoot timer
+                } else{
+                    const projectile = new Projectile(projectileVector);
+                    projectile.pos = new Vector(0, -5)
+                    this.addChild(projectile);
+                    this.resetShootTimer(); // Call the method to reset the shoot timer
+                }
             }
-
-
         }
     }
 
-    atack() {
+    attack() {
         switch (this.lastPressed) {
             case 'up':
                 this.attacking = true
-                this.graphics.use(this.animationAtackUp);
-                this.animationAtackUp.events.on('loop', (a) => {
-                    this.attacking = false;
-                })
-                break;
+                if (this.invertShootDirectionUpDown){
+                    this.graphics.use(this.animationAtackDown);
+                    this.animationAtackDown.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break
+                } else{
+                    this.graphics.use(this.animationAtackUp);
+                    this.animationAtackUp.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break
+                }
             case 'down':
                 this.attacking = true
-                this.graphics.use(this.animationAtackDown);
-                this.animationAtackDown.events.on('loop', (a) => {
-                    this.attacking = false;
-                })
-                break;
+                if (this.invertShootDirectionUpDown){
+                    this.graphics.use(this.animationAtackUp);
+                    this.animationAtackUp.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break
+                } else{
+                    this.graphics.use(this.animationAtackDown);
+                    this.animationAtackDown.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break
+                }
             case 'left':
                 this.attacking = true
-                this.graphics.use(this.animationAtackLeft);
-                this.animationAtackLeft.events.on('loop', (a) => {
-                    this.attacking = false;
-                })
-                break;
+                if (this.invertShootDirectionLeftRight){
+                    this.graphics.use(this.animationAtackRight);
+                    this.animationAtackRight.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break
+                } else{
+                    this.graphics.use(this.animationAtackLeft);
+                    this.animationAtackLeft.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break
+                }
             case 'right':
                 this.attacking = true
-                this.graphics.use(this.animationAtackRight);
-                this.animationAtackRight.events.on('loop', (a) => {
-                    this.attacking = false;
-                })
-                break;
+                if (this.invertShootDirectionLeftRight){
+                    this.graphics.use(this.animationAtackLeft);
+                    this.animationAtackLeft.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break
+                } else{
+                    this.graphics.use(this.animationAtackRight);
+                    this.animationAtackRight.events.on('loop', (a) => {
+                        this.attacking = false;
+                    })
+                    break
+                }
         }
     }
 
