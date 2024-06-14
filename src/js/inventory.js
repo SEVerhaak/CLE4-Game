@@ -9,6 +9,9 @@ import {Resources} from "./resources.js";
 export class Inventory extends Actor {
 
     inventory = [];
+    projectiles = [];
+    currentSelectedItemIndex = 0
+    activeProjectileIndex = -1
 
     constructor(engine,x,y) {
         super({ width: 8, height: 8, collisionType: CollisionType.Passive});
@@ -22,9 +25,39 @@ export class Inventory extends Actor {
 
     }
 
-    addItem(item){
-        this.inventory.push(item);
-        console.log("inventory: " + item)
+    addItem(item, isProjectile, projectileIndex){
+        if (isProjectile){
+            let projectileObject = {
+                itemName: item,
+                projectileIndex: projectileIndex // projectileindex is de index in de player projectile array
+            }
+            this.projectiles.push(projectileObject)
+        }else{
+            this.inventory.push(item);
+        }
+        console.log("inventory: " + this.inventory)
+        console.log(this.projectiles)
+    }
+
+    selectItem(index){
+        return this.inventory[index]
+    }
+
+    getSelectedProjectileId(){
+        if (this.projectiles.length > 0){
+            return this.projectiles[this.currentSelectedItemIndex].projectileIndex
+        } else{
+            return -1
+        }
+    }
+
+    setSelectedProjectileID(){
+        if (this.currentSelectedItemIndex === this.projectiles.length){
+            this.currentSelectedItemIndex = 0
+        } else{
+            this.currentSelectedItemIndex++
+        }
+        console.log(this.currentSelectedItemIndex)
     }
 
     removeItem(itemName){

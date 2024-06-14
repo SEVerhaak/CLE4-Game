@@ -5,17 +5,17 @@ import {
 import {Resources} from "./resources.js";
 import {Projectile} from "./projectile.js";
 
-export class FireProjectile1 extends Projectile {
+export class FireProjectile2 extends Projectile {
 
     //sprite = this.graphics.use(Resources.Nectar.toSprite())
     damage = 0.1
     spriteSheet = SpriteSheet.fromImageSource({
-        image: Resources.TestProjectile,
+        image: Resources.FireProjectile2,
         grid: {
             columns: 4,
             rows: 1,
             spriteWidth: 16,
-            spriteHeight: 16
+            spriteHeight: 12
         },
     });
     animEndFrame = 3

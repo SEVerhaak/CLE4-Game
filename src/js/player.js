@@ -17,6 +17,7 @@ import { Enemy } from "./enemy.js";
 import {Inventory} from "./inventory.js";
 import {Shadow} from "./shadow.js";
 import {FireProjectile1} from "./fireProjectile1.js";
+import {FireProjectile2} from "./fireProjectile2.js";
 
 
 export class Player extends Actor {
@@ -236,6 +237,10 @@ export class Player extends Actor {
                 this.attack()
                 this.shoot(velocity, false)
             }
+            if (engine.input.keyboard.wasPressed(Keys.ShiftLeft)){
+                this.inventory.setSelectedProjectileID()
+                console.log(this.inventory.activeProjectileIndex)
+            }
 
             // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
             if (velocity.x !== 0 || velocity.y !== 0) {
@@ -320,20 +325,30 @@ export class Player extends Actor {
                 }
             } else{
                 const projectileVector = velocityVector.normalize().scale(new Vector(this.projectileSpeed * this.projectileSpeedModifier, this.projectileSpeed * this.projectileSpeedModifier))
+
+                const projectileArray = [
+                    new FireProjectile1(projectileVector),
+                    new FireProjectile2(projectileVector)
+                ]
+
                 if (this.invertShootDirectionUpDown){
                     projectileVector.y = -1 * projectileVector.y
-                    const projectile = new FireProjectile1(projectileVector);
+                    const projectile = new FireProjectile2(projectileVector);
                     this.addChild(projectile);
                     this.resetShootTimer(); // Call the method to reset the shoot timer
                 } else if (this.invertShootDirectionLeftRight){
                     projectileVector.x = -1 * projectileVector.x
-                    const projectile = new FireProjectile1(projectileVector);
+                    const projectile = new FireProjectile2(projectileVector);
                     this.addChild(projectile);
                     this.resetShootTimer(); // Call the method to reset the shoot timer
                 } else{
-                    const projectile = new FireProjectile1(projectileVector);
-                    this.addChild(projectile);
-                    this.resetShootTimer(); // Call the method to reset the shoot timer
+                    //const projectile = new FireProjectile2(projectileVector);
+                    if (this.inventory.getSelectedProjectileId() !== -1){
+                        const projectile = projectileArray[this.inventory.getSelectedProjectileId()];
+                        this.addChild(projectile);
+                        this.resetShootTimer(); // Call the method to reset the shoot timer
+
+                    }
                 }
             }
         }

@@ -5,6 +5,7 @@ import { Bat } from "./bat.js";
 import { Door } from "./door.js";
 import {Pickup} from "./pickup.js";
 import {NectarPickup} from "./nectarPickup.js";
+import {ProjectilePickup} from "./pickupProjectileTest.js";
 
 export class Level3 extends Scene {
 
@@ -23,8 +24,11 @@ export class Level3 extends Scene {
         this.player.pos = new Vector(350, 165);
         this.add(this.player);
 
-        const pickup = new NectarPickup(425,425)
+        const pickup = new ProjectilePickup(425,425)
         this.add(pickup)
+
+        const pickup2 = new ProjectilePickup(440,425)
+        this.add(pickup2)
 
         Resources.Level3.addToScene(this);
         this.bat = new Bat(this);

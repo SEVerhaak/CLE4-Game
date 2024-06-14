@@ -18,6 +18,7 @@ const Resources = {
     PigeonHurt: new ImageSource('images/Pigeon/Vulture_hurt.png'),
     Projectile: new ImageSource('images/projectile/projectiles.png'),
     TestProjectile: new ImageSource('images/projectile/testanimprojectile.png'),
+    FireProjectile2: new ImageSource('images/projectile/fireProjectile2.png'),
     SpiderWalk: new ImageSource('images/spiderBoss/Walk_Body.png'),
     SpiderAttack: new ImageSource('images/spiderBoss/Attack_03_Body.png'),
     SpiderDie: new ImageSource('images/spiderBoss/Die_02_Body.png'),
@@ -32,7 +33,6 @@ const Resources = {
     Level1: new TiledResource('images/Level_1.tmx'),
     MainScene: new TiledResource('images/mainScene.tmx'),
     Shadow: new ImageSource('images/shadow.png'),
-    Nectar: new ImageSource('images/nectar.png'),
     Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png')
 }
 
