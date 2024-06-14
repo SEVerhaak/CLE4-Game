@@ -14,6 +14,7 @@ import {Resources, ResourceLoader} from './resources.js'
 import {Healthbar} from "./healthBar.js";
 import {Projectile} from "./projectile.js";
 import { Enemy } from "./enemy.js";
+import {Inventory} from "./inventory.js";
 
 
 export class Player extends Actor {
@@ -26,11 +27,12 @@ export class Player extends Actor {
 
     lastPressed = 'right'
 
+    inventory
+
     healthBar
     health = 1;
 
     attacking = false;
-
     canShoot = true;
 
     animationLeft
@@ -58,6 +60,9 @@ export class Player extends Actor {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+
+        this.inventory = new Inventory(engine,0,0)
+        this.addChild(this.inventory);
 
         this.healthBar = new Healthbar();
         this.addChild(this.healthBar);
@@ -132,13 +137,13 @@ export class Player extends Actor {
 
         // standaard start animatie
         this.graphics.use(this.animationIdleRight);
-        this.on('collisionstart', (evt) => this.onCollisionStart(evt));
+        this.on('precollision', (evt) => this.onCollisionStart(evt));
     }
 
     onCollisionStart(evt) {
         if (evt.other instanceof Enemy) {
-            this.health -= 0.1;
-            this.healthBar.reduceHealth(0.1);
+            this.health -= 0.005;
+            this.healthBar.reduceHealth(0.005);
             console.log(this.health)
             if (this.health <= 0.01) {
                 this.graphics.use(this.animationDeath);
@@ -157,25 +162,28 @@ export class Player extends Actor {
 
     onPreUpdate(engine, delta) {
         if (this.health > 0.01) {
+            let multipleKeyPressed
             super.onPreUpdate(engine, delta);
 
             // check om te kijken of er geen knoppen ingedrukt worden (De som van de array moet 0 zijn en dan wordt er niks ingedrukt)
             const arraySum = this.keyPressArray.reduce(this.add, 0);
             // speel idle animaties
-            if (arraySum <= 0 && this.attacking === false) {
-                switch (this.lastPressed) {
-                    case 'up':
-                        this.graphics.use(this.animationIdleUp);
-                        break;
-                    case 'down':
-                        this.graphics.use(this.animationIdleDown);
-                        break;
-                    case 'left':
-                        this.graphics.use(this.animationIdleLeft);
-                        break;
-                    case 'right':
-                        this.graphics.use(this.animationIdleRight);
-                        break;
+            if (arraySum <= 0) {
+                if (this.attacking === false){
+                    switch (this.lastPressed) {
+                        case 'up':
+                            this.graphics.use(this.animationIdleUp);
+                            break;
+                        case 'down':
+                            this.graphics.use(this.animationIdleDown);
+                            break;
+                        case 'left':
+                            this.graphics.use(this.animationIdleLeft);
+                            break;
+                        case 'right':
+                            this.graphics.use(this.animationIdleRight);
+                            break;
+                    }
                 }
             }
 
@@ -186,7 +194,7 @@ export class Player extends Actor {
             let yAxis = engine.input.gamepads.at(0).getAxes(Input.Axes.LeftStickY);
 
 
-            if (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5) {
+            if ((engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5) && !engine.input.keyboard.isHeld(Keys.Down)) {
                 velocity.y = -this.playerSpeed;
                 this.keyPressArray[0] = 1;
                 this.graphics.use(this.animationUp);
@@ -195,7 +203,7 @@ export class Player extends Actor {
                 this.keyPressArray[0] = 0;
             }
 
-            if (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) {
+            if ((engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) && !engine.input.keyboard.isHeld(Keys.Up)) {
                 velocity.y = this.playerSpeed;
                 this.keyPressArray[1] = 1;
                 this.graphics.use(this.animationDown);
@@ -261,7 +269,7 @@ export class Player extends Actor {
                 }
             } else{
                 const projectile = new Projectile(velocityVector.normalize().scale(new Vector(this.projectileSpeed, this.projectileSpeed)));
-                projectile.pos = new Vector(0, 5)
+                projectile.pos = new Vector(0, -5)
                 this.addChild(projectile);
                 this.resetShootTimer(); // Call the method to reset the shoot timer
             }

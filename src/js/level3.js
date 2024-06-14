@@ -3,6 +3,8 @@ import { Player } from "./player.js";
 import { Resources, ResourceLoader } from './resources.js'
 import { Bat } from "./bat.js";
 import { Door } from "./door.js";
+import {Pickup} from "./pickup.js";
+import {NectarPickup} from "./nectarPickup.js";
 
 export class Level3 extends Scene {
 
@@ -20,6 +22,9 @@ export class Level3 extends Scene {
         this.player = new Player(this.game);
         this.player.pos = new Vector(400, 400);
         this.add(this.player);
+
+        const pickup = new NectarPickup(425,425)
+        this.add(pickup)
 
         Resources.Level3.addToScene(this);
         this.bat = new Bat(this);
