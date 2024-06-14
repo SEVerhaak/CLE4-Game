@@ -29,7 +29,8 @@ const Resources = {
     MainScene: new TiledResource('images/mainScene.tmx'),
     Phoenix: new ImageSource('images/Phoenix_SpriteSheet_1.png'),
     Level2: new TiledResource('images/Level_2.tmx'),
-    Nectar: new ImageSource('images/nectar.png') 
+    Nectar: new ImageSource('images/nectar.png'),
+    Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png')
 }
 
 
