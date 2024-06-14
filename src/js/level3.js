@@ -20,7 +20,7 @@ export class Level3 extends Scene {
     onInitialize(engine) {
         super.onInitialize(engine);
         this.player = new Player(this.game);
-        this.player.pos = new Vector(400, 400);
+        this.player.pos = new Vector(350, 165);
         this.add(this.player);
 
         const pickup = new NectarPickup(425,425)
@@ -28,7 +28,7 @@ export class Level3 extends Scene {
 
         Resources.Level3.addToScene(this);
         this.bat = new Bat(this);
-        this.bat.pos = new Vector(300, 300);
+        this.bat.pos = new Vector(350, 400);
         this.add(this.bat);
 
         this.door = new Door(347.83, 120, this.game);
