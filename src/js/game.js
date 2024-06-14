@@ -6,6 +6,7 @@ import { Level3 } from './level3.js';
 import { Level4 } from './level4.js';
 import { Level1 } from './level1.js';
 import { Level2 } from './level2.js';
+import { EndcreditScene } from './endcreditscene.js';
 
 export class Game extends Engine {
 
@@ -45,7 +46,8 @@ export class Game extends Engine {
     startGame() {
         console.log("start de game!")
         // go to specific scene
-        this.goToOverWorld();
+        //this.goToOverWorld();
+        this.goToEndcredits();
     }
 
     goToOverWorld() {
@@ -88,6 +90,16 @@ export class Game extends Engine {
 
         // Go to the new scene
         this.goToScene('level2');
+    }
+
+
+    goToEndcredits() {
+        // Create and add the new scene
+        const endcredit = new EndcreditScene(this);
+        this.add('endcredit', endcredit);
+
+        // Go to the new scene
+        this.goToScene('endcredit');
     }
 
 }

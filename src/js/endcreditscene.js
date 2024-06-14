@@ -1,10 +1,7 @@
-import { BoundingBox, Scene, Vector } from "excalibur"
-import { Player } from "./player.js";
+import { BoundingBox, Scene, Vector, Actor,} from "excalibur"
+
 import { Resources, ResourceLoader } from './resources.js'
-import { Bat } from "./bat.js";
-import { Spider } from "./Spider.js";
-import { Door } from "./door.js";
-import { TinySpider } from "./smallSpider.js";
+
 export class EndcreditScene extends Scene {
 
     game
@@ -17,13 +14,20 @@ export class EndcreditScene extends Scene {
     onInitialize(engine) {
       
 
-        Resources.Level1.addToScene(this);
         
 
-        }
+        const endcredit = new Actor()
+        endcredit.graphics.use(Resources.Endcredits.toSprite())
+        endcredit.pos = new Vector(720, 3500)
+        endcredit.vel = new Vector(0,-150)
+        endcredit.scale = new Vector (0.3,0.3)
+        this.add(endcredit)
+        
+
+    }
 
         
         
 
        
-    }
+}
