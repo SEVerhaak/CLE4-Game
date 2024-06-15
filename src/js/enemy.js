@@ -11,6 +11,9 @@ export class Enemy extends Actor {
     normalSpeed
     attackSpeed
 
+    playerSeen
+    damageTaken = false;
+
     animationDeath
     animationRight
     animationLeft
@@ -32,7 +35,7 @@ export class Enemy extends Actor {
     }
 
     onInitialize(engine) {
-        this.healthBar = new Healthbar();
+        this.healthBar = new Healthbar(null, true);
         this.addChild(this.healthBar);
         this.healthBar.pos = new Vector(-8, -17);
         this.healthBar.z = 999;
@@ -46,8 +49,9 @@ export class Enemy extends Actor {
             this.health -= evt.other.damage;
             this.healthBar.reduceHealth(evt.other.damage);
             this.graphics.use(this.animationHurt);
+            this.damageTaken = true
             console.log(this.health)
-            if (this.health <= 0) {
+            if (this.health <= 0.01) {
                 this.graphics.use(this.animationDeath);
                 this.currentAnimation = this.animationDeath
                 this.healthBar.kill();
@@ -58,7 +62,7 @@ export class Enemy extends Actor {
     }
 
     changeDirection() {
-        if (this.health > 0) {
+        if (this.health > 0.01) {
             const directions = [
                 new Vector(1, 0),   // Right
                 new Vector(-1, 0),  // Left
@@ -73,7 +77,7 @@ export class Enemy extends Actor {
     }
 
     updateAnimation() {
-        if (this.health > 0) {
+        if (this.health > 0.01) {
             if (this.direction.equals(new Vector(1, 0))) {
                 if (this.currentAnimation !== this.animationRight) {
                     this.graphics.use(this.animationRight);
@@ -89,15 +93,17 @@ export class Enemy extends Actor {
     }
 
     onPreUpdate(engine, delta) {
-        if (this.health > 0) {
-            let playerFound = false;
+        if (this.health > 0.01) {
+            this.playerSeen = false;
             let playerPosition = 0; // Initialize player position
-
             engine.currentScene.actors.forEach(actor => {
                 if (actor instanceof Player) {
-                    playerFound = true;
+                    this.playerSeen = true;
                     const distanceToPlayer = this.pos.distance(actor.pos);
-                    if (distanceToPlayer <= this.detectionRadius) {
+                    if (distanceToPlayer <= this.detectionRadius || this.damageTaken) {
+                        if (distanceToPlayer <= this.detectionRadius){
+                            this.damageTaken =  false;
+                        }
                         this.direction = actor.pos.sub(this.pos).normalize();
                         playerPosition = actor.pos.x - this.pos.x; // Calculate player position relative to the bat
                         this.animationAttack.flipHorizontal = !(playerPosition > 0);
@@ -128,7 +134,7 @@ export class Enemy extends Actor {
 
             });
 
-            if (!playerFound) {
+            if (!this.playerSeen) {
                 this.timeSinceLastChange += delta;
                 if (this.timeSinceLastChange >= this.changeDirectionInterval) {
                     this.changeDirection();
@@ -136,6 +142,9 @@ export class Enemy extends Actor {
                 }
                 this.vel = this.direction.scale(this.normalSpeed);
             }
+        } else{
+            this.vel = new Vector(0,0);
+            this.body.collisionType =  CollisionType.PreventCollision
         }
     }
 

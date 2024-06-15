@@ -17,7 +17,9 @@ export class Level4 extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
-
+        this.player = new Player(this.game);
+        this.player.pos = new Vector(300, 85);
+        this.add(this.player);
 
         Resources.Level4.addToScene(this);
         this.pigeon = new Pigeon(this);

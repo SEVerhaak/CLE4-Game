@@ -1,11 +1,12 @@
 import '../css/style.css'
-import { Actor, Engine, AnimationStrategy, Vector, DisplayMode } from "excalibur"
+import {Actor, Engine, AnimationStrategy, Vector, DisplayMode, Color} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { OverworldLevel } from "./overworldLevel.js";
 import { Level3 } from './level3.js';
 import { Level4 } from './level4.js';
 import { Level1 } from './level1.js';
 import { Level2 } from './level2.js';
+import { EndcreditScene } from './endcreditscene.js';
 
 export class Game extends Engine {
 
@@ -15,7 +16,8 @@ export class Game extends Engine {
             height: 900,
             maxFps: 60,
             displayMode: DisplayMode.FitScreen,
-            antialiasing: false
+            antialiasing: false,
+            backgroundColor: Color.Black
         })
         this.start(ResourceLoader).then(() => this.startGame())
     }
@@ -45,12 +47,14 @@ export class Game extends Engine {
     startGame() {
         console.log("start de game!")
         // go to specific scene
+        //this.goToOverWorld();
         this.goToLevel3();
+        //this.goToEndcredits();
     }
 
     goToOverWorld() {
         // Create and add the new scene
-        const overWorldScene = new OverworldLevel();
+        const overWorldScene = new OverworldLevel(this);
         this.add('overworld', overWorldScene);
 
         // Go to the new scene
@@ -88,6 +92,16 @@ export class Game extends Engine {
 
         // Go to the new scene
         this.goToScene('level2');
+    }
+
+
+    goToEndcredits() {
+        // Create and add the new scene
+        const endcredit = new EndcreditScene(this);
+        this.add('endcredit', endcredit);
+
+        // Go to the new scene
+        this.goToScene('endcredit');
     }
 
 }

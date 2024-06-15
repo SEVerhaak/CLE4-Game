@@ -20,7 +20,9 @@ export class Level2 extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
-        
+        this.player = new Player(this.game);
+        this.player.pos = new Vector(375, 135);
+        this.add(this.player);
 
         Resources.Level2.addToScene(this);
         this.phoenix = new Phoenix(this);
