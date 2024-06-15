@@ -24,6 +24,9 @@ export class Bat extends Enemy {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+        this.collider.useBoxCollider(
+            10, 8, new Vector(0, 0), new Vector(-5, -5)
+        )
         // Spritesheets
         const spriteSheetBatFly = SpriteSheet.fromImageSource({
             image: Resources.BatFly,

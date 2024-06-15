@@ -9,6 +9,7 @@ export class Spider extends Enemy {
     attackradius = 70;
     normalSpeed = 50; // Normal movement speed
     attackSpeed = 70; // Movement speed when attacking
+    animationHurt
 
     constructor() {
         super({
@@ -22,6 +23,9 @@ export class Spider extends Enemy {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+        this.collider.useBoxCollider(
+            10, 8, new Vector(0, 0), new Vector(-5, 8)
+        )
 
         // Spritesheets
         const spriteSheetSpiderWalk = SpriteSheet.fromImageSource({
@@ -58,6 +62,7 @@ export class Spider extends Enemy {
         this.animationRight.flipHorizontal = true;
         this.animationAttack = Animation.fromSpriteSheet(spriteSheetSmallSpider, range(90, 98), 100);
         this.animationDeath = Animation.fromSpriteSheet(spriteSheetSmallSpider, range(54, 62), 100, AnimationStrategy.Freeze);
+        this.animationHurt = Animation.fromSpriteSheet(spriteSheetSmallSpider, range(108, 111), 100)
 
         // Default start animation
         this.graphics.use(this.animationRight);

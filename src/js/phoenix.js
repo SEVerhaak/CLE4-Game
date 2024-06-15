@@ -22,6 +22,9 @@ export class Phoenix extends Enemy {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+        this.collider.useBoxCollider(
+            25, 10, new Vector(0, 0), new Vector(-10, -5)
+        )
 
         // Spritesheets
         const spriteSheetphoenix = SpriteSheet.fromImageSource({

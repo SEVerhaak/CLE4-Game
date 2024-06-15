@@ -10,9 +10,9 @@ import {
     SpriteSheet,
     Vector
 } from "excalibur";
-import {Resources, ResourceLoader} from './resources.js'
-import {Healthbar} from "./healthBar.js";
-import {Projectile} from "./projectile.js";
+import { Resources, ResourceLoader } from './resources.js'
+import { Healthbar } from "./healthBar.js";
+import { Projectile } from "./projectile.js";
 import { Enemy } from "./enemy.js";
 
 
@@ -240,26 +240,26 @@ export class Player extends Actor {
         }
     }
 
-    shoot(velocityVector, overRide){
+    shoot(velocityVector, overRide) {
         if (this.canShoot === true || overRide === true) {
             this.canShoot = false
             console.log('player vel' + velocityVector)
             if (velocityVector.x === 0 && velocityVector.y === 0) {
                 switch (this.lastPressed) {
                     case 'up':
-                        this.shoot(new Vector(0,-1 * this.projectileSpeed), true)
+                        this.shoot(new Vector(0, -1 * this.projectileSpeed), true)
                         break;
                     case 'down':
                         this.shoot(new Vector(0, this.projectileSpeed), true)
                         break;
                     case 'left':
-                        this.shoot(new Vector(-1 * this.projectileSpeed,0), true)
+                        this.shoot(new Vector(-1 * this.projectileSpeed, 0), true)
                         break;
                     case 'right':
-                        this.shoot(new Vector(this.projectileSpeed,0), true)
+                        this.shoot(new Vector(this.projectileSpeed, 0), true)
                         break;
                 }
-            } else{
+            } else {
                 const projectile = new Projectile(velocityVector.normalize().scale(new Vector(this.projectileSpeed, this.projectileSpeed)));
                 projectile.pos = new Vector(0, 5)
                 this.addChild(projectile);
@@ -309,7 +309,7 @@ export class Player extends Actor {
         }, 500);
     }
 
-    timerOverWorld(){
+    timerOverWorld() {
         setTimeout(() => {
             this.game.goToOverWorld();
         }, 1000)

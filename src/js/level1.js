@@ -20,14 +20,15 @@ export class Level1 extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
-        this.player = new Player(this.game);
-        this.player.pos = new Vector(400, 400);
-        this.add(this.player);
+    
 
         Resources.Level1.addToScene(this);
         this.spider = new Spider(this);
         this.spider.pos = new Vector(300, 300);
         this.add(this.spider);
+        this.player = new Player(this.game);
+        this.player.pos = new Vector(400, 400);
+        this.add(this.player);
 
         for(let i = 0; i < 50 ;i++){
             this.tinyspider = new TinySpider();

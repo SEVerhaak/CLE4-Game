@@ -17,14 +17,15 @@ export class Level4 extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
-        this.player = new Player(this.game);
-        this.player.pos = new Vector(400, 400);
-        this.add(this.player);
+
 
         Resources.Level4.addToScene(this);
         this.pigeon = new Pigeon(this);
         this.pigeon.pos = new Vector(300, 300);
         this.add(this.pigeon);
+        this.player = new Player(this.game);
+        this.player.pos = new Vector(400, 400);
+        this.add(this.player);
 
         this.door = new Door(302, 50, this.game);
         this.add(this.door);
