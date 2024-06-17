@@ -19,7 +19,7 @@ export class Projectile extends Actor {
     scaleModifier
 
 
-    constructor(velocity) {
+    constructor(velocity, pos) {
         super({ width: 8, height: 8, collisionType: CollisionType.Passive});
         this.scale = new Vector(1, 1);
         //this.vel = velocity
