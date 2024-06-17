@@ -62,7 +62,7 @@ export class Game extends Engine {
         //this.goToEndcredits();
         //this.goToEndcredits();
         //this.goToStoryScene();
-        this.goToLevel3()
+        this.goToStoryScene();
     }
 
     goToOverWorld() {
