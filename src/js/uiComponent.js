@@ -13,21 +13,19 @@ export class UI extends ScreenElement {
     }
 
     onInitialize(engine) {
-
+        //this.initNectarScore()
+        //this.updateScore('5')
+        this.graphics.use(Resources.UIBG.toSprite())
     }
 
-    setText(text){
+    initNectarScore(){
         this.scoreText = new Label({
-            text: text,
+            text: 'Nectars verzameld: 0',
             pos: new Vector(40 , 40),
             font: new Font({size: 20}),
         })
         this.addChild(this.scoreText)
         this.scoreText.z = 99;
         this.z = 99;
-    }
-
-    updateScore(newScore) {
-        this.scoreText.text = `Score: ` + newScore
     }
 }

@@ -8,6 +8,7 @@ import { Level1 } from './level1.js';
 import { Level2 } from './level2.js';
 import { EndcreditScene } from './endcreditscene.js';
 import {Inventory} from "./inventory.js";
+import {UI} from "./uiComponent.js";
 
 export class Game extends Engine {
 
@@ -27,8 +28,10 @@ export class Game extends Engine {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+
         this.inventory = new Inventory(engine, 0,0)
         this.add(this.inventory)
+
         engine.input.gamepads.setMinimumGamepadConfiguration({
             axis: 4,
             buttons: 6,
@@ -56,6 +59,7 @@ export class Game extends Engine {
         //this.goToOverWorld();
         //this.goToLevel3(this);
         this.goToEndcredits();
+        //this.goToEndcredits();
     }
 
     goToOverWorld() {

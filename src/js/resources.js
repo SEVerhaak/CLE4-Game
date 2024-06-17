@@ -1,4 +1,4 @@
-import { ImageSource, Sound, Resource, Loader } from 'excalibur'
+import {ImageSource, Sound, Resource, Loader, FontSource} from 'excalibur'
 import { TiledResource } from '@excaliburjs/plugin-tiled'
 
 // voeg hier jouw eigen resources toe
@@ -31,10 +31,14 @@ const Resources = {
     Level3: new TiledResource('images/Level_3.tmx'),
     Level2: new TiledResource('images/Level_2.tmx'),
     Level1: new TiledResource('images/Level_1.tmx'),
-    MainScene: new TiledResource('images/mainScene.tmx'),
+    MainScene: new TiledResource('images/mainScene_test.tmx'),
     Shadow: new ImageSource('images/shadow.png'),
     Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png'),
-    FireProjectile3: new ImageSource('images/projectile/projectile3.png')
+    FireProjectile3: new ImageSource('images/projectile/projectile3.png'),
+    UIBG: new ImageSource('images/UI/uiBG.png'),
+    PixelFont: new FontSource('fonts/PressStart2P-Regular.ttf', 'PressStart'),
+    Flowers: new ImageSource('images/Flowers_With_Outline_Spritesheet.png'),
+    Chest: new ImageSource('images/Chests.png')
 }
 
 
