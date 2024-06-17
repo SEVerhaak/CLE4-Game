@@ -54,6 +54,7 @@ const Resources = {
     TopHat: new ImageSource('images/Hats/lulhat_0.png'),
     WizardHat: new ImageSource('images/Hats/wizard_hat_female.png')
 
+    Introscenesound: new Sound ('music/introscene.mp3')
 
 }
 
