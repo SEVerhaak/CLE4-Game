@@ -1,5 +1,5 @@
 import '../css/style.css'
-import {Actor, Engine, AnimationStrategy, Vector, DisplayMode, Color} from "excalibur"
+import { Actor, Engine, AnimationStrategy, Vector, DisplayMode, Color } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { OverworldLevel } from "./overworldLevel.js";
 import { Level3 } from './level3.js';
@@ -7,7 +7,7 @@ import { Level4 } from './level4.js';
 import { Level1 } from './level1.js';
 import { Level2 } from './level2.js';
 import { EndcreditScene } from './endcreditscene.js';
-import {Inventory} from "./inventory.js";
+import { Inventory } from "./inventory.js";
 
 export class Game extends Engine {
 
@@ -27,7 +27,7 @@ export class Game extends Engine {
 
     onInitialize(engine) {
         super.onInitialize(engine);
-        this.inventory = new Inventory(engine, 0,0)
+        this.inventory = new Inventory(engine, 0, 0)
         this.add(this.inventory)
         engine.input.gamepads.setMinimumGamepadConfiguration({
             axis: 4,
@@ -54,7 +54,7 @@ export class Game extends Engine {
 
         // go to specific scene
         //this.goToOverWorld();
-        this.goToLevel3(this);
+        this.goToLevel1(this);
         //this.goToEndcredits();
     }
 

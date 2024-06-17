@@ -31,10 +31,12 @@ const Resources = {
     Level3: new TiledResource('images/Level_3.tmx'),
     Level2: new TiledResource('images/Level_2.tmx'),
     Level1: new TiledResource('images/Level_1.tmx'),
-    MainScene: new TiledResource('images/mainScene.tmx'),
+    MainScene: new TiledResource('images/mainScene_test.tmx'),
     Shadow: new ImageSource('images/shadow.png'),
     Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png'),
-    FireProjectile3: new ImageSource('images/projectile/projectile3.png')
+    FireProjectile3: new ImageSource('images/projectile/projectile3.png'),
+    Flowers: new ImageSource('images/Flowers_With_Outline_Spritesheet.png'),
+    Chest: new ImageSource('images/Chests.png')
 }
 
 
