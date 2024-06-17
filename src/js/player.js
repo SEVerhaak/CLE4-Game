@@ -13,6 +13,7 @@ import {FireProjectile3} from "./fireProjectile3.js";
 import {UI} from "./uiComponent.js";
 import {CurrentNectar} from "./currentNectar.js";
 import {CurrentSuperNectar} from "./currentSuperNectar.js";
+import {CurrentProjectile} from "./currentProjectile.js";
 
 
 export class Player extends Actor {
@@ -53,6 +54,7 @@ export class Player extends Actor {
     uiComponent
     nectarUI
     nectarSuperUI
+    currentProjectileUI
 
 
     constructor(game) {
@@ -87,6 +89,12 @@ export class Player extends Actor {
         this.nectarSuperUI.scale = new Vector(0.008, 0.008)
         this.nectarSuperUI.z = 99
         this.addChild(this.nectarSuperUI)
+
+        this.currentProjectileUI = new CurrentProjectile(this.game)
+        this.currentProjectileUI.pos = new Vector(-67,-65)
+        this.currentProjectileUI.scale = new Vector(0.7, 0.7)
+        this.currentProjectileUI.z = 99
+        this.addChild(this.currentProjectileUI)
 
 
         this.healthBar = new Healthbar(this.game, false);
@@ -260,6 +268,11 @@ export class Player extends Actor {
             }
             if (engine.input.keyboard.wasPressed(Keys.ShiftLeft)) {
                 this.inventory.setSelectedProjectileID()
+                if (this.inventory.getSelectedProjectileId() !== -1){
+                    console.log(this.inventory.projectiles[this.inventory.currentSelectedItemIndex].projectileSprite)
+                    this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.currentSelectedItemIndex].projectileSprite, this.inventory.projectiles[this.inventory.currentSelectedItemIndex].endFrame)
+                }
+                //this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.getSelectedProjectileId()])
             }
 
             // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
@@ -272,7 +285,6 @@ export class Player extends Actor {
 
     movementAnim(direction) {
         if (this.attacking === false) {
-            console.log('movanim')
             switch (direction) {
                 case 'up':
                     this.graphics.use(this.animationUp);

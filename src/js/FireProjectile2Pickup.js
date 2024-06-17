@@ -15,6 +15,8 @@ export class FireProjectile2Pickup extends Pickup {
     scaleVec = new Vector(0.015, 0.015)
     isProjectile = true
     projectileIndex = 1;
+    projectileSprite = Resources.FireProjectile2
+
 
     constructor(x,y) {
         super({ width: 8, height: 8, collisionType: CollisionType.Passive});

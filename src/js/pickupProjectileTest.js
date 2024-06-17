@@ -15,7 +15,8 @@ export class ProjectilePickup extends Pickup {
     scaleVec = new Vector(0.01, 0.01)
     isProjectile = true
     projectileIndex = 0;
-    projectileSprite = Resources.Nectar
+    projectileSprite = Resources.TestProjectile
+    endFrame = 3
 
     constructor(x,y) {
         super({ width: 8, height: 8, collisionType: CollisionType.Passive});

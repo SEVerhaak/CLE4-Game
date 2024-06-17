@@ -33,12 +33,13 @@ export class Inventory extends Actor {
         this.graphics.use(this.currentSelectedProjectileSprite.toSprite())
     }
 
-    addItem(item, isProjectile, projectileIndex, projectileSprite){
+    addItem(item, isProjectile, projectileIndex, projectileSprite, endFrame){
         if (isProjectile){
             let projectileObject = {
                 itemName: item,
                 projectileIndex: projectileIndex, // projectileindex is de index in de player projectile array
-                projectileSprite: projectileSprite
+                projectileSprite: projectileSprite,
+                endFrame: endFrame
             }
             console.log(projectileObject)
             this.projectiles.push(projectileObject)

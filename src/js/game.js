@@ -30,7 +30,7 @@ export class Game extends Engine {
     onInitialize(engine) {
         super.onInitialize(engine);
 
-        this.inventory = new Inventory(engine, 0, 0)
+        this.inventory = new Inventory(engine, 0,0)
         this.add(this.inventory)
 
         engine.input.gamepads.setMinimumGamepadConfiguration({
