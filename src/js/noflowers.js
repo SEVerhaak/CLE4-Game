@@ -3,6 +3,7 @@ import { Player } from "./player";
 import { Flower } from "./flowers";
 import { Chest } from "./chest";
 import { Bush } from "./bush";
+// import { Man } from "./man";
 
 export class noFlower extends Actor {
     game
@@ -26,6 +27,9 @@ export class noFlower extends Actor {
         if (evt.other instanceof Bush) {
             evt.other.kill();
         }
+        // if (evt.other instanceof Man) {
+        //     evt.other.kill();
+        // }
     }
 
 }

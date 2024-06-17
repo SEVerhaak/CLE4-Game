@@ -6,6 +6,7 @@ import { Flower } from "./flowers.js";
 import { noFlower } from "./noflowers.js";
 import { Chest } from "./chest.js";
 import { Bush } from "./bush.js";
+import { Man } from "./man.js";
 
 export class OverworldLevel extends Scene {
 
@@ -64,6 +65,13 @@ export class OverworldLevel extends Scene {
             this.chest = new Chest(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
 
             this.add(this.chest);
+        }
+        for (let i = 0; i < 10; i++) {
+
+            this.man = new Man()
+            this.man.pos = new Vector(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
+
+            this.add(this.man);
         }
         this.player = new Player(this.game);
         this.player.pos = new Vector(217, 1871);
