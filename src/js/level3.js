@@ -34,9 +34,7 @@ export class Level3 extends Scene {
         this.bat = new Bat(this);
         this.bat.pos = new Vector(350, 400);
         this.add(this.bat);
-        this.player = new Player(this.game);
-        this.player.pos = new Vector(400, 400);
-        this.add(this.player);
+
 
         this.door = new Door(347.83, 120, this.game);
         this.add(this.door);

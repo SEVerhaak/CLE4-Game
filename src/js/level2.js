@@ -28,9 +28,6 @@ export class Level2 extends Scene {
         this.phoenix = new Phoenix(this);
         this.phoenix.pos = new Vector(300, 300);
         this.add(this.phoenix);
-        this.player = new Player(this.game);
-        this.player.pos = new Vector(400, 400);
-        this.add(this.player);
 
         this.door = new Door(373, 100, this.game);
         this.add(this.door);
