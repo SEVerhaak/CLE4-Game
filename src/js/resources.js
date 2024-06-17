@@ -36,7 +36,7 @@ const Resources = {
     Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png'),
     FireProjectile3: new ImageSource('images/projectile/projectile3.png'),
     Flowers: new ImageSource('images/Flowers_With_Outline_Spritesheet.png'),
-    Chest: new ImageSource('images/Chests.png')
+    Chest: new ImageSource('images/Chests.png'),
 }
 
 
