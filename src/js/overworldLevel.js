@@ -15,9 +15,7 @@ export class OverworldLevel extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
-        this.player = new Player();
-        this.player.pos = new Vector(1050, 1005);
-        this.add(this.player);
+
         Resources.MainScene.addToScene(this);
 
 
@@ -33,8 +31,16 @@ export class OverworldLevel extends Scene {
         this.enterlevel4 = new EnterLevel(379.94, 761.01, this.game,4);
         this.add(this.enterlevel4);
 
+        this.player = new Player(this.game);
+        this.player.pos = new Vector(1050, 1005);
+        this.add(this.player);
         engine.currentScene.camera.strategy.lockToActor(this.player);
         engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2365, 2373)); // Set the game bounds
         engine.currentScene.camera.zoom = 4;
+
+    }
+
+    onActivate(context) {
+
     }
 }

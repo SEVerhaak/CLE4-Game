@@ -33,7 +33,8 @@ const Resources = {
     Level1: new TiledResource('images/Level_1.tmx'),
     MainScene: new TiledResource('images/mainScene.tmx'),
     Shadow: new ImageSource('images/shadow.png'),
-    Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png')
+    Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png'),
+    FireProjectile3: new ImageSource('images/projectile/projectile3.png')
 }
 
 
