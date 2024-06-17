@@ -21,8 +21,9 @@ export class FireProjectile3 extends Projectile {
     animEndFrame = 5
     scaleModifier = 0.5
 
-    constructor(velocity) {
+    constructor(velocity, pos) {
         super({ width: 16, height: 16, collisionType: CollisionType.Passive});
         this.vel = velocity
+        this.pos = pos
     }
 }
