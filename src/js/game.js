@@ -7,15 +7,18 @@ import { Level4 } from './level4.js';
 import { Level1 } from './level1.js';
 import { Level2 } from './level2.js';
 import { EndcreditScene } from './endcreditscene.js';
+import {Inventory} from "./inventory.js";
 
 export class Game extends Engine {
+
+    inventory
 
     constructor() {
         super({
             width: 1440,
             height: 900,
             maxFps: 60,
-            displayMode: DisplayMode.FitScreen,
+            displayMode: DisplayMode.FitScreenAndFill,
             antialiasing: false,
             backgroundColor: Color.Black
         })
@@ -24,6 +27,8 @@ export class Game extends Engine {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+        this.inventory = new Inventory(engine, 0,0)
+        this.add(this.inventory)
         engine.input.gamepads.setMinimumGamepadConfiguration({
             axis: 4,
             buttons: 6,
@@ -32,7 +37,7 @@ export class Game extends Engine {
 
         engine.input.gamepads.on('connect', (connectEvent) => {
             console.log('controllers connected')
-            this.goToOverWorld();
+            this.goToOverWorld(this);
             this.gamepadConnected = true;
         });
 
@@ -46,9 +51,10 @@ export class Game extends Engine {
 
     startGame() {
         console.log("start de game!")
+
         // go to specific scene
         //this.goToOverWorld();
-        this.goToLevel3();
+        this.goToLevel3(this);
         //this.goToEndcredits();
     }
 

@@ -8,14 +8,13 @@ import {Player} from "./player.js";
 import {Pickup} from "./pickup.js";
 import {FireProjectile1} from "./fireProjectile1.js";
 
-export class ProjectilePickup extends Pickup {
+export class FireProjectile2Pickup extends Pickup {
 
     sprite = this.graphics.use(Resources.Nectar.toSprite())
-    itemName = 'fireProjectile1'
-    scaleVec = new Vector(0.01, 0.01)
+    itemName = 'fireProjectile2'
+    scaleVec = new Vector(0.015, 0.015)
     isProjectile = true
-    projectileIndex = 0;
-    projectileSprite = Resources.Nectar
+    projectileIndex = 1;
 
     constructor(x,y) {
         super({ width: 8, height: 8, collisionType: CollisionType.Passive});

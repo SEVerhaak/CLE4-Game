@@ -18,6 +18,7 @@ import {Inventory} from "./inventory.js";
 import {Shadow} from "./shadow.js";
 import {FireProjectile1} from "./fireProjectile1.js";
 import {FireProjectile2} from "./fireProjectile2.js";
+import {FireProjectile3} from "./fireProjectile3.js";
 
 
 export class Player extends Actor {
@@ -62,13 +63,15 @@ export class Player extends Actor {
         });
         this.scale = new Vector(1.5, 1.5);
         this.game = game;
+        this.inventory = game.inventory
+
     }
 
     onInitialize(engine) {
         super.onInitialize(engine);
 
-        this.inventory = new Inventory(engine,0,0)
-        this.addChild(this.inventory);
+        //this.inventory = new Inventory(engine,0,0)
+        //this.addChild(this.inventory);
 
         this.healthBar = new Healthbar(this.game, false);
         this.addChild(this.healthBar);
@@ -167,6 +170,8 @@ export class Player extends Actor {
         }
     }
 
+
+
     add(accumulator, a) {
         return accumulator + a;
     }
@@ -239,14 +244,13 @@ export class Player extends Actor {
             }
             if (engine.input.keyboard.wasPressed(Keys.ShiftLeft)){
                 this.inventory.setSelectedProjectileID()
-                console.log(this.inventory.activeProjectileIndex)
             }
 
             // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
             if (velocity.x !== 0 || velocity.y !== 0) {
                 velocity = velocity.normalize().scale(new Vector(this.playerSpeed, this.playerSpeed));
             }
-
+            console.log(this.canShoot)
             this.vel = velocity;
         }
     }
@@ -306,6 +310,7 @@ export class Player extends Actor {
 
     shoot(velocityVector, overRide){
         if (this.canShoot === true || overRide === true) {
+            console.log('shoot')
             this.canShoot = false
             console.log('player vel' + velocityVector)
             if (velocityVector.x === 0 && velocityVector.y === 0) {
@@ -328,7 +333,8 @@ export class Player extends Actor {
 
                 const projectileArray = [
                     new FireProjectile1(projectileVector),
-                    new FireProjectile2(projectileVector)
+                    new FireProjectile2(projectileVector),
+                    new FireProjectile3(projectileVector)
                 ]
 
                 if (this.invertShootDirectionUpDown){
@@ -345,9 +351,12 @@ export class Player extends Actor {
                     //const projectile = new FireProjectile2(projectileVector);
                     if (this.inventory.getSelectedProjectileId() !== -1){
                         const projectile = projectileArray[this.inventory.getSelectedProjectileId()];
+                        console.log(projectile)
                         this.addChild(projectile);
                         this.resetShootTimer(); // Call the method to reset the shoot timer
-
+                    } else{
+                        this.resetShootTimer(); // Call the method to reset the shoot timer
+                        console.log('no items in inventory')
                     }
                 }
             }
@@ -420,6 +429,7 @@ export class Player extends Actor {
     }
 
     resetShootTimer() {
+        console.log('reseting shoot timer')
         setTimeout(() => {
             this.canShoot = true; // Reset the flag after 500ms
         }, 500);
