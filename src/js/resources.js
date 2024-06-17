@@ -52,8 +52,7 @@ const Resources = {
     Man2: new ImageSource('images/Player 1.png'),
     Man3: new ImageSource('images/Player 2.png'),
     TopHat: new ImageSource('images/Hats/lulhat_0.png'),
-    WizardHat: new ImageSource('images/Hats/wizard_hat_female.png')
-
+    WizardHat: new ImageSource('images/Hats/wizard_hat_female.png'),
     Introscenesound: new Sound ('music/introscene.mp3')
 
 }
