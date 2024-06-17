@@ -5,6 +5,7 @@ import { EnterLevel } from "./enterlevel.js";
 import { Flower } from "./flowers.js";
 import { noFlower } from "./noflowers.js";
 import { Chest } from "./chest.js";
+import { Bush } from "./bush.js";
 
 export class OverworldLevel extends Scene {
 
@@ -39,6 +40,13 @@ export class OverworldLevel extends Scene {
             this.flower = new Flower(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
 
             this.add(this.flower);
+        }
+        for (let i = 0; i < 100; i++) {
+
+            console.log(this.getRandomNumber(0, 2400))
+            this.bush = new Bush(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
+
+            this.add(this.bush);
         }
         this.noflower = new noFlower(240, 240, 287, 695)
         this.add(this.noflower)

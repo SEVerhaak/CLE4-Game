@@ -39,6 +39,10 @@ const Resources = {
     PixelFont: new FontSource('fonts/PressStart2P-Regular.ttf', 'PressStart'),
     Flowers: new ImageSource('images/Flowers_With_Outline_Spritesheet.png'),
     Chest: new ImageSource('images/Chests.png'),
+    Bush1: new ImageSource('images/Pixel Art Flower Pack/Bush 1 (No Flowers)/Bush 1 (no flowers) - GREEN.png'),
+    Bush2: new ImageSource('images/Pixel Art Flower Pack/Bush 1 (No Flowers)/Bush 1 (no flowers) - RED.png'),
+    Bush3: new ImageSource('images/Pixel Art Flower Pack/Bush 1 (No Flowers)/Bush 1 (no flowers) - WARM GREEN.png'),
+
 }
 
 

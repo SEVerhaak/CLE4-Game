@@ -2,6 +2,7 @@ import { Actor, Animation, CollisionType, Engine, Input, Keys, range, SpriteShee
 import { Player } from "./player";
 import { Flower } from "./flowers";
 import { Chest } from "./chest";
+import { Bush } from "./bush";
 
 export class noFlower extends Actor {
     game
@@ -20,6 +21,9 @@ export class noFlower extends Actor {
             evt.other.kill();
         }
         if (evt.other instanceof Chest) {
+            evt.other.kill();
+        }
+        if (evt.other instanceof Bush) {
             evt.other.kill();
         }
     }
