@@ -33,7 +33,11 @@ const Resources = {
     MainScene: new TiledResource('images/mainScene.tmx'),
     Shadow: new ImageSource('images/shadow.png'),
     Nectar: new ImageSource('images/nectar.png'),
-    Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png')
+    Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png'),
+    GameOverBat: new ImageSource('images/gameOverBat.png'),
+    GameOverPigeon: new ImageSource('images/gameOverPideon.png'),
+    GameOverSpider: new ImageSource('images/gameOverSpider.png'),
+    GameOverPhoenix: new ImageSource('images/gameOverPhoenix.png'),
 }
 
 
