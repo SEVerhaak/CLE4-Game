@@ -23,16 +23,16 @@ export class OverworldLevel extends Scene {
         Resources.MainScene.addToScene(this);
 
 
-        this.enterlevel1 = new EnterLevel(2062.41, 454.38, this.game, 1);
+        this.enterlevel1 = new EnterLevel(2113.75, 450.16, this.game, 1);
         this.add(this.enterlevel1);
 
-        this.enterlevel2 = new EnterLevel(1940.36, 2178.05, this.game, 2);
+        this.enterlevel2 = new EnterLevel(1607, 2131.29, this.game, 2);
         this.add(this.enterlevel2);
 
-        this.enterlevel3 = new EnterLevel(342.23, 1958.72, this.game, 3);
+        this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3);
         this.add(this.enterlevel3);
 
-        this.enterlevel4 = new EnterLevel(379.94, 761.01, this.game, 4);
+        this.enterlevel4 = new EnterLevel(287.45, 694, this.game, 4);
         this.add(this.enterlevel4);
         for (let i = 0; i < 1000; i++) {
 
@@ -56,6 +56,8 @@ export class OverworldLevel extends Scene {
         this.add(this.noflower2)
         this.noflower3 = new noFlower(240, 240, 217, 1871)
         this.add(this.noflower3)
+        this.noflower4 = new noFlower(240, 195, 1329, 1207)
+        this.add(this.noflower4)
         for (let i = 0; i < 4; i++) {
 
             console.log(this.getRandomNumber(0, 2400))
@@ -64,7 +66,7 @@ export class OverworldLevel extends Scene {
             this.add(this.chest);
         }
         this.player = new Player(this.game);
-        this.player.pos = new Vector(1050, 1005);
+        this.player.pos = new Vector(217, 1871);
         this.add(this.player);
 
 
