@@ -79,7 +79,7 @@ export class OverworldLevel extends Scene {
 
 
         engine.currentScene.camera.strategy.lockToActor(this.player);
-        engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2365, 2373)); // Set the game bounds
+        engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2500, 3000)); // Set the game bounds
         engine.currentScene.camera.zoom = 4;
 
     }

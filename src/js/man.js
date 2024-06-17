@@ -7,7 +7,7 @@ import { Projectile } from "./projectile.js";
 export class Man extends Actor {
     currentAnimation = null;
     detectionRadius = 120; // Radius to detect the player
-    attackradius = 70;
+    attackradius = 30;
     normalSpeed = 50; // Normal movement speed
     attackSpeed = 80; // Movement speed when attacking
 
@@ -65,6 +65,7 @@ export class Man extends Actor {
         this.animationRight = Animation.fromSpriteSheet(spriteSheetman, range(24, 29), 100);
         this.animationLeft = Animation.fromSpriteSheet(spriteSheetman, range(24, 29), 100);
         this.animationTop = Animation.fromSpriteSheet(spriteSheetman, range(18, 23), 100);
+        this.animationIdle = Animation.fromSpriteSheet(spriteSheetman, range(18, 18), 100);
         this.animationDown = Animation.fromSpriteSheet(spriteSheetman, range(30, 35), 100);
         this.animationLeft.flipHorizontal = true;
         this.animationAttack = Animation.fromSpriteSheet(spriteSheetman, range(36, 39), 100);
@@ -137,6 +138,11 @@ export class Man extends Actor {
                     this.graphics.use(this.animationDown);
                     this.currentAnimation = this.animationDown;
                 }
+            } else if (this.direction.equals(new Vector(0, 0))) {
+                if (this.currentAnimation !== this.animationIdle) {
+                    this.graphics.use(this.animationIdle);
+                    this.currentAnimation = this.animationIdle;
+                }
             }
         }
     }
@@ -144,7 +150,8 @@ export class Man extends Actor {
     onPreUpdate(engine, delta) {
         if (this.health > 0.01) {
             this.playerSeen = false;
-            let playerPosition = 0; // Initialize player position
+            let playerPositionx = 0; // Initialize player position
+            let playerPositiony = 0;
             engine.currentScene.actors.forEach(actor => {
                 if (actor instanceof Player) {
                     this.playerSeen = true;
@@ -154,14 +161,21 @@ export class Man extends Actor {
                             this.damageTaken = false;
                         }
                         this.direction = actor.pos.sub(this.pos).normalize();
-                        playerPosition = actor.pos.x - this.pos.x; // Calculate player position relative to the bat
-                        this.animationAttack.flipHorizontal = !(playerPosition > 0);
-                        if (!(playerPosition > 0)) {
+                        playerPositionx = actor.pos.x - this.pos.x; // Calculate player position relative to the bat
+                        playerPositiony = actor.pos.y - this.pos.y; // Calculate player position relative to the bat
+                        this.animationAttack.flipHorizontal = !(playerPositionx > 0);
+                        if (playerPositionx < 0 && playerPositionx < playerPositiony) {
                             this.graphics.use(this.animationLeft)
                             this.currentAnimation = this.animationLeft
-                        } else {
+                        } else if (playerPositionx > 0 && playerPositionx > playerPositiony) {
                             this.graphics.use(this.animationRight)
                             this.currentAnimation = this.animationRight
+                        } if (playerPositiony < 0 && playerPositiony < playerPositionx) {
+                            this.graphics.use(this.animationDown)
+                            this.currentAnimation = this.animationDown
+                        } else if (playerPositiony > 0 && playerPositiony > playerPositionx) {
+                            this.graphics.use(this.animationTop)
+                            this.currentAnimation = this.animationTop
                         }
                         if (distanceToPlayer <= this.attackradius) {
                             // Set animation flip based on player position relative to the bat
