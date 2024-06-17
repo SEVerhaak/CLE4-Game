@@ -43,6 +43,12 @@ const Resources = {
     Bush2: new ImageSource('images/Pixel Art Flower Pack/Bush 1 (No Flowers)/Bush 1 (no flowers) - RED.png'),
     Bush3: new ImageSource('images/Pixel Art Flower Pack/Bush 1 (No Flowers)/Bush 1 (no flowers) - WARM GREEN.png'),
 
+    StoryScene1: new ImageSource('images/Story/StoryScene1.png'),
+    StoryScene2: new ImageSource('images/Story/StoryScene2.png'),
+    StoryScene3: new ImageSource('images/Story/StoryScene3.png'),
+    StoryScene4: new ImageSource('images/Story/StoryScene4.png'),
+    StoryScene5: new ImageSource('images/Story/StoryScene5.png'),
+
 }
 
 

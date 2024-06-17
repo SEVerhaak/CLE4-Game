@@ -7,6 +7,7 @@ import { Level4 } from './level4.js';
 import { Level1 } from './level1.js';
 import { Level2 } from './level2.js';
 import { EndcreditScene } from './endcreditscene.js';
+import { StoryScene } from './storyscene.js';
 import {Inventory} from "./inventory.js";
 import {UI} from "./uiComponent.js";
 
@@ -58,8 +59,9 @@ export class Game extends Engine {
         // go to specific scene
         //this.goToOverWorld();
         //this.goToLevel3(this);
-        this.goToEndcredits();
         //this.goToEndcredits();
+        //this.goToEndcredits();
+        this.goToStoryScene();
     }
 
     goToOverWorld() {
@@ -112,6 +114,16 @@ export class Game extends Engine {
 
         // Go to the new scene
         this.goToScene('endcredit');
+    }
+
+
+    goToStoryScene() {
+        // Create and add the new scene
+        const storyscene = new StoryScene(this);
+        this.add('storyscene', storyscene);
+
+        // Go to the new scene
+        this.goToScene('storyscene');
     }
 
 }
