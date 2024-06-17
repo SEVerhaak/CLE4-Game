@@ -30,7 +30,7 @@ export class Game extends Engine {
     onInitialize(engine) {
         super.onInitialize(engine);
 
-        this.inventory = new Inventory(engine, 0,0)
+        this.inventory = new Inventory(engine, 0, 0)
         this.add(this.inventory)
 
         engine.input.gamepads.setMinimumGamepadConfiguration({
@@ -57,7 +57,7 @@ export class Game extends Engine {
         console.log("start de game!")
 
         // go to specific scene
-        //this.goToOverWorld();
+        this.goToOverWorld();
         //this.goToLevel3(this);
         //this.goToEndcredits();
         //this.goToEndcredits();

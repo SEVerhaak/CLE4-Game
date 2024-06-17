@@ -1,20 +1,20 @@
 import {
     Actor, Animation, AnimationStrategy, CollisionType, Engine, Input, Keys, Random, range, SpriteSheet, Vector
 } from "excalibur";
-import {Resources, ResourceLoader} from './resources.js'
-import {Healthbar} from "./healthBar.js";
-import {Projectile} from "./projectile.js";
-import {Enemy} from "./enemy.js";
-import {Inventory} from "./inventory.js";
-import {Shadow} from "./shadow.js";
-import {FireProjectile1} from "./fireProjectile1.js";
-import {FireProjectile2} from "./fireProjectile2.js";
-import {FireProjectile3} from "./fireProjectile3.js";
-import {UI} from "./uiComponent.js";
-import {CurrentNectar} from "./currentNectar.js";
-import {CurrentSuperNectar} from "./currentSuperNectar.js";
-import {CurrentProjectile} from "./currentProjectile.js";
-
+import { Resources, ResourceLoader } from './resources.js'
+import { Healthbar } from "./healthBar.js";
+import { Projectile } from "./projectile.js";
+import { Enemy } from "./enemy.js";
+import { Inventory } from "./inventory.js";
+import { Shadow } from "./shadow.js";
+import { FireProjectile1 } from "./fireProjectile1.js";
+import { FireProjectile2 } from "./fireProjectile2.js";
+import { FireProjectile3 } from "./fireProjectile3.js";
+import { UI } from "./uiComponent.js";
+import { CurrentNectar } from "./currentNectar.js";
+import { CurrentSuperNectar } from "./currentSuperNectar.js";
+import { CurrentProjectile } from "./currentProjectile.js";
+import { Man } from "./man.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -73,25 +73,25 @@ export class Player extends Actor {
         //this.inventory = new Inventory(engine,0,0)
         //this.addChild(this.inventory);
         this.uiComponent = new UI(this.game)
-        this.uiComponent.pos = new Vector(-115,-80)
+        this.uiComponent.pos = new Vector(-115, -80)
         this.uiComponent.scale = new Vector(0.05, 0.05)
         this.uiComponent.z = 99
         this.addChild(this.uiComponent)
 
         this.nectarUI = new CurrentNectar(this.game)
-        this.nectarUI.pos = new Vector(-113,-72)
+        this.nectarUI.pos = new Vector(-113, -72)
         this.nectarUI.scale = new Vector(0.008, 0.008)
         this.nectarUI.z = 99
         this.addChild(this.nectarUI)
 
         this.nectarSuperUI = new CurrentSuperNectar(this.game)
-        this.nectarSuperUI.pos = new Vector(-99,-69)
+        this.nectarSuperUI.pos = new Vector(-99, -69)
         this.nectarSuperUI.scale = new Vector(0.008, 0.008)
         this.nectarSuperUI.z = 99
         this.addChild(this.nectarSuperUI)
 
         this.currentProjectileUI = new CurrentProjectile(this.game)
-        this.currentProjectileUI.pos = new Vector(-67,-65)
+        this.currentProjectileUI.pos = new Vector(-67, -65)
         this.currentProjectileUI.scale = new Vector(0.7, 0.7)
         this.currentProjectileUI.z = 99
         this.addChild(this.currentProjectileUI)
@@ -179,7 +179,7 @@ export class Player extends Actor {
     }
 
     onCollisionStart(evt) {
-        if (evt.other instanceof Enemy) {
+        if (evt.other instanceof Enemy || evt.other instanceof Man) {
             this.health -= 0.005;
             this.healthBar.reduceHealth(0.005);
             console.log(this.health)
@@ -268,7 +268,7 @@ export class Player extends Actor {
             }
             if (engine.input.keyboard.wasPressed(Keys.ShiftLeft)) {
                 this.inventory.setSelectedProjectileID()
-                if (this.inventory.getSelectedProjectileId() !== -1){
+                if (this.inventory.getSelectedProjectileId() !== -1) {
                     console.log(this.inventory.projectiles[this.inventory.currentSelectedItemIndex].projectileSprite)
                     this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.currentSelectedItemIndex].projectileSprite, this.inventory.projectiles[this.inventory.currentSelectedItemIndex].endFrame)
                 }
