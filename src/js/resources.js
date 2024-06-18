@@ -1,4 +1,4 @@
-import { ImageSource, Sound, Resource, Loader, FontSource } from 'excalibur'
+import {ImageSource, Sound, Resource, Loader, FontSource} from 'excalibur'
 import { TiledResource } from '@excaliburjs/plugin-tiled'
 
 // voeg hier jouw eigen resources toe
@@ -60,6 +60,7 @@ const Resources = {
     ChristmasHat: new ImageSource('images/Hats/ChristmasHat.PNG'),
     GraduationHat: new ImageSource('images/Hats/GratuationHat.png'),
     SombreroHat: new ImageSource('images/Hats/sombreroHat.png'),
+    MiniNectar: new ImageSource('images/miniNectar.png'),
     PrideHat: new ImageSource('images/Hats/prideHat.png')
 }
 

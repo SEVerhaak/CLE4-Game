@@ -187,7 +187,7 @@ export class Player extends Actor {
         this.graphics.use(this.animationIdleRight);
         this.on('precollision', (evt) => this.onCollisionStart(evt));
 
-        this.health = this.inventory.health
+        this.health =  this.inventory.health
     }
 
     onCollisionStart(evt) {
@@ -411,7 +411,7 @@ export class Player extends Actor {
         }
     }
 
-    onDeath() {
+    onDeath(){
 
     }
 
