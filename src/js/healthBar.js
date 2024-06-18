@@ -9,6 +9,7 @@ export class Healthbar extends ScreenElement {
     game
     enemy = false
     colour
+    inventory
 
     constructor(game, enemy) {
         super();
@@ -17,7 +18,6 @@ export class Healthbar extends ScreenElement {
     }
 
     onInitialize(engine) {
-        console.log('healthbar init')
         if (this.enemy){
             this.colour = Color.Red
         } else{
@@ -35,7 +35,9 @@ export class Healthbar extends ScreenElement {
         this.body.collisionType = CollisionType.PreventCollision
         this.healthbar.body.collisionType = CollisionType.PreventCollision
         this.background.body.collisionType = CollisionType.PreventCollision
-        console.log('healthbar init succes')
+
+        //this.setHealth(this.inventory.health)
+        //this.healthTimer();
     }
 
     reduceHealth(amount) {
@@ -50,6 +52,18 @@ export class Healthbar extends ScreenElement {
         }
     }
 
+
+    healthTimer(initHealth) {
+        setTimeout(() => {
+            this.setHealth(initHealth)
+        }, 50)
+    }
+
+    setHealth(value){
+        this.healthbar.scale =  new Vector(value, 1)
+        this.currentHealth = value
+    }
+
     increaseHealth(amount) {
         if (this.currentHealth >= 1) {
             // player fully healed
@@ -60,5 +74,9 @@ export class Healthbar extends ScreenElement {
                 // player also dead
             }
         }
+    }
+
+    onPreUpdate(engine, delta) {
+        super.onPreUpdate(engine, delta);
     }
 }

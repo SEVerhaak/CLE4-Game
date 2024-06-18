@@ -1,12 +1,12 @@
 import { BoundingBox, Scene, Vector, Random } from "excalibur"
-import { Player } from "./player.js";
-import { Resources } from "./resources.js";
-import { EnterLevel } from "./enterlevel.js";
-import { Flower } from "./flowers.js";
-import { noFlower } from "./noflowers.js";
-import { Chest } from "./chest.js";
-import { Bush } from "./bush.js";
-import { Man } from "./man.js";
+import { Player } from "../player.js";
+import { Resources } from "../resources.js";
+import { EnterLevel } from "../enterlevel.js";
+import { Flower } from "../flowers.js";
+import { noFlower } from "../noflowers.js";
+import { Chest } from "../chest.js";
+import { Bush } from "../bush.js";
+import { Man } from "../enemies/man.js";
 
 export class OverworldLevel extends Scene {
 
@@ -37,14 +37,12 @@ export class OverworldLevel extends Scene {
         this.add(this.enterlevel4);
         for (let i = 0; i < 1000; i++) {
 
-            console.log(this.getRandomNumber(0, 2400))
             this.flower = new Flower(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
 
             this.add(this.flower);
         }
         for (let i = 0; i < 100; i++) {
 
-            console.log(this.getRandomNumber(0, 2400))
             this.bush = new Bush(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
 
             this.add(this.bush);
@@ -61,20 +59,19 @@ export class OverworldLevel extends Scene {
         this.add(this.noflower4)
         for (let i = 0; i < 4; i++) {
 
-            console.log(this.getRandomNumber(0, 2400))
-            this.chest = new Chest(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400), this)
+            this.chest = new Chest(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
 
             this.add(this.chest);
         }
         for (let i = 0; i < 10; i++) {
 
-            this.man = new Man()
+            this.man = new Man(null, this.game)
             this.man.pos = new Vector(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
 
             this.add(this.man);
         }
         this.player = new Player(this.game);
-        this.player.pos = new Vector(300, 1871);
+        this.player.pos = new Vector(200, 1500);
         this.add(this.player);
 
 

@@ -1,15 +1,14 @@
 import '../css/style.css'
 import { Actor, Engine, AnimationStrategy, Vector, DisplayMode, Color } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
-import { OverworldLevel } from "./overworldLevel.js";
-import { Level3 } from './level3.js';
-import { Level4 } from './level4.js';
-import { Level1 } from './level1.js';
-import { Level2 } from './level2.js';
+import { OverworldLevel } from "./levels/overworldLevel.js";
+import { Level3 } from './levels/level3.js';
+import { Level4 } from './levels/level4.js';
+import { Level1 } from './levels/level1.js';
+import { Level2 } from './levels/level2.js';
 import { EndcreditScene } from './endcreditscene.js';
 import { StoryScene } from './storyscene.js';
 import { Inventory } from "./inventory.js";
-import { UI } from "./uiComponent.js";
 import { GameOverScene } from './gameoverscene.js';
 
 export class Game extends Engine {
@@ -58,15 +57,11 @@ export class Game extends Engine {
         console.log("start de game!")
 
         // go to specific scene
-
-        this.goToLevel3(this);
-        // this.goToEndcredits();
-        //this.goToEndcredits();
-        //this.goToOverWorld();
+        this.goToOverWorld();
         //this.goToLevel3(this);
+        //this.goToGameOverScene();
         //this.goToStoryScene();
         //this.goToStoryScene();
-        this.goToStoryScene();
     }
 
     goToOverWorld() {

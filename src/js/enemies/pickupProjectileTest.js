@@ -3,10 +3,10 @@ import {
     Vector,
     CollisionType
 } from "excalibur";
-import {Resources} from "./resources.js";
-import {Player} from "./player.js";
-import {Pickup} from "./pickup.js";
-import {FireProjectile1} from "./fireProjectile1.js";
+import {Resources} from "../resources.js";
+import {Player} from "../player.js";
+import {Pickup} from "../pickup.js";
+import {FireProjectile1} from "../projectiles/fireProjectile1.js";
 
 export class ProjectilePickup extends Pickup {
 

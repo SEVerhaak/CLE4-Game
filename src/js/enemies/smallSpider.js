@@ -1,8 +1,8 @@
 import { Actor, Animation, AnimationStrategy, CollisionType, range, SpriteSheet, Vector } from "excalibur";
-import { Resources } from './resources.js';
-import { Player } from "./player.js";
+import { Resources } from '../resources.js';
+import { Player } from "../player.js";
 import { Enemy } from "./enemy.js";
-import { Projectile } from "./projectile.js";
+import { Projectile } from "../projectiles/projectile.js";
 
 export class TinySpider extends Actor {
     currentAnimation = null;

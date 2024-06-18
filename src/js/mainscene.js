@@ -1,10 +1,10 @@
 import { BoundingBox, Scene, Vector } from "excalibur"
 import { Player } from "./player.js";
 import { Resources, ResourceLoader } from './resources.js'
-import { Bat } from "./bat.js";
-import { Spider } from "./Spider.js";
+import { Bat } from "./enemies/bat.js";
+import { Spider } from "./enemies/Spider.js";
 import { Door } from "./door.js";
-import { TinySpider } from "./smallSpider.js";
+import { TinySpider } from "./enemies/smallSpider.js";
 export class Mainscene extends Scene {
 
     player

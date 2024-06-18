@@ -6,7 +6,7 @@ import {
 import {Resources} from "./resources.js";
 import {Player} from "./player.js";
 import {Pickup} from "./pickup.js";
-import {FireProjectile1} from "./fireProjectile1.js";
+import {FireProjectile1} from "./projectiles/fireProjectile1.js";
 
 export class FireProjectile3Pickup extends Pickup {
 

@@ -1,13 +1,13 @@
 import { BoundingBox, Scene, Vector } from "excalibur"
-import { Player } from "./player.js";
-import { Resources, ResourceLoader } from './resources.js'
-import { Bat } from "./bat.js";
-import { Door } from "./door.js";
-import {Pickup} from "./pickup.js";
-import {NectarPickup} from "./nectarPickup.js";
-import {ProjectilePickup} from "./pickupProjectileTest.js";
-import {FireProjectile2Pickup} from "./FireProjectile2Pickup.js";
-import {FireProjectile3Pickup} from "./FireProjectile3Pickup.js";
+import { Player } from "../player.js";
+import { Resources, ResourceLoader } from '../resources.js'
+import { Bat } from "../enemies/bat.js";
+import { Door } from "../door.js";
+import {Pickup} from "../pickup.js";
+import {NectarPickup} from "../nectarPickup.js";
+import {ProjectilePickup} from "../enemies/pickupProjectileTest.js";
+import {FireProjectile2Pickup} from "../FireProjectile2Pickup.js";
+import {FireProjectile3Pickup} from "../FireProjectile3Pickup.js";
 
 export class Level3 extends Scene {
 
@@ -36,7 +36,8 @@ export class Level3 extends Scene {
         this.add(pickup3)
 
         Resources.Level3.addToScene(this);
-        this.bat = new Bat(this);
+
+        this.bat = new Bat(this, this.game);
         this.bat.pos = new Vector(120, 400);
         this.add(this.bat);
 
