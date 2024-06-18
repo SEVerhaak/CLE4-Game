@@ -20,17 +20,7 @@ import { Hat } from "./hat.js";
 
 
 export class TopHat extends Hat {
-    spriteSheet = SpriteSheet.fromImageSource({
-        image: Resources.TopHat,
-        grid: {
-            rows: 9,
-            columns: 6,
-            spriteWidth: 70,
-            spriteHeight: 70
-        },
-
-    })
-    graphic = Animation.fromSpriteSheet(this.spriteSheet, range(0, 0), 100);
+    graphic = Resources.TopHat.toSprite();
 
 
     constructor(x, y) {

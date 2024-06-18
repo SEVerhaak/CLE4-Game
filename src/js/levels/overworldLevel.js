@@ -61,7 +61,7 @@ export class OverworldLevel extends Scene {
         this.noflower4 = new noFlower(240, 195, 1329, 1207)
         this.add(this.noflower4)
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 50; i++) {
 
             this.chest = new Chest(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
 

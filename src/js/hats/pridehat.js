@@ -19,8 +19,8 @@ import { Chest } from "../chest.js";
 import { Hat } from "./hat.js";
 
 
-export class WizardHat extends Hat {
-    graphic = Resources.WizardHat.toSprite();
+export class PrideHat extends Hat {
+    graphic = Resources.PrideHat.toSprite();
 
 
     constructor(x, y) {

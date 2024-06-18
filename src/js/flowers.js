@@ -13,9 +13,9 @@ import {
     Vector
 } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js'
-import {Glow} from "./glow.js";
-import {Player} from "./player.js";
-import {NectarPickup} from "./pickups/nectarPickup.js";
+import { Glow } from "./glow.js";
+import { Player } from "./player.js";
+import { NectarPickup } from "./pickups/nectarPickup.js";
 
 
 export class Flower extends Actor {
@@ -84,7 +84,7 @@ export class Flower extends Actor {
             //add code that makes between 1 to 3 NectarPickups appear
 
             // spawn this away from the playerPos
-            const nectar = new NectarPickup(x,y)
+            const nectar = new NectarPickup()
             this.addChild(nectar)
             this.glow.kill()
         }

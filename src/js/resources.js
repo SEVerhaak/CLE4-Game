@@ -1,4 +1,4 @@
-import {ImageSource, Sound, Resource, Loader, FontSource} from 'excalibur'
+import { ImageSource, Sound, Resource, Loader, FontSource } from 'excalibur'
 import { TiledResource } from '@excaliburjs/plugin-tiled'
 
 // voeg hier jouw eigen resources toe
@@ -49,8 +49,8 @@ const Resources = {
     Man3: new ImageSource('images/Player 2.png'),
     TopHat: new ImageSource('images/Hats/lulhat_0.png'),
     WizardHat: new ImageSource('images/Hats/wizard_hat_female.png'),
-    Introscenesound: new Sound ('music/introscene.mp3'),
-    Mainthemesound: new Sound ('music/Maintheme.mp3'),
+    Introscenesound: new Sound('music/introscene.mp3'),
+    Mainthemesound: new Sound('music/Maintheme.mp3'),
     GameOverBat: new ImageSource('images/gameOverBat.png'),
     GameOverPigeon: new ImageSource('images/gameOverPideon.png'),
     GameOverSpider: new ImageSource('images/gameOverSpider.png'),
@@ -59,7 +59,8 @@ const Resources = {
     Glow: new ImageSource('images/glow.png'),
     ChristmasHat: new ImageSource('images/Hats/ChristmasHat.PNG'),
     GraduationHat: new ImageSource('images/Hats/GratuationHat.png'),
-    SombreroHat: new ImageSource('images/Hats/sombreroHat.png')
+    SombreroHat: new ImageSource('images/Hats/sombreroHat.png'),
+    PrideHat: new ImageSource('images/Hats/prideHat.png')
 }
 
 
