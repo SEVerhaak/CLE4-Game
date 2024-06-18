@@ -79,7 +79,7 @@ export class Player extends Actor {
         this.uiComponent.scale = new Vector(0.05, 0.05)
         this.uiComponent.z = 99
         this.addChild(this.uiComponent)
-        this.wizardHat = new WizardHat;
+        this.wizardHat = new TopHat;
         this.addChild(this.wizardHat)
         this.nectarUI = new CurrentNectar(this.game)
         this.nectarUI.pos = new Vector(-113, -72)
@@ -193,6 +193,7 @@ export class Player extends Actor {
                 this.animationDeath.events.on('end', (a) => {
                     this.timerOverWorld();
                 })
+
             }
         }
     }
