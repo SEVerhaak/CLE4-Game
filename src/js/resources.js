@@ -52,7 +52,8 @@ const Resources = {
     Man2: new ImageSource('images/Player 1.png'),
     Man3: new ImageSource('images/Player 2.png'),
 
-    Introscenesound: new Sound ('music/introscene.mp3')
+    Introscenesound: new Sound ('music/introscene.mp3'),
+    Mainthemesound: new Sound ('music/Maintheme.mp3')
 
 }
 

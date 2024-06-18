@@ -74,7 +74,7 @@ export class OverworldLevel extends Scene {
             this.add(this.man);
         }
         this.player = new Player(this.game);
-        this.player.pos = new Vector(217, 1871);
+        this.player.pos = new Vector(300, 1871);
         this.add(this.player);
 
 
