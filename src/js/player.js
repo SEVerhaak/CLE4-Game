@@ -2,24 +2,22 @@ import {
     Actor, Animation, AnimationStrategy, CollisionType, Engine, Input, Keys, Random, range, SpriteSheet, Vector
 } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js'
-import { Healthbar } from "./healthBar.js";
-import { Projectile } from "./projectile.js";
-import { Enemy } from "./enemy.js";
+import { Healthbar } from "./UI/healthBar.js";
+import { Projectile } from "./projectiles/projectile.js";
+import { Enemy } from "./enemies/enemy.js";
 import { Inventory } from "./inventory.js";
 import { Shadow } from "./shadow.js";
-import { FireProjectile1 } from "./fireProjectile1.js";
-import { FireProjectile2 } from "./fireProjectile2.js";
-import { FireProjectile3 } from "./fireProjectile3.js";
-import { UI } from "./uiComponent.js";
-import { CurrentNectar } from "./currentNectar.js";
-import { CurrentSuperNectar } from "./currentSuperNectar.js";
-import { CurrentProjectile } from "./currentProjectile.js";
-import { Man } from "./man.js";
+import { FireProjectile1 } from "./projectiles/fireProjectile1.js";
+import { FireProjectile2 } from "./projectiles/fireProjectile2.js";
+import { FireProjectile3 } from "./projectiles/fireProjectile3.js";
+import { UI } from "./UI/uiComponent.js";
+import { CurrentNectar } from "./UI/currentNectar.js";
+import { CurrentSuperNectar } from "./UI/currentSuperNectar.js";
+import { CurrentProjectile } from "./UI/currentProjectile.js";
+import { Man } from "./enemies/man.js";
 import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
-import { GraduationHat } from "./hats/graduationhat.js";
-import { ChristmasHat } from "./hats/christmashat.js";
-import { SombreroHat } from "./hats/sombrerohat.js";
+import { SombreroHat} from "./hats/sombrerohat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -108,7 +106,9 @@ export class Player extends Actor {
 
 
         this.healthBar = new Healthbar(this.game, false);
+        this.healthBar.inventory = this.inventory
         this.addChild(this.healthBar);
+        this.healthBar.healthTimer(this.inventory.health)
         this.healthBar.pos = new Vector(-8, -17);
 
         this.shadow = new Shadow()
@@ -186,22 +186,20 @@ export class Player extends Actor {
         // standaard start animatie
         this.graphics.use(this.animationIdleRight);
         this.on('precollision', (evt) => this.onCollisionStart(evt));
+
+        this.health =  this.inventory.health
     }
 
     onCollisionStart(evt) {
         if (evt.other instanceof Enemy || evt.other instanceof Man) {
-            this.health -= 0.005;
+            this.inventory.health -= 0.005;
             this.healthBar.reduceHealth(0.005);
-            console.log(this.health)
             if (this.health <= 0.01) {
                 this.graphics.use(this.animationDeath);
-                this.healthBar.kill();
+                evt.other.killedOther = true;
+                //this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
-                
-                this.animationDeath.events.on('end', (a) => {
-                    this.TimerGameover(evt.other);
-                })
-
+                this.timerOverWorld(evt.other);
             }
         }
     }
@@ -212,6 +210,7 @@ export class Player extends Actor {
     }
 
     onPreUpdate(engine, delta) {
+        this.health = this.inventory.health
         if (this.health > 0.01) {
             super.onPreUpdate(engine, delta);
             // check om te kijken of er geen knoppen ingedrukt worden (De som van de array moet 0 zijn en dan wordt er niks ingedrukt)
@@ -250,9 +249,6 @@ export class Player extends Actor {
             this.invertShootDirectionUpDown = (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) && (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5);
             this.invertShootDirectionLeftRight = (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5) && (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5);
 
-            //console.log(this.invertShootDirectionLeftRight)
-            //console.log(this.invertShootDirectionUpDown)
-
             if ((engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5)) {
                 velocity.x = -this.playerSpeed;
                 this.movementAnim('left')
@@ -281,7 +277,6 @@ export class Player extends Actor {
             if (engine.input.keyboard.wasPressed(Keys.ShiftLeft)) {
                 this.inventory.setSelectedProjectileID()
                 if (this.inventory.getSelectedProjectileId() !== -1) {
-                    console.log(this.inventory.projectiles[this.inventory.currentSelectedItemIndex].projectileSprite)
                     this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.currentSelectedItemIndex].projectileSprite, this.inventory.projectiles[this.inventory.currentSelectedItemIndex].endFrame)
                 }
                 //this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.getSelectedProjectileId()])
@@ -384,7 +379,6 @@ export class Player extends Actor {
 
                 //const projectile = new FireProjectile2(projectileVector);
                 if (this.inventory.getSelectedProjectileId() !== -1) {
-                    console.log(this.inventory.getSelectedProjectileId())
                     const projectile = projectileArray[this.inventory.getSelectedProjectileId()];
                     this.game.currentScene.add(projectile)
                     this.resetShootTimer(); // Call the method to reset the shoot timer
@@ -417,8 +411,11 @@ export class Player extends Actor {
         }
     }
 
+    onDeath(){
+
+    }
+
     resetShootTimer() {
-        console.log('reseting shoot timer')
         setTimeout(() => {
             this.canShoot = true; // Reset the flag after 500ms
             this.attacking = false;
@@ -426,7 +423,12 @@ export class Player extends Actor {
     }
 
     TimerGameover(enemy) {
+        console.log('timer')
         setTimeout(() => {
+            enemy.killedOther = false;
+            this.inventory.health = 1;
+            this.healthBar.setHealth(1)
+            this.body.collisionType = CollisionType.Active
             this.game.goToGameOverScene(enemy);
         }, 1000)
     }

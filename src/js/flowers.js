@@ -7,21 +7,29 @@ import {
     Graphic,
     Input,
     Keys,
-    Random,
+    Random, randomIntInRange,
     range,
     SpriteSheet,
     Vector
 } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js'
+import {Glow} from "./glow.js";
+import {Player} from "./player.js";
+import {NectarPickup} from "./pickups/nectarPickup.js";
 
 
 export class Flower extends Actor {
 
-    constructor(x, y) {
+    glow
+    game
+
+    constructor(x, y, game) {
         super({
-            width: 32, height: 32, collisionType: CollisionType.Passive, x: x, y: y, z: 20
+            width: 32, height: 32, collisionType: CollisionType.Passive, x: x, y: y
         });
         this.scale = new Vector(0.5, 0.5);
+        this.z = 80
+        this.game = game
     }
 
     onInitialize(engine) {
@@ -42,7 +50,13 @@ export class Flower extends Actor {
         this.flower = Animation.fromSpriteSheet(spriteSheetFlowers, range(number, number), 100);
         // standaard start animatie
         this.graphics.use(this.flower);
-        this.on('precollision', (evt) => this.onCollisionStart(evt));
+
+        this.glow = new Glow()
+        this.addChild(this.glow)
+        this.glow.scale = new Vector(0.5, 0.5)
+        this.glow.pos = new Vector(0, -5)
+        this.glow.z = 79
+        this.on('collisionstart', (evt) => this.onCollisionStart(evt));
     }
     getRandomNumber(x, y) {
         // Maak een nieuwe instantie van de Random class
@@ -57,8 +71,23 @@ export class Flower extends Actor {
     // Voorbeeld van het 
 
 
-    onCollisionStart(evt) {
+    generateRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
+    onCollisionStart(evt) {
+        if (evt.other instanceof Player) {
+            //player position
+            const playerPos = evt.other.pos
+
+            this.generateRandomNumber()
+            //add code that makes between 1 to 3 NectarPickups appear
+
+            // spawn this away from the playerPos
+            const nectar = new NectarPickup(x,y)
+            this.addChild(nectar)
+            this.glow.kill()
+        }
     }
 
 

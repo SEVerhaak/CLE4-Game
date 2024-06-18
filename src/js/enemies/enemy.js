@@ -1,8 +1,8 @@
 import { Actor, Animation, CollisionType, Engine, Keys, range, SpriteSheet, Vector } from "excalibur";
-import { Resources, ResourceLoader } from './resources.js'
-import { Player } from "./player.js";
-import { Healthbar } from "./healthBar.js";
-import { Projectile } from "./projectile.js";
+import { Resources, ResourceLoader } from '../resources.js'
+import { Player } from "../player.js";
+import { Healthbar } from "../UI/healthBar.js";
+import { Projectile } from "../projectiles/projectile.js";
 
 export class Enemy extends Actor {
     currentAnimation
@@ -11,6 +11,7 @@ export class Enemy extends Actor {
     normalSpeed
     attackSpeed
 
+    killedOther = false;
     playerSeen
     damageTaken = false;
 
@@ -22,8 +23,9 @@ export class Enemy extends Actor {
     healthBar
     health = 1;
     scene
+    game
 
-    constructor(scene) {
+    constructor(scene, game) {
         super({
             width: 10, height: 10, collisionType: CollisionType.Active, z: 20
         });
@@ -32,10 +34,11 @@ export class Enemy extends Actor {
         this.changeDirectionInterval = 2000;
         this.timeSinceLastChange = 0;
         this.scene = scene;
+        this.game = game
     }
 
     onInitialize(engine) {
-        this.healthBar = new Healthbar(null, true);
+        this.healthBar = new Healthbar(this.game, true);
         this.addChild(this.healthBar);
         this.healthBar.pos = new Vector(-8, -17);
         this.healthBar.z = 999;
@@ -100,7 +103,7 @@ export class Enemy extends Actor {
                 if (actor instanceof Player) {
                     this.playerSeen = true;
                     const distanceToPlayer = this.pos.distance(actor.pos);
-                    if (distanceToPlayer <= this.detectionRadius || this.damageTaken) {
+                    if ((distanceToPlayer <= this.detectionRadius || this.damageTaken) && !this.killedOther) {
                         if (distanceToPlayer <= this.detectionRadius){
                             this.damageTaken =  false;
                         }

@@ -3,15 +3,20 @@ import {
     Vector,
     CollisionType
 } from "excalibur";
-import {Resources} from "./resources.js";
-import {Player} from "./player.js";
-import {Pickup} from "./pickup.js";
+import {Resources} from "../resources.js";
+import {Player} from "../player.js";
+import {Pickup} from "../pickups/pickup.js";
+import {FireProjectile1} from "../projectiles/fireProjectile1.js";
 
-export class NectarPickup extends Pickup {
+export class ProjectilePickup extends Pickup {
 
     sprite = this.graphics.use(Resources.Nectar.toSprite())
-    itemName = 'Nectar'
+    itemName = 'fireProjectile1'
     scaleVec = new Vector(0.01, 0.01)
+    isProjectile = true
+    projectileIndex = 0;
+    projectileSprite = Resources.TestProjectile
+    endFrame = 3
 
     constructor(x,y) {
         super({ width: 8, height: 8, collisionType: CollisionType.Passive});

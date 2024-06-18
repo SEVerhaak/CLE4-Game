@@ -3,8 +3,8 @@ import {
     Vector,
     CollisionType
 } from "excalibur";
-import {Resources} from "./resources.js";
-import {Player} from "./player.js";
+import {Resources} from "../resources.js";
+import {Player} from "../player.js";
 
 export class Pickup extends Actor {
 

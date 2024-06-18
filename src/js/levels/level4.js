@@ -1,8 +1,8 @@
 import { BoundingBox, Scene, Vector } from "excalibur"
-import { Player } from "./player.js";
-import { Resources, ResourceLoader } from './resources.js'
-import { Pigeon } from "./pigeon.js";
-import { Door } from "./door.js";
+import { Player } from "../player.js";
+import { Resources, ResourceLoader } from '../resources.js'
+import { Pigeon } from "../enemies/pigeon.js";
+import { Door } from "../door.js";
 
 export class Level4 extends Scene {
 
@@ -22,7 +22,7 @@ export class Level4 extends Scene {
         this.add(this.player);
 
         Resources.Level4.addToScene(this);
-        this.pigeon = new Pigeon(this);
+        this.pigeon = new Pigeon(this, this.game);
         this.pigeon.pos = new Vector(300, 300);
         this.add(this.pigeon);
 

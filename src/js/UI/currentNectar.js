@@ -1,7 +1,7 @@
 import {Color, Font, FontUnit, Label, ScreenElement, Vector} from "excalibur";
-import {Resources} from "./resources.js";
+import {Resources} from "../resources.js";
 
-export class CurrentSuperNectar extends ScreenElement {
+export class CurrentNectar extends ScreenElement {
 
     game
     score

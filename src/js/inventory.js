@@ -13,6 +13,8 @@ export class Inventory extends Actor {
     currentSelectedItemIndex = 0
     activeProjectileIndex = -1
     currentSelectedProjectileSprite
+    health
+    nectarAmount = 0;
 
     constructor(game) {
         super({ width: 16, height: 16, collisionType: CollisionType.PreventCollision});
@@ -21,6 +23,8 @@ export class Inventory extends Actor {
         this.pos.y = 400;
         this.z = 99;
         this.game = game
+        this.health = 1;
+        //this.nectarAmount = 0;
     }
 
     onInitialize(engine) {
@@ -93,6 +97,6 @@ export class Inventory extends Actor {
 
     onPreUpdate(engine, delta) {
         super.onPreUpdate(engine, delta);
-
+        console.log(this.health)
     }
 }

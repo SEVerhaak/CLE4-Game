@@ -1,10 +1,10 @@
 import { BoundingBox, Scene, Vector } from "excalibur"
-import { Player } from "./player.js";
-import { Resources, ResourceLoader } from './resources.js'
-import { Bat } from "./bat.js";
-import { Spider } from "./Spider.js";
-import { Door } from "./door.js";
-import { TinySpider } from "./smallSpider.js";
+import { Player } from "../player.js";
+import { Resources, ResourceLoader } from '../resources.js'
+import { Bat } from "../enemies/bat.js";
+import { Spider } from "../enemies/Spider.js";
+import { Door } from "../door.js";
+import { TinySpider } from "../enemies/smallSpider.js";
 export class Level1 extends Scene {
 
     player
@@ -25,7 +25,7 @@ export class Level1 extends Scene {
         this.add(this.player);
 
         Resources.Level1.addToScene(this);
-        this.spider = new Spider(this);
+        this.spider = new Spider(this, this.game);
         this.spider.pos = new Vector(300, 300);
         this.add(this.spider);
 

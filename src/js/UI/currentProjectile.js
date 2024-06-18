@@ -1,6 +1,6 @@
 import {Actor, Animation, Color, Font, FontUnit, Label, range, ScreenElement, SpriteSheet, Vector} from "excalibur";
-import {Resources} from "./resources.js";
-import {FireProjectile1} from "./fireProjectile1.js";
+import {Resources} from "../resources.js";
+import {FireProjectile1} from "../projectiles/fireProjectile1.js";
 
 export class CurrentProjectile extends ScreenElement {
 

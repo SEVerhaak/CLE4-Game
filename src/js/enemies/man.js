@@ -1,8 +1,8 @@
 import { Actor, Animation, AnimationStrategy, CollisionType, range, SpriteSheet, Vector } from "excalibur";
-import { Resources } from './resources.js';
-import { Player } from "./player.js";
-import { Healthbar } from "./healthBar.js";
-import { Projectile } from "./projectile.js";
+import { Resources } from '../resources.js';
+import { Player } from "../player.js";
+import { Healthbar } from "../UI/healthBar.js";
+import { Projectile } from "../projectiles/projectile.js";
 
 export class Man extends Actor {
     currentAnimation = null;
@@ -22,8 +22,9 @@ export class Man extends Actor {
     healthBar
     health = 1;
     scene
+    game
 
-    constructor(scene) {
+    constructor(scene, game) {
         super({
             width: 5, height: 5, collisionType: CollisionType.Active, z: 20
         });
@@ -32,6 +33,7 @@ export class Man extends Actor {
         this.changeDirectionInterval = 2000;
         this.timeSinceLastChange = 0;
         this.scene = scene;
+        this.game = game
     }
 
     onInitialize(engine) {
@@ -74,7 +76,7 @@ export class Man extends Actor {
         // Default start animation
         this.graphics.use(this.animationRight);
         this.currentAnimation = this.animationRight;
-        this.healthBar = new Healthbar(null, true);
+        this.healthBar = new Healthbar(this.game, true);
         this.addChild(this.healthBar);
         this.healthBar.pos = new Vector(-8, -17);
         this.healthBar.z = 999;

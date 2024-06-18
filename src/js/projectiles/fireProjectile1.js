@@ -2,7 +2,7 @@ import {
     SpriteSheet,
     CollisionType, AnimationStrategy
 } from "excalibur";
-import {Resources} from "./resources.js";
+import {Resources} from "../resources.js";
 import {Projectile} from "./projectile.js";
 
 export class FireProjectile1 extends Projectile {

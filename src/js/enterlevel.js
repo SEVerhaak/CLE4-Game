@@ -18,6 +18,7 @@ export class EnterLevel extends Actor {
     }
     onCollisionStart(evt, game, level) {
         if (evt.other instanceof Player) {
+            //evt.other.kill();
             console.log(game)
             if (level === 1) {
                 game.goToLevel1();
