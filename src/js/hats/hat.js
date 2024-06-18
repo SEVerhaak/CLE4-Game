@@ -9,6 +9,7 @@ import {
     CollisionType
 } from "excalibur";
 import { Resources } from "../resources.js";
+import { Player } from "../player.js";
 
 export class Hat extends Actor {
     spriteSheet
@@ -26,9 +27,16 @@ export class Hat extends Actor {
         // this.animation = Animation.fromSpriteSheet(this.spriteSheet, range(0, 0), this.delay, this.animStrat);
         console.log(this.graphic)
         this.graphics.use(this.graphic)
+        this.on('collisionstart', (evt) => this.onCollisionStart(evt));
     }
 
     onPreUpdate(engine, delta) {
         super.onPreUpdate(engine, delta);
+    }
+    onCollisionStart(evt) {
+        if (evt.other instanceof Player) {
+            this.kill();
+            evt.other.HatHandler(this)
+        }
     }
 }

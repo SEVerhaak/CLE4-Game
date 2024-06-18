@@ -10,6 +10,7 @@ import { EndcreditScene } from './endcreditscene.js';
 import { StoryScene } from './storyscene.js';
 import { Inventory } from "./inventory.js";
 import { GameOverScene } from './gameoverscene.js';
+import { StartScene } from './startScene.js';
 
 export class Game extends Engine {
 
@@ -58,14 +59,15 @@ export class Game extends Engine {
 
         // go to specific scene
         //this.goToOverWorld();
-         //this.goToLevel3();
+        //this.goToLevel3();
         //this.goToEndcredits();
         //this.goToEndcredits();
-        this.goToOverWorld();
+        //this.goToOverWorld();
         //this.goToLevel3(this);
-        // this.goToGameOverScene();
+
         //this.goToStoryScene();
         // this.goToStoryScene();
+        this.goToStartScene();
     }
 
     goToOverWorld() {
@@ -110,6 +112,13 @@ export class Game extends Engine {
         this.goToScene('level2');
     }
 
+    goToStartScene(){
+        const startScene = new StartScene(this);
+        this.add('startScene', startScene);
+
+        this.goToScene ('startScene');
+    }
+
 
     goToGameOverScene(enemy) {
         // Create and add the new scene
@@ -139,7 +148,7 @@ export class Game extends Engine {
         this.goToScene('storyscene');
     }
 
-    death(){
+    death() {
 
     }
 

@@ -8,25 +8,28 @@ import {Player} from "../player.js";
 
 export class Pickup extends Actor {
 
-    sprite = this.graphics.use(Resources.Nectar.toSprite())
+    sprite
     itemName = 'Placeholder'
     scaleVec = new Vector(0.005, 0.005)
     isProjectile = false;
     projectileIndex
     projectileSprite
     endFrame
+    playerInstance
 
-    constructor(x,y ) {
-        super({ width: 8, height: 8, collisionType: CollisionType.Passive});
+    constructor(x,y, player ) {
+        super({ width: 8, height: 8, collisionType: CollisionType.PreventCollision});
         this.pos.x = x;
         this.pos.y = y;
         this.z = 99;
+        this.playerInstance = player
     }
 
     onInitialize(engine) {
         this.scale = this.scaleVec
-        this.sprite = this.graphics.use(Resources.Nectar.toSprite())
+        this.graphics.use(this.sprite.toSprite())
         this.on('collisionstart', (evt) => this.onCollisionStart(evt));
+        this.spawnDelay();
     }
 
     onPreUpdate(engine, delta) {
@@ -50,8 +53,16 @@ export class Pickup extends Actor {
                 // item zit dan al in de inventory niks meer me doen
             }
         } else{
-            player.inventory.addItem(this.itemName, false, null)
+            player.updateNectarScore();
+            player.inventory.addItem(this.itemName, false)
             this.kill();
         }
     }
+
+    spawnDelay() {
+        setTimeout(() => {
+           this.body.collisionType = CollisionType.Passive
+        }, 500);
+    }
+
 }

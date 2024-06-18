@@ -80,19 +80,29 @@ export class Flower extends Actor {
             //player position
             const playerPos = evt.other.pos
 
-            this.generateRandomNumber()
-            //add code that makes between 1 to 3 NectarPickups appear
+            const amount = this.generateRandomNumber(1,3)
 
-            // spawn this away from the playerPos
-            const nectar = new NectarPickup(x,y)
-            this.addChild(nectar)
-            this.glow.kill()
+            for (let i = 0; i < amount; i++) {
+                const randomXNegative = this.generateRandomNumber(-40,-15)
+                const randomYNegative = this.generateRandomNumber(-40,-15)
+                const randomXPositive = this.generateRandomNumber(15,40)
+                const randomYPositive = this.generateRandomNumber(15,40)
+
+                if (Math.random() < 0.5){
+                    const nectar = new NectarPickup(randomXNegative,randomYNegative, evt.other)
+                    this.addChild(nectar)
+                    this.body.collisionType = CollisionType.PreventCollision
+                    this.glow.kill()
+                } else{
+                    const nectar = new NectarPickup(randomXPositive,randomYPositive, evt.other)
+                    this.addChild(nectar)
+                    this.body.collisionType = CollisionType.PreventCollision
+                    evt.other.nectarUI.setScore()
+                    this.glow.kill()
+                }
+            }
         }
     }
-
-
-
-
 
     onPreUpdate(engine, delta) {
 

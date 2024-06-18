@@ -80,8 +80,6 @@ export class Player extends Actor {
         this.uiComponent.scale = new Vector(0.05, 0.05)
         this.uiComponent.z = 99
         this.addChild(this.uiComponent)
-        this.topHat = new SombreroHat(0, -11);
-        this.addChild(this.topHat)
         this.nectarUI = new CurrentNectar(this.game)
         this.nectarUI.pos = new Vector(-113, -72)
         this.nectarUI.scale = new Vector(0.008, 0.008)
@@ -204,6 +202,9 @@ export class Player extends Actor {
         }
     }
 
+    updateNectarScore(){
+        this.nectarUI.setScore()
+    }
 
     add(accumulator, a) {
         return accumulator + a;
@@ -431,5 +432,30 @@ export class Player extends Actor {
             this.body.collisionType = CollisionType.Active
             this.game.goToGameOverScene(enemy);
         }, 1000)
+    }
+    HatHandler(hat) {
+        let hatFound = false
+        console.log(this.hats.includes(hat))
+        for (let i = 0; i < this.hats.length; i++) {
+            if (this.hats[i] === hat) {
+                hatFound = true;
+            }
+        }
+        if (hatFound) {
+
+            hat.pos = new Vector(-0.5, -12)
+            this.lastHat.kill()
+            this.lastHat = hat
+        } else {
+            if (this.lastHat) {
+                this.lastHat.kill()
+            }
+            hat.pos = new Vector(-0.5, -12)
+            this.lastHat = hat
+            this.hats.push(hat)
+
+        }
+        console.log(this.hats)
+        this.addChild(this.lastHat)
     }
 }
