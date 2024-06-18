@@ -14,6 +14,7 @@ export class Inventory extends Actor {
     activeProjectileIndex = -1
     currentSelectedProjectileSprite
     health
+    nectarAmount = 0;
 
     constructor(game) {
         super({ width: 16, height: 16, collisionType: CollisionType.PreventCollision});
@@ -23,6 +24,7 @@ export class Inventory extends Actor {
         this.z = 99;
         this.game = game
         this.health = 1;
+        //this.nectarAmount = 0;
     }
 
     onInitialize(engine) {
