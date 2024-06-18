@@ -50,8 +50,11 @@ const Resources = {
     TopHat: new ImageSource('images/Hats/lulhat_0.png'),
     WizardHat: new ImageSource('images/Hats/wizard_hat_female.png'),
     Introscenesound: new Sound ('music/introscene.mp3'),
-    Mainthemesound: new Sound ('music/Maintheme.mp3')
-
+    Mainthemesound: new Sound ('music/Maintheme.mp3'),
+    GameOverBat: new ImageSource('images/gameOverBat.png'),
+    GameOverPigeon: new ImageSource('images/gameOverPideon.png'),
+    GameOverSpider: new ImageSource('images/gameOverSpider.png'),
+    GameOverPhoenix: new ImageSource('images/gameOverPhoenix.png'),
 }
 
 
