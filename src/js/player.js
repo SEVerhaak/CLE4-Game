@@ -17,14 +17,14 @@ import { CurrentProjectile } from "./UI/currentProjectile.js";
 import { Man } from "./enemies/man.js";
 import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
-import { SombreroHat} from "./hats/sombrerohat.js";
+import { SombreroHat } from "./hats/sombrerohat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
     keyPressArray = [0, 0, 0, 0];
     // speler snelheid
     playerSpeed = 100;
-
+    hats = [];
     projectileSpeed = 200;
     projectileSpeedModifier = 1.2;
 
@@ -185,7 +185,7 @@ export class Player extends Actor {
         this.graphics.use(this.animationIdleRight);
         this.on('precollision', (evt) => this.onCollisionStart(evt));
 
-        this.health =  this.inventory.health
+        this.health = this.inventory.health
     }
 
     onCollisionStart(evt) {
@@ -197,12 +197,12 @@ export class Player extends Actor {
                 evt.other.killedOther = true;
                 //this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
-                this.timerOverWorld(evt.other);
+                this.TimerGameover(evt.other);
             }
         }
     }
 
-    updateNectarScore(){
+    updateNectarScore() {
         this.nectarUI.setScore()
     }
 
@@ -412,7 +412,7 @@ export class Player extends Actor {
         }
     }
 
-    onDeath(){
+    onDeath() {
 
     }
 
@@ -435,9 +435,8 @@ export class Player extends Actor {
     }
     HatHandler(hat) {
         let hatFound = false
-        console.log(this.hats.includes(hat))
         for (let i = 0; i < this.hats.length; i++) {
-            if (this.hats[i] === hat) {
+            if (this.hats[i].name === hat.name) {
                 hatFound = true;
             }
         }
@@ -455,7 +454,6 @@ export class Player extends Actor {
             this.hats.push(hat)
 
         }
-        console.log(this.hats)
         this.addChild(this.lastHat)
     }
 }

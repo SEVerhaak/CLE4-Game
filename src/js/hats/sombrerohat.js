@@ -21,7 +21,7 @@ import { Hat } from "./hat.js";
 
 export class SombreroHat extends Hat {
     graphic = Resources.SombreroHat.toSprite();
-
+    name
 
     constructor(x, y) {
         super({
@@ -29,6 +29,7 @@ export class SombreroHat extends Hat {
         });
         this.scale = new Vector(0.03, 0.03)
         this.pos = new Vector(x, y)
+        this.name = "sombrerohat";
     }
 
 
