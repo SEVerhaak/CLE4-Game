@@ -194,8 +194,9 @@ export class Player extends Actor {
                 this.graphics.use(this.animationDeath);
                 this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
+                
                 this.animationDeath.events.on('end', (a) => {
-                    this.timerOverWorld();
+                    this.TimerGameover(evt.other);
                 })
 
             }
@@ -421,9 +422,9 @@ export class Player extends Actor {
         }, 500);
     }
 
-    timerOverWorld() {
+    TimerGameover(enemy) {
         setTimeout(() => {
-            this.game.goToOverWorld();
+            this.game.goToGameOverScene(enemy);
         }, 1000)
     }
 }

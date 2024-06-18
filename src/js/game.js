@@ -58,9 +58,9 @@ export class Game extends Engine {
         console.log("start de game!")
 
         // go to specific scene
-        //this.goToOverWorld();
+        this.goToOverWorld();
         //this.goToLevel3(this);
-        this.goToGameOverScene();
+        //this.goToGameOverScene();
         //this.goToStoryScene();
         //this.goToStoryScene();
     }
@@ -108,9 +108,9 @@ export class Game extends Engine {
     }
 
 
-    goToGameOverScene() {
+    goToGameOverScene(enemy) {
         // Create and add the new scene
-        const GameOver = new GameOverScene(this);
+        const GameOver = new GameOverScene(this, enemy);
         this.add('GameOver', GameOver);
 
         // Go to the new scene
