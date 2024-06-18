@@ -17,6 +17,8 @@ export class Projectile extends Actor {
     spriteSheet
     animEndFrame
     scaleModifier
+    animStrat
+    delay
 
 
     constructor(velocity, pos) {
@@ -28,7 +30,7 @@ export class Projectile extends Actor {
 
     onInitialize(engine) {
         //this.sprite = this.graphics.use(Resources.Nectar.toSprite())
-        this.animation = Animation.fromSpriteSheet(this.spriteSheet, range(0, this.animEndFrame), 25);
+        this.animation = Animation.fromSpriteSheet(this.spriteSheet, range(0, this.animEndFrame), this.delay, this.animStrat);
         this.graphics.use(this.animation)
         this.scale = new Vector(this.scaleModifier, this.scaleModifier)
     }

@@ -19,6 +19,7 @@ export class EndcreditScene extends Scene {
 
         this.endcredit = new Actor()
         this.endcredit.graphics.use(Resources.Endcredits.toSprite())
+        Resources.Mainthemesound.play()
         this.endcredit.pos = new Vector(720, 3500)
         this.endcredit.vel = new Vector(0,-150)
         this.endcredit.scale = new Vector (0.3,0.3)

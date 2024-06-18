@@ -26,19 +26,19 @@ export class Level3 extends Scene {
         this.player.pos = new Vector(400, 400);
         this.add(this.player);
 
-        const pickup = new ProjectilePickup(425,425)
+        const pickup = new ProjectilePickup(400,425)
         this.add(pickup)
 
-        const pickup2 = new FireProjectile2Pickup(440,425)
+        const pickup2 = new FireProjectile2Pickup(450,425)
         this.add(pickup2)
 
-        const pickup3 = new FireProjectile3Pickup(455,425)
+        const pickup3 = new FireProjectile3Pickup(500,425)
         this.add(pickup3)
 
         Resources.Level3.addToScene(this);
         this.bat = new Bat(this);
-        this.bat.pos = new Vector(350, 400);
-        //this.add(this.bat);
+        this.bat.pos = new Vector(120, 400);
+        this.add(this.bat);
 
 
         this.door = new Door(347.83, 120, this.game);
