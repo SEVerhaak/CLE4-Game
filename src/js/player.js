@@ -15,8 +15,9 @@ import { CurrentNectar } from "./UI/currentNectar.js";
 import { CurrentSuperNectar } from "./UI/currentSuperNectar.js";
 import { CurrentProjectile } from "./UI/currentProjectile.js";
 import { Man } from "./enemies/man.js";
-import { TopHat } from "./tophat.js";
-import { WizardHat } from "./wizardhat.js";
+import { TopHat } from "./hats/tophat.js";
+import { WizardHat } from "./hats/wizardhat.js";
+import { SombreroHat} from "./hats/sombrerohat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
