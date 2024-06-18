@@ -10,6 +10,7 @@ import { EndcreditScene } from './endcreditscene.js';
 import { StoryScene } from './storyscene.js';
 import { Inventory } from "./inventory.js";
 import { UI } from "./uiComponent.js";
+import { GameOverScene } from './gameoverscene.js';
 
 export class Game extends Engine {
 
@@ -59,9 +60,9 @@ export class Game extends Engine {
         // go to specific scene
         //this.goToOverWorld();
         //this.goToLevel3(this);
-        this.goToEndcredits();
+        this.goToGameOverScene();
         //this.goToStoryScene();
-        this.goToStoryScene();
+        //this.goToStoryScene();
     }
 
     goToOverWorld() {
