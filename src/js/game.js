@@ -64,7 +64,7 @@ export class Game extends Engine {
         //this.goToEndcredits();
         //this.goToOverWorld();
         //this.goToLevel3(this);
-        //this.goToGameOverScene();
+
         //this.goToStoryScene();
         // this.goToStoryScene();
         this.goToStartScene();
@@ -148,7 +148,7 @@ export class Game extends Engine {
         this.goToScene('storyscene');
     }
 
-    death(){
+    death() {
 
     }
 

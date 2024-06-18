@@ -9,12 +9,12 @@ import {Pickup} from "./pickup.js";
 
 export class NectarPickup extends Pickup {
 
-    sprite = this.graphics.use(Resources.Nectar.toSprite())
+    sprite = Resources.MiniNectar
     itemName = 'Nectar'
-    scaleVec = new Vector(0.01, 0.01)
+    scaleVec = new Vector(1, 1)
 
     constructor(x,y) {
-        super({ width: 8, height: 8, collisionType: CollisionType.Passive});
+        super({ width: 16, height: 16, collisionType: CollisionType.Passive});
         //this.scale = new Vector(0.005, 0.005);
         this.pos.x = x;
         this.pos.y = y;

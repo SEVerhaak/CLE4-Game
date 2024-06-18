@@ -37,7 +37,7 @@ export class Inventory extends Actor {
         this.graphics.use(this.currentSelectedProjectileSprite.toSprite())
     }
 
-    addItem(item, isProjectile, projectileIndex, projectileSprite, endFrame){
+    addItem(item, isProjectile, projectileIndex, projectileSprite, endFrame, player){
         if (isProjectile){
             let projectileObject = {
                 itemName: item,
@@ -48,10 +48,27 @@ export class Inventory extends Actor {
             console.log(projectileObject)
             this.projectiles.push(projectileObject)
         }else{
-            this.inventory.push(item);
+            // Find the item in the inventory
+            let existingItem = this.inventory.find(inventoryItem => inventoryItem.itemName === item);
+
+            if (existingItem) {
+                // If the item exists, increment the amount
+                let itemIndex = this.inventory.findIndex(inventoryItem => inventoryItem.itemName === item);
+                //player.updateNectarScore()
+                this.nectarAmount = this.inventory[itemIndex].itemAmount
+                existingItem.itemAmount++;
+            } else {
+                // If the item does not exist, add it to the inventory with itemAmount 1
+                 let itemObject = {
+                    itemName: item,
+                    itemAmount: 1
+                };
+                this.inventory.push(itemObject);
+                let itemIndex = this.inventory.findIndex(inventoryItem => inventoryItem.itemName === item);
+                //player.updateNectarScore()
+                this.nectarAmount = this.inventory[itemIndex].itemAmount
+            }
         }
-        console.log("inventory: " + this.inventory)
-        console.log(this.projectiles)
     }
 
     checkIfProjectileIsEquipped(item){

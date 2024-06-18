@@ -42,7 +42,9 @@ export class CurrentNectar extends ScreenElement {
 
     }
 
-    setScore(value){
+    setScore(){
+        let value = this.game.inventory.nectarAmount + 1
+        value = value.toString()
         this.scoreText.text = value
         this.scoreTextBG.text = value
     }
