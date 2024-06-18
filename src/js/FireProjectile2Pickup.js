@@ -16,6 +16,7 @@ export class FireProjectile2Pickup extends Pickup {
     isProjectile = true
     projectileIndex = 1;
     projectileSprite = Resources.FireProjectile2
+    endFrame = 3
 
 
     constructor(x,y) {

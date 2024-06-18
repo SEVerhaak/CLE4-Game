@@ -44,6 +44,7 @@ export class Pickup extends Actor {
         if (this.isProjectile){
             if (!player.inventory.checkIfProjectileIsEquipped(this.itemName)){
                 player.inventory.addItem(this.itemName, true, this.projectileIndex, this.projectileSprite, this.endFrame)
+                player.currentProjectileUI.setIcon(player.inventory.projectiles[player.inventory.currentSelectedItemIndex].projectileSprite, 3)
                 this.kill();
             } else{
                 // item zit dan al in de inventory niks meer me doen
