@@ -1,7 +1,7 @@
 import { Actor, Animation, CollisionType, Engine, Keys, range, SpriteSheet, Vector } from "excalibur";
 import { Resources, ResourceLoader } from '../resources.js'
 import { Player } from "../player.js";
-import { Healthbar } from "../healthBar.js";
+import { Healthbar } from "../UI/healthBar.js";
 import { Projectile } from "../projectiles/projectile.js";
 
 export class Enemy extends Actor {

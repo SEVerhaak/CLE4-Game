@@ -3,11 +3,11 @@ import { Player } from "../player.js";
 import { Resources, ResourceLoader } from '../resources.js'
 import { Bat } from "../enemies/bat.js";
 import { Door } from "../door.js";
-import {Pickup} from "../pickup.js";
-import {NectarPickup} from "../nectarPickup.js";
+import {Pickup} from "../pickups/pickup.js";
+import {NectarPickup} from "../pickups/nectarPickup.js";
 import {ProjectilePickup} from "../enemies/pickupProjectileTest.js";
-import {FireProjectile2Pickup} from "../FireProjectile2Pickup.js";
-import {FireProjectile3Pickup} from "../FireProjectile3Pickup.js";
+import {FireProjectile2Pickup} from "../pickups/FireProjectile2Pickup.js";
+import {FireProjectile3Pickup} from "../pickups/FireProjectile3Pickup.js";
 
 export class Level3 extends Scene {
 

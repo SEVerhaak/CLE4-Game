@@ -1,5 +1,5 @@
 import { Actor, Color, Vector, ScreenElement, CollisionType } from "excalibur";
-import { Resources, ResourceLoader } from './resources.js';
+import { Resources, ResourceLoader } from '../resources.js';
 
 export class Healthbar extends ScreenElement {
 

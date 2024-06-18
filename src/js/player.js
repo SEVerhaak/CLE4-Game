@@ -2,18 +2,21 @@ import {
     Actor, Animation, AnimationStrategy, CollisionType, Engine, Input, Keys, Random, range, SpriteSheet, Vector
 } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js'
-import { Healthbar } from "./ui/healthBar.js";
+import { Healthbar } from "./UI/healthBar.js";
+import { Projectile } from "./projectiles/projectile.js";
 import { Enemy } from "./enemies/enemy.js";
+import { Inventory } from "./inventory.js";
 import { Shadow } from "./shadow.js";
 import { FireProjectile1 } from "./projectiles/fireProjectile1.js";
 import { FireProjectile2 } from "./projectiles/fireProjectile2.js";
 import { FireProjectile3 } from "./projectiles/fireProjectile3.js";
-import { UI } from "./uiComponent.js";
-import { CurrentNectar } from "./currentNectar.js";
-import { CurrentSuperNectar } from "./currentSuperNectar.js";
-import { CurrentProjectile } from "./currentProjectile.js";
-import { Man } from "./man.js";
-import { TopHat } from "./hats/tophat.js";
+import { UI } from "./UI/uiComponent.js";
+import { CurrentNectar } from "./UI/currentNectar.js";
+import { CurrentSuperNectar } from "./UI/currentSuperNectar.js";
+import { CurrentProjectile } from "./UI/currentProjectile.js";
+import { Man } from "./enemies/man.js";
+import { TopHat } from "./tophat.js";
+import { WizardHat } from "./wizardhat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -245,9 +248,6 @@ export class Player extends Actor {
             this.invertShootDirectionUpDown = (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) && (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5);
             this.invertShootDirectionLeftRight = (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5) && (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5);
 
-            //console.log(this.invertShootDirectionLeftRight)
-            //console.log(this.invertShootDirectionUpDown)
-
             if ((engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5)) {
                 velocity.x = -this.playerSpeed;
                 this.movementAnim('left')
@@ -408,6 +408,10 @@ export class Player extends Actor {
                 this.shoot(velocity, false)
                 break
         }
+    }
+
+    onDeath(){
+
     }
 
     resetShootTimer() {

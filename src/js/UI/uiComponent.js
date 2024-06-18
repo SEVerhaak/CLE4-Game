@@ -1,5 +1,5 @@
 import {Font, Label, ScreenElement, Vector} from "excalibur";
-import {Resources} from "./resources.js";
+import {Resources} from "../resources.js";
 
 export class UI extends ScreenElement {
 
