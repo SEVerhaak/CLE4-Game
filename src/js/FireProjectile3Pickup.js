@@ -16,6 +16,7 @@ export class FireProjectile3Pickup extends Pickup {
     isProjectile = true
     projectileIndex = 2;
     projectileSprite = Resources.FireProjectile3
+    endFrame = 6
 
     constructor(x,y) {
         super({ width: 8, height: 8, collisionType: CollisionType.Passive});

@@ -24,18 +24,24 @@ export class CurrentProjectile extends ScreenElement {
     }
 
     setIcon(projectileSprite, endFrame){
+        let bugfixHack = 1;
+        let bugfixHack2 = 0
+        if (projectileSprite.height > 16){
+            bugfixHack = 2;
+            bugfixHack2 = -1
+        }
         console.log(endFrame)
-        console.log(projectileSprite)
+
         const spriteAnimationSheet = SpriteSheet.fromImageSource({
             image: projectileSprite,
             grid: {
-                columns: 4,
-                rows: 1,
+                columns: 4 + bugfixHack2,
+                rows: bugfixHack,
                 spriteWidth: 16,
-                spriteHeight: 16
+                spriteHeight: projectileSprite.height / bugfixHack
             },
         });
-        this.animation = Animation.fromSpriteSheet(spriteAnimationSheet, range(0, 3), 250);
+        this.animation = Animation.fromSpriteSheet(spriteAnimationSheet, range(0, endFrame), 250);
         this.graphics.use(this.animation)
     }
 

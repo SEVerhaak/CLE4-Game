@@ -97,6 +97,10 @@ export class Player extends Actor {
         this.currentProjectileUI.pos = new Vector(-67, -65)
         this.currentProjectileUI.scale = new Vector(0.7, 0.7)
         this.currentProjectileUI.z = 99
+
+        if (this.inventory.getSelectedProjectileId() !== -1) {
+            this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.currentSelectedItemIndex].projectileSprite, 3)
+        }
         this.addChild(this.currentProjectileUI)
 
 

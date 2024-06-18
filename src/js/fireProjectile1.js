@@ -1,6 +1,6 @@
 import {
     SpriteSheet,
-    CollisionType
+    CollisionType, AnimationStrategy
 } from "excalibur";
 import {Resources} from "./resources.js";
 import {Projectile} from "./projectile.js";
@@ -20,6 +20,8 @@ export class FireProjectile1 extends Projectile {
     });
     animEndFrame = 3
     scaleModifier = 0.5
+    animStrat = AnimationStrategy.Loop
+    delay = 25
 
     constructor(velocity, pos) {
         super({ width: 16, height: 16, collisionType: CollisionType.Passive});
