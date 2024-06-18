@@ -64,7 +64,9 @@ const Resources = {
     StartScene: new ImageSource('images/StartScene.png'),
 
     MiniNectar: new ImageSource('images/miniNectar.png'),
-    PrideHat: new ImageSource('images/Hats/prideHat.png')
+    PrideHat: new ImageSource('images/Hats/prideHat.png'),
+    SombreroHat: new ImageSource('images/Hats/sombreroHat.png'),
+    Black: new ImageSource ('images/Black.png')
 }
 
 
