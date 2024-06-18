@@ -2,6 +2,7 @@ import { Actor, Animation, AnimationStrategy, CollisionType, range, SpriteSheet,
 import { Resources } from './resources.js';
 import { Player } from "./player.js";
 import { Enemy } from "./enemy.js";
+import { Projectile } from "./projectile.js";
 
 export class TinySpider extends Actor {
     currentAnimation = null;
@@ -9,16 +10,18 @@ export class TinySpider extends Actor {
     attackradius = 70;
     normalSpeed = 90; // Normal movement speed
     attackSpeed = 120; // Movement speed when attacking
+    death = false;
     bounds = {
         left: 40,
         right: 500,
         top: 65,
         bottom: 500
+    
     };
 
     constructor() {
         super({
-            width: 5, height: 5, collisionType: CollisionType.Passive, z: 20
+            width: 10, height: 10, collisionType: CollisionType.Passive, z: 20
         });
         this.scale = new Vector(0.5, 0.5);
         this.direction = new Vector(0, 0);
@@ -70,6 +73,21 @@ export class TinySpider extends Actor {
         this.currentAnimation = this.animationRight;
 
         this.changeDirection();
+
+        this.on('collisionstart', (evt) => this.onCollisionStart(evt));
+    }
+
+    onCollisionStart(evt) {
+        if (evt.other instanceof Projectile) {
+            this.graphics.use(this.animationDeath);
+            this.currentAnimation = this.animationDeath
+            this.body.collisionType = CollisionType.PreventCollision
+            this.death = true
+            this.vel = new Vector(0, 0)
+
+            
+        
+        }
     }
 
     changeDirection() {
@@ -90,21 +108,27 @@ export class TinySpider extends Actor {
     }
 
     updateAnimation() {
-        if (this.direction.equals(new Vector(1, 0))) {
-            if (this.currentAnimation !== this.animationRight) {
-                this.graphics.use(this.animationRight);
-                this.currentAnimation = this.animationRight;
+        if (this.death === false){
+            if (this.direction.equals(new Vector(1, 0))) {
+                if (this.currentAnimation !== this.animationRight) {
+                    this.graphics.use(this.animationRight);
+                    this.currentAnimation = this.animationRight;
+                }
+            } else if (this.direction.equals(new Vector(-1, 0))) {
+                if (this.currentAnimation !== this.animationLeft) {
+                    this.graphics.use(this.animationLeft);
+                    this.currentAnimation = this.animationLeft;
+                }
             }
-        } else if (this.direction.equals(new Vector(-1, 0))) {
-            if (this.currentAnimation !== this.animationLeft) {
-                this.graphics.use(this.animationLeft);
-                this.currentAnimation = this.animationLeft;
-            }
-        }
+    }
     }
 
     onPreUpdate(engine, delta) {
+
+        
         this.timeSinceLastChange += delta;
+
+        if (this.death === false){
         if (this.timeSinceLastChange >= this.changeDirectionInterval) {
             this.changeDirection();
             this.timeSinceLastChange = 0;
@@ -127,6 +151,7 @@ export class TinySpider extends Actor {
             this.pos.y = this.bounds.bottom;
             this.changeDirection(); // Change direction if it hits the bound
         }
+    }
     }
 }
 

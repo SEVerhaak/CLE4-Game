@@ -25,7 +25,7 @@ export class Enemy extends Actor {
 
     constructor(scene) {
         super({
-            width: 10, height: 10, collisionType: CollisionType.Active, z: 999
+            width: 10, height: 10, collisionType: CollisionType.Active, z: 20
         });
         this.scale = new Vector(2, 2);
         this.direction = new Vector(0, 0);
@@ -55,7 +55,7 @@ export class Enemy extends Actor {
                 this.graphics.use(this.animationDeath);
                 this.currentAnimation = this.animationDeath
                 this.healthBar.kill();
-                this.collisionType = CollisionType.Passive
+                this.body.collisionType = CollisionType.PreventCollision
             }
             evt.other.kill();
         }

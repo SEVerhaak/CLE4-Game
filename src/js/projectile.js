@@ -19,7 +19,7 @@ export class Projectile extends Actor {
     scaleModifier
 
 
-    constructor(velocity) {
+    constructor(velocity, pos) {
         super({ width: 8, height: 8, collisionType: CollisionType.Passive});
         this.scale = new Vector(1, 1);
         //this.vel = velocity
@@ -28,12 +28,12 @@ export class Projectile extends Actor {
 
     onInitialize(engine) {
         //this.sprite = this.graphics.use(Resources.Nectar.toSprite())
+        this.animation = Animation.fromSpriteSheet(this.spriteSheet, range(0, this.animEndFrame), 25);
+        this.graphics.use(this.animation)
+        this.scale = new Vector(this.scaleModifier, this.scaleModifier)
     }
 
     onPreUpdate(engine, delta) {
         super.onPreUpdate(engine, delta);
-        this.animation = Animation.fromSpriteSheet(this.spriteSheet, range(0, this.animEndFrame), 100);
-        this.graphics.use(this.animation)
-        this.scale = this.scale.scale(this.scaleModifier, this.scaleModifier)
     }
 }

@@ -1,22 +1,18 @@
 import {
-    Actor,
-    Animation,
-    AnimationStrategy,
-    CollisionType,
-    Engine,
-    Input,
-    Keys,
-    range,
-    SpriteSheet,
-    Vector
+    Actor, Animation, AnimationStrategy, CollisionType, Engine, Input, Keys, Random, range, SpriteSheet, Vector
 } from "excalibur";
 import {Resources, ResourceLoader} from './resources.js'
 import {Healthbar} from "./healthBar.js";
 import {Projectile} from "./projectile.js";
-import { Enemy } from "./enemy.js";
+import {Enemy} from "./enemy.js";
 import {Inventory} from "./inventory.js";
 import {Shadow} from "./shadow.js";
 import {FireProjectile1} from "./fireProjectile1.js";
+import {FireProjectile2} from "./fireProjectile2.js";
+import {FireProjectile3} from "./fireProjectile3.js";
+import {UI} from "./uiComponent.js";
+import {CurrentNectar} from "./currentNectar.js";
+import {CurrentSuperNectar} from "./currentSuperNectar.js";
 
 
 export class Player extends Actor {
@@ -25,7 +21,7 @@ export class Player extends Actor {
     // speler snelheid
     playerSpeed = 100;
 
-    projectileSpeed = 125;
+    projectileSpeed = 200;
     projectileSpeedModifier = 1.2;
 
     lastPressed = 'right'
@@ -54,6 +50,10 @@ export class Player extends Actor {
     animationAtackDown
     game
 
+    uiComponent
+    nectarUI
+    nectarSuperUI
+
 
     constructor(game) {
         super({
@@ -61,13 +61,33 @@ export class Player extends Actor {
         });
         this.scale = new Vector(1.5, 1.5);
         this.game = game;
+        this.inventory = game.inventory
+
     }
 
     onInitialize(engine) {
         super.onInitialize(engine);
 
-        this.inventory = new Inventory(engine,0,0)
-        this.addChild(this.inventory);
+        //this.inventory = new Inventory(engine,0,0)
+        //this.addChild(this.inventory);
+        this.uiComponent = new UI(this.game)
+        this.uiComponent.pos = new Vector(-115,-80)
+        this.uiComponent.scale = new Vector(0.05, 0.05)
+        this.uiComponent.z = 99
+        this.addChild(this.uiComponent)
+
+        this.nectarUI = new CurrentNectar(this.game)
+        this.nectarUI.pos = new Vector(-113,-72)
+        this.nectarUI.scale = new Vector(0.008, 0.008)
+        this.nectarUI.z = 99
+        this.addChild(this.nectarUI)
+
+        this.nectarSuperUI = new CurrentSuperNectar(this.game)
+        this.nectarSuperUI.pos = new Vector(-99,-69)
+        this.nectarSuperUI.scale = new Vector(0.008, 0.008)
+        this.nectarSuperUI.z = 99
+        this.addChild(this.nectarSuperUI)
+
 
         this.healthBar = new Healthbar(this.game, false);
         this.addChild(this.healthBar);
@@ -166,6 +186,7 @@ export class Player extends Actor {
         }
     }
 
+
     add(accumulator, a) {
         return accumulator + a;
     }
@@ -175,6 +196,7 @@ export class Player extends Actor {
             super.onPreUpdate(engine, delta);
             // check om te kijken of er geen knoppen ingedrukt worden (De som van de array moet 0 zijn en dan wordt er niks ingedrukt)
             const arraySum = this.keyPressArray.reduce(this.add, 0);
+
             // speel idle animaties
             if (arraySum <= 0) {
                 this.idleAnim();
@@ -187,7 +209,7 @@ export class Player extends Actor {
             let yAxis = engine.input.gamepads.at(0).getAxes(Input.Axes.LeftStickY);
 
 
-            if ((engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5) && !engine.input.keyboard.isHeld(Keys.Down)) {
+            if ((engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5)) {
                 velocity.y = -this.playerSpeed;
                 this.movementAnim('up')
                 this.keyPressArray[0] = 1;
@@ -196,11 +218,10 @@ export class Player extends Actor {
                 this.keyPressArray[0] = 0;
             }
 
-            if ((engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) && !engine.input.keyboard.isHeld(Keys.Up)) {
+            if ((engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5)) {
                 velocity.y = this.playerSpeed;
                 this.movementAnim('down')
                 this.keyPressArray[1] = 1;
-                this.graphics.use(this.animationDown);
                 this.lastPressed = 'down'
             } else {
                 this.keyPressArray[1] = 0;
@@ -209,45 +230,49 @@ export class Player extends Actor {
             this.invertShootDirectionUpDown = (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down) || yAxis > 0.5) && (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up) || yAxis < -0.5);
             this.invertShootDirectionLeftRight = (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5) && (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5);
 
-            if ((engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5) && !engine.input.keyboard.isHeld(Keys.Right)) {
+            //console.log(this.invertShootDirectionLeftRight)
+            //console.log(this.invertShootDirectionUpDown)
+
+            if ((engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left) || xAxis < -0.5)) {
                 velocity.x = -this.playerSpeed;
                 this.movementAnim('left')
                 this.keyPressArray[2] = 1;
-                this.graphics.use(this.animationLeft);
                 this.lastPressed = 'left'
 
             } else {
                 this.keyPressArray[2] = 0;
             }
 
-            if ((engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5) && !engine.input.keyboard.isHeld(Keys.Left))  {
+            if ((engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right) || xAxis > 0.5)) {
                 velocity.x = this.playerSpeed;
                 this.movementAnim('right')
                 this.keyPressArray[3] = 1;
-                this.graphics.use(this.animationRight);
                 this.lastPressed = 'right'
             } else {
                 this.keyPressArray[3] = 0;
             }
 
-            if (engine.input.keyboard.wasPressed(Keys.Space) ||
-                engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) || this.attacking
+            if ((engine.input.keyboard.wasPressed(Keys.Space) ||
+                engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1)) && this.canShoot
             ) {
-                this.attack()
-                this.shoot(velocity, false)
+                this.attacking = true
+                this.attack(velocity)
+            }
+            if (engine.input.keyboard.wasPressed(Keys.ShiftLeft)) {
+                this.inventory.setSelectedProjectileID()
             }
 
             // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
             if (velocity.x !== 0 || velocity.y !== 0) {
                 velocity = velocity.normalize().scale(new Vector(this.playerSpeed, this.playerSpeed));
             }
-
             this.vel = velocity;
         }
     }
 
-    movementAnim(direction){
+    movementAnim(direction) {
         if (this.attacking === false) {
+            console.log('movanim')
             switch (direction) {
                 case 'up':
                     this.graphics.use(this.animationUp);
@@ -280,8 +305,8 @@ export class Player extends Actor {
         }
     }
 
-    idleAnim(){
-        if (this.attacking === false){
+    idleAnim() {
+        if (this.attacking === false) {
             switch (this.lastPressed) {
                 case 'up':
                     this.graphics.use(this.animationIdleUp);
@@ -299,118 +324,84 @@ export class Player extends Actor {
         }
     }
 
-    shoot(velocityVector, overRide){
+    shoot(velocityVector, overRide) {
         if (this.canShoot === true || overRide === true) {
             this.canShoot = false
-            console.log('player vel' + velocityVector)
             if (velocityVector.x === 0 && velocityVector.y === 0) {
                 switch (this.lastPressed) {
                     case 'up':
-                        this.shoot(new Vector(0,-1 * this.projectileSpeed), true)
+                        this.shoot(new Vector(0, -1 * this.projectileSpeed), true)
                         break;
                     case 'down':
                         this.shoot(new Vector(0, this.projectileSpeed), true)
                         break;
                     case 'left':
-                        this.shoot(new Vector(-1 * this.projectileSpeed,0), true)
+                        this.shoot(new Vector(-1 * this.projectileSpeed, 0), true)
                         break;
                     case 'right':
-                        this.shoot(new Vector(this.projectileSpeed,0), true)
+                        this.shoot(new Vector(this.projectileSpeed, 0), true)
                         break;
                 }
-            } else{
+            } else {
                 const projectileVector = velocityVector.normalize().scale(new Vector(this.projectileSpeed * this.projectileSpeedModifier, this.projectileSpeed * this.projectileSpeedModifier))
-                if (this.invertShootDirectionUpDown){
+
+                if (this.invertShootDirectionUpDown) {
                     projectileVector.y = -1 * projectileVector.y
-                    const projectile = new FireProjectile1(projectileVector);
-                    this.addChild(projectile);
-                    this.resetShootTimer(); // Call the method to reset the shoot timer
-                } else if (this.invertShootDirectionLeftRight){
+                }
+                if (this.invertShootDirectionLeftRight) {
                     projectileVector.x = -1 * projectileVector.x
-                    const projectile = new FireProjectile1(projectileVector);
-                    this.addChild(projectile);
+                }
+
+                const projectileArray = [
+                    new FireProjectile1(projectileVector, this.pos),
+                    new FireProjectile2(projectileVector, this.pos),
+                    new FireProjectile3(projectileVector, this.pos)
+                ]
+
+                //const projectile = new FireProjectile2(projectileVector);
+                if (this.inventory.getSelectedProjectileId() !== -1) {
+                    console.log(this.inventory.getSelectedProjectileId())
+                    const projectile = projectileArray[this.inventory.getSelectedProjectileId()];
+                    this.game.currentScene.add(projectile)
                     this.resetShootTimer(); // Call the method to reset the shoot timer
-                } else{
-                    const projectile = new FireProjectile1(projectileVector);
-                    this.addChild(projectile);
+                } else {
                     this.resetShootTimer(); // Call the method to reset the shoot timer
+                    console.log('no items in inventory')
                 }
             }
         }
     }
 
-    attack() {
+    attack(velocity) {
         switch (this.lastPressed) {
             case 'up':
-                this.attacking = true
-                if (this.invertShootDirectionUpDown){
-                    this.graphics.use(this.animationAtackDown);
-                    this.animationAtackDown.events.on('loop', (a) => {
-                        this.attacking = false;
-                    })
-                    break
-                } else{
-                    this.graphics.use(this.animationAtackUp);
-                    this.animationAtackUp.events.on('loop', (a) => {
-                        this.attacking = false;
-                    })
-                    break
-                }
+                this.graphics.use(this.animationAtackUp);
+                this.shoot(velocity, false)
+                break
             case 'down':
-                this.attacking = true
-                if (this.invertShootDirectionUpDown){
-                    this.graphics.use(this.animationAtackUp);
-                    this.animationAtackUp.events.on('loop', (a) => {
-                        this.attacking = false;
-                    })
-                    break
-                } else{
-                    this.graphics.use(this.animationAtackDown);
-                    this.animationAtackDown.events.on('loop', (a) => {
-                        this.attacking = false;
-                    })
-                    break
-                }
+                this.graphics.use(this.animationAtackDown);
+                this.shoot(velocity, false)
+                break
             case 'left':
-                this.attacking = true
-                if (this.invertShootDirectionLeftRight){
-                    this.graphics.use(this.animationAtackRight);
-                    this.animationAtackRight.events.on('loop', (a) => {
-                        this.attacking = false;
-                    })
-                    break
-                } else{
-                    this.graphics.use(this.animationAtackLeft);
-                    this.animationAtackLeft.events.on('loop', (a) => {
-                        this.attacking = false;
-                    })
-                    break
-                }
+                this.graphics.use(this.animationAtackLeft);
+                this.shoot(velocity, false)
+                break
             case 'right':
-                this.attacking = true
-                if (this.invertShootDirectionLeftRight){
-                    this.graphics.use(this.animationAtackLeft);
-                    this.animationAtackLeft.events.on('loop', (a) => {
-                        this.attacking = false;
-                    })
-                    break
-                } else{
-                    this.graphics.use(this.animationAtackRight);
-                    this.animationAtackRight.events.on('loop', (a) => {
-                        this.attacking = false;
-                    })
-                    break
-                }
+                this.graphics.use(this.animationAtackRight);
+                this.shoot(velocity, false)
+                break
         }
     }
 
     resetShootTimer() {
+        console.log('reseting shoot timer')
         setTimeout(() => {
             this.canShoot = true; // Reset the flag after 500ms
+            this.attacking = false;
         }, 500);
     }
 
-    timerOverWorld(){
+    timerOverWorld() {
         setTimeout(() => {
             this.game.goToOverWorld();
         }, 1000)

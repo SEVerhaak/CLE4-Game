@@ -11,6 +11,9 @@ export class Pickup extends Actor {
     sprite = this.graphics.use(Resources.Nectar.toSprite())
     itemName = 'Placeholder'
     scaleVec = new Vector(0.005, 0.005)
+    isProjectile = false;
+    projectileIndex
+    projectileSprite
 
     constructor(x,y ) {
         super({ width: 8, height: 8, collisionType: CollisionType.Passive});
@@ -37,7 +40,16 @@ export class Pickup extends Actor {
     }
 
     onPlayerCollision(player) {
-        player.inventory.addItem('nectar')
-        this.kill();
+        if (this.isProjectile){
+            if (!player.inventory.checkIfProjectileIsEquipped(this.itemName)){
+                player.inventory.addItem(this.itemName, true, this.projectileIndex, this.projectileSprite)
+                this.kill();
+            } else{
+                // item zit dan al in de inventory niks meer me doen
+            }
+        } else{
+            player.inventory.addItem(this.itemName, false, null)
+            this.kill();
+        }
     }
 }

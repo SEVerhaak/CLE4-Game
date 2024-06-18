@@ -14,10 +14,11 @@ export class Pigeon extends Enemy {
     animationLeft
     animationAttack
     animationDeath
+    animationHurt
 
     constructor() {
         super({
-            width: 30, height: 20, collisionType: CollisionType.Active, z: 999
+            width: 30, height: 20, collisionType: CollisionType.Active, z: 20
         });
         this.scale = new Vector(1, 1);
         this.direction = new Vector(0, 0);
@@ -27,6 +28,9 @@ export class Pigeon extends Enemy {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+        this.collider.useBoxCollider(
+            35, 15, new Vector(0, 0), new Vector(-25, 0)
+        )
         // Spritesheets
         const spriteSheetPigeonFly = SpriteSheet.fromImageSource({
             image: Resources.PigeonFly,
@@ -55,6 +59,15 @@ export class Pigeon extends Enemy {
                 spriteHeight: 48
             },
         });
+        const spriteSheetPigeonHurt = SpriteSheet.fromImageSource({
+            image: Resources.PigeonHurt,
+            grid: {
+                columns: 2,
+                rows: 1,
+                spriteWidth: 48,
+                spriteHeight: 48
+            },
+        });
 
         // Load movement animations
         this.animationRight = Animation.fromSpriteSheet(spriteSheetPigeonFly, range(0, 3), 100);
@@ -62,6 +75,7 @@ export class Pigeon extends Enemy {
         this.animationRight.flipHorizontal = true;
         this.animationAttack = Animation.fromSpriteSheet(spriteSheetPigeonAttack, range(0, 3), 100);
         this.animationDeath = Animation.fromSpriteSheet(spriteSheetPigeonDeath, range(0, 3), 100, AnimationStrategy.Freeze);
+        this.animationHurt = Animation.fromSpriteSheet(spriteSheetPigeonHurt, range(0, 1), 100)
 
 
         // Default start animation

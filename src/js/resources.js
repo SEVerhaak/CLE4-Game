@@ -1,4 +1,4 @@
-import { ImageSource, Sound, Resource, Loader } from 'excalibur'
+import {ImageSource, Sound, Resource, Loader, FontSource} from 'excalibur'
 import { TiledResource } from '@excaliburjs/plugin-tiled'
 
 // voeg hier jouw eigen resources toe
@@ -18,6 +18,7 @@ const Resources = {
     PigeonHurt: new ImageSource('images/Pigeon/Vulture_hurt.png'),
     Projectile: new ImageSource('images/projectile/projectiles.png'),
     TestProjectile: new ImageSource('images/projectile/testanimprojectile.png'),
+    FireProjectile2: new ImageSource('images/projectile/fireProjectile2.png'),
     SpiderWalk: new ImageSource('images/spiderBoss/Walk_Body.png'),
     SpiderAttack: new ImageSource('images/spiderBoss/Attack_03_Body.png'),
     SpiderDie: new ImageSource('images/spiderBoss/Die_02_Body.png'),
@@ -30,10 +31,17 @@ const Resources = {
     Level3: new TiledResource('images/Level_3.tmx'),
     Level2: new TiledResource('images/Level_2.tmx'),
     Level1: new TiledResource('images/Level_1.tmx'),
-    MainScene: new TiledResource('images/mainScene.tmx'),
+    MainScene: new TiledResource('images/mainScene_test.tmx'),
     Shadow: new ImageSource('images/shadow.png'),
-    Nectar: new ImageSource('images/nectar.png'),
     Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png'),
+    FireProjectile3: new ImageSource('images/projectile/projectile3.png'),
+    UIBG: new ImageSource('images/UI/uiBG.png'),
+    PixelFont: new FontSource('fonts/PressStart2P-Regular.ttf', 'PressStart'),
+    Flowers: new ImageSource('images/Flowers_With_Outline_Spritesheet.png'),
+    Chest: new ImageSource('images/Chests.png'),
+    Bush1: new ImageSource('images/Pixel Art Flower Pack/Bush 1 (No Flowers)/Bush 1 (no flowers) - GREEN.png'),
+    Bush2: new ImageSource('images/Pixel Art Flower Pack/Bush 1 (No Flowers)/Bush 1 (no flowers) - RED.png'),
+    Bush3: new ImageSource('images/Pixel Art Flower Pack/Bush 1 (No Flowers)/Bush 1 (no flowers) - WARM GREEN.png'),
     GameOverBat: new ImageSource('images/gameOverBat.png'),
     GameOverPigeon: new ImageSource('images/gameOverPideon.png'),
     GameOverSpider: new ImageSource('images/gameOverSpider.png'),
