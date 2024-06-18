@@ -17,7 +17,7 @@ import { CurrentProjectile } from "./UI/currentProjectile.js";
 import { Man } from "./enemies/man.js";
 import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
-import { SombreroHat } from "./hats/sombrerohat.js";
+import { SombreroHat} from "./hats/sombrerohat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -29,8 +29,6 @@ export class Player extends Actor {
     projectileSpeedModifier = 1.2;
 
     lastPressed = 'right'
-    hats = [];
-    lastHat
 
     inventory
     shadow
@@ -187,7 +185,7 @@ export class Player extends Actor {
         this.graphics.use(this.animationIdleRight);
         this.on('precollision', (evt) => this.onCollisionStart(evt));
 
-        this.health = this.inventory.health
+        this.health =  this.inventory.health
     }
 
     onCollisionStart(evt) {
@@ -204,6 +202,9 @@ export class Player extends Actor {
         }
     }
 
+    updateNectarScore(){
+        this.nectarUI.setScore()
+    }
 
     add(accumulator, a) {
         return accumulator + a;
@@ -411,7 +412,7 @@ export class Player extends Actor {
         }
     }
 
-    onDeath() {
+    onDeath(){
 
     }
 
