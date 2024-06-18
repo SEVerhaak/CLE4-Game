@@ -15,8 +15,11 @@ import { CurrentNectar } from "./currentNectar.js";
 import { CurrentSuperNectar } from "./currentSuperNectar.js";
 import { CurrentProjectile } from "./currentProjectile.js";
 import { Man } from "./man.js";
-import { TopHat } from "./tophat.js";
-import { WizardHat } from "./wizardhat.js";
+import { TopHat } from "./hats/tophat.js";
+import { WizardHat } from "./hats/wizardhat.js";
+import { GraduationHat } from "./hats/graduationhat.js";
+import { ChristmasHat } from "./hats/christmashat.js";
+import { SombreroHat } from "./hats/sombrerohat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -79,7 +82,7 @@ export class Player extends Actor {
         this.uiComponent.scale = new Vector(0.05, 0.05)
         this.uiComponent.z = 99
         this.addChild(this.uiComponent)
-        this.topHat = new TopHat(-6.5, -11);
+        this.topHat = new SombreroHat(0, -11);
         this.addChild(this.topHat)
         this.nectarUI = new CurrentNectar(this.game)
         this.nectarUI.pos = new Vector(-113, -72)

@@ -15,15 +15,26 @@ import {
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from "./player.js";
 import { Flower } from "./flowers.js";
+import { TopHat } from "./hats/tophat.js";
+import { ChristmasHat } from "./hats/christmashat.js";
+import { GraduationHat } from "./hats/graduationhat.js";
+import { SombreroHat } from "./hats/sombrerohat.js";
+import { WizardHat } from "./hats/wizardhat.js";
+
 
 
 export class Chest extends Actor {
 
-    constructor(x, y) {
+    game
+    scene
+    chestopened
+
+    constructor(x, y, scene) {
         super({
             width: 48, height: 32, collisionType: CollisionType.Passive, x: x, y: y, z: 20
         });
         this.scale = new Vector(1, 1);
+        this.scene = scene;
     }
 
     onInitialize(engine) {
@@ -44,7 +55,7 @@ export class Chest extends Actor {
         this.chestOpen = Animation.fromSpriteSheet(spriteSheetChests, range((5 + number), (9 + number)), 200, AnimationStrategy.Freeze);
         // standaard start animatie
         this.graphics.use(this.chestIdle);
-        this.on('precollision', (evt) => this.onCollisionStart(evt));
+        this.on('collisionstart', (evt) => this.onCollisionStart(evt, this.scene));
     }
     getRandomNumber(x, y) {
         // Maak een nieuwe instantie van de Random class
@@ -59,9 +70,19 @@ export class Chest extends Actor {
     // Voorbeeld van het 
 
 
-    onCollisionStart(evt) {
+    onCollisionStart(evt, chest) {
         if (evt.other instanceof Player) {
+            if(!(this.chestopened)){
+            let tophat = new TopHat(-3, -2)
+            let christmasHat = new ChristmasHat(-3, -2)
+            let graduationHat = new GraduationHat(-3, -2)
+            let sombreroHat = new SombreroHat(-3, -2)
+            let wizardhat = new WizardHat(-3, -2)
+            let hats = [tophat, christmasHat, graduationHat, sombreroHat, wizardhat]
             this.graphics.use(this.chestOpen)
+            this.addChild(hats[this.getRandomNumber(0, 4)])
+            }
+            this.chestopened = true
         }
         if (evt.other instanceof Flower) {
             evt.other.kill();

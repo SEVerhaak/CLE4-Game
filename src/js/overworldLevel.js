@@ -62,7 +62,7 @@ export class OverworldLevel extends Scene {
         for (let i = 0; i < 4; i++) {
 
             console.log(this.getRandomNumber(0, 2400))
-            this.chest = new Chest(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
+            this.chest = new Chest(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400), this)
 
             this.add(this.chest);
         }
