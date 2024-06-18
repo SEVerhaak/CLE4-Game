@@ -28,24 +28,7 @@ export class Spider extends Enemy {
         )
 
         // Spritesheets
-        const spriteSheetSpiderWalk = SpriteSheet.fromImageSource({
-            image: Resources.SpiderWalk,
-            grid: {
-                columns: 4,
-                rows: 4,
-                spriteWidth: 256,
-                spriteHeight: 144
-            },
-        });
-        const spriteSheetSpiderAttack = SpriteSheet.fromImageSource({
-            image: Resources.SpiderAttack,
-            grid: {
-                columns: 6,
-                rows: 5,
-                spriteWidth: 256,
-                spriteHeight: 144
-            },
-        });
+        
         const spriteSheetSmallSpider = SpriteSheet.fromImageSource({
             image: Resources.SmallSpider,
             grid: {

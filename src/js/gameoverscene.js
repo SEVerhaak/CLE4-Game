@@ -25,7 +25,7 @@ export class GameOverScene extends Scene {
 
             gameover.graphics.use(Resources.GameOverBat.toSprite())
             gameover.pos = new Vector(720, 450)
-            gameover.scale = new Vector(1.5, 1.5)
+            gameover.scale = new Vector(1.6, 1.6)
 
         }
 
@@ -33,7 +33,7 @@ export class GameOverScene extends Scene {
 
             gameover.graphics.use(Resources.GameOverPigeon.toSprite())
             gameover.pos = new Vector(720, 450)
-            gameover.scale = new Vector(1.5, 1.5)
+            gameover.scale = new Vector(1.8, 1.8)
 
         }
 
@@ -61,8 +61,10 @@ export class GameOverScene extends Scene {
 
         }
 
-
         this.add(gameover)
+
+    
+        setTimeout(() => { this.game.goToOverWorld() }, 10000)
 
 
 
