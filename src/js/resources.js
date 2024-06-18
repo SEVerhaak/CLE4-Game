@@ -19,10 +19,6 @@ const Resources = {
     Projectile: new ImageSource('images/projectile/projectiles.png'),
     TestProjectile: new ImageSource('images/projectile/testanimprojectile.png'),
     FireProjectile2: new ImageSource('images/projectile/fireProjectile2.png'),
-    SpiderWalk: new ImageSource('images/spiderBoss/Walk_Body.png'),
-    SpiderAttack: new ImageSource('images/spiderBoss/Attack_03_Body.png'),
-    SpiderDie: new ImageSource('images/spiderBoss/Die_02_Body.png'),
-    SpiderHit: new ImageSource('images/spiderBoss/Hit_Body.png'),
     SmallSpider: new ImageSource('images/SpiderSpriteSheet.png'),
     tinySpider: new ImageSource('images/Spider_Sprite_Sheet.png'),
     Phoenix: new ImageSource('images/Phoenix_SpriteSheet_1.png'),
@@ -54,8 +50,11 @@ const Resources = {
     TopHat: new ImageSource('images/Hats/lulhat_0.png'),
     WizardHat: new ImageSource('images/Hats/wizard_hat_female.png'),
     Introscenesound: new Sound ('music/introscene.mp3'),
-    Mainthemesound: new Sound ('music/Maintheme.mp3')
-
+    Mainthemesound: new Sound ('music/Maintheme.mp3'),
+    GameOverBat: new ImageSource('images/gameOverBat.png'),
+    GameOverPigeon: new ImageSource('images/gameOverPideon.png'),
+    GameOverSpider: new ImageSource('images/gameOverSpider.png'),
+    GameOverPhoenix: new ImageSource('images/gameOverPhoenix.png'),
 }
 
 

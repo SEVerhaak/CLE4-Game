@@ -10,6 +10,7 @@ import { EndcreditScene } from './endcreditscene.js';
 import { StoryScene } from './storyscene.js';
 import { Inventory } from "./inventory.js";
 import { UI } from "./uiComponent.js";
+import { GameOverScene } from './gameoverscene.js';
 
 export class Game extends Engine {
 
@@ -62,7 +63,7 @@ export class Game extends Engine {
         // this.goToEndcredits();
         //this.goToEndcredits();
         //this.goToStoryScene();
-        // this.goToStoryScene();
+        this.goToStoryScene();
     }
 
     goToOverWorld() {
@@ -107,6 +108,15 @@ export class Game extends Engine {
         this.goToScene('level2');
     }
 
+
+    goToGameOverScene() {
+        // Create and add the new scene
+        const GameOver = new GameOverScene(this);
+        this.add('GameOver', GameOver);
+
+        // Go to the new scene
+        this.goToScene('GameOver');
+    }
 
     goToEndcredits() {
         // Create and add the new scene
