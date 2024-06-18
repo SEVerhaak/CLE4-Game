@@ -55,6 +55,9 @@ const Resources = {
     GameOverPigeon: new ImageSource('images/gameOverPideon.png'),
     GameOverSpider: new ImageSource('images/gameOverSpider.png'),
     GameOverPhoenix: new ImageSource('images/gameOverPhoenix.png'),
+    ChristmasHat: new ImageSource('images/Hats/ChristmasHat.PNG'),
+    GraduationHat: new ImageSource('images/Hats/GratuationHat.png'),
+    SombreroHat: new ImageSource('images/Hats/sombreroHat.png')
 }
 
 

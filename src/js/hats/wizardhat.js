@@ -12,14 +12,15 @@ import {
     SpriteSheet,
     Vector
 } from "excalibur";
-import { Resources, ResourceLoader } from './resources.js'
-import { Player } from "./player.js";
-import { Flower } from "./flowers.js";
-import { Chest } from "./chest.js";
+import { Resources, ResourceLoader } from '../resources.js'
+import { Player } from "../player.js";
+import { Flower } from "../flowers.js";
+import { Chest } from "../chest.js";
 import { Hat } from "./hat.js";
 
 
 export class WizardHat extends Hat {
+
     spriteSheet = SpriteSheet.fromImageSource({
         image: Resources.WizardHat,
         grid: {
@@ -30,7 +31,7 @@ export class WizardHat extends Hat {
         },
 
     })
-    graphic = Animation.fromSpriteSheet(spriteSheet, range(0, 0), 100);
+    graphic = Animation.fromSpriteSheet(this.spriteSheet, range(0, 0), 100);
 
 
     constructor() {
