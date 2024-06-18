@@ -1,9 +1,9 @@
 import { BoundingBox, Scene, Vector, Actor, Keys } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
-import { Bat } from "./bat.js"
-import { Pigeon } from "./pigeon.js"
-import { Phoenix } from "./phoenix.js"
-import { Spider } from "./Spider.js"
+import { Bat } from "./enemies/bat.js"
+import { Pigeon } from "./enemies/pigeon.js"
+import { Phoenix } from "./enemies/phoenix.js"
+import { Spider } from "./enemies/Spider.js"
 
 export class GameOverScene extends Scene {
 

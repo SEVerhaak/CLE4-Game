@@ -4,7 +4,7 @@ import { Resources, ResourceLoader } from '../resources.js'
 import { Bat } from "../enemies/bat.js";
 import { Spider } from "../enemies/Spider.js";
 import { Door } from "../door.js";
-import { Phoenix } from "../phoenix.js";
+import { Phoenix } from "../enemies/phoenix.js";
 export class Level2 extends Scene {
 
     player

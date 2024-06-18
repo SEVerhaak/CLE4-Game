@@ -1,7 +1,7 @@
 import { Actor, Animation, AnimationStrategy, CollisionType, range, SpriteSheet, Vector } from "excalibur";
-import { Resources } from './resources.js';
-import { Player } from "./player.js";
-import { Enemy } from "./enemies/enemy.js";
+import { Resources } from '../resources.js';
+import { Player } from "../player.js";
+import { Enemy } from "./enemy.js";
 
 export class Phoenix extends Enemy {
     currentAnimation = null;
