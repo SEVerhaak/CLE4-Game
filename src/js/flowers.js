@@ -2,11 +2,11 @@ import {
     Actor,
     Animation,
     AnimationStrategy,
-    CollisionType,
+    CollisionType, Color, EmitterType,
     Engine,
     Graphic,
     Input,
-    Keys,
+    Keys, ParticleEmitter,
     Random, randomIntInRange,
     range,
     SpriteSheet,
@@ -88,21 +88,55 @@ export class Flower extends Actor {
                 const randomXPositive = this.generateRandomNumber(15,40)
                 const randomYPositive = this.generateRandomNumber(15,40)
 
+                this.spawnParticles()
+
                 if (Math.random() < 0.5){
-                    const nectar = new NectarPickup(randomXNegative,randomYNegative, evt.other)
+                    const nectar = new NectarPickup(0,0, evt.other)
                     this.addChild(nectar)
                     this.body.collisionType = CollisionType.PreventCollision
-                    this.glow.kill()
+                    nectar.actions.moveTo(new Vector(randomXNegative, randomYNegative), 50)
+                    this.removeChild(this.glow)
                 } else{
-                    const nectar = new NectarPickup(randomXPositive,randomYPositive, evt.other)
+                    const nectar = new NectarPickup(0,0, evt.other)
                     this.addChild(nectar)
                     this.body.collisionType = CollisionType.PreventCollision
-                    evt.other.nectarUI.setScore()
-                    this.glow.kill()
+                    nectar.actions.moveTo(new Vector(randomXPositive, randomYPositive), 50)
+                    //evt.other.nectarUI.setScore()
+                    this.removeChild(this.glow)
                 }
             }
         }
     }
+
+    spawnParticles(){
+        let emitter = new ParticleEmitter(0,0,0,2);
+        emitter.emitterType = EmitterType.Rectangle;
+        emitter.radius = 5;
+        emitter.minVel = 10;
+        emitter.maxVel = 50;
+        emitter.minAngle = 0;
+        emitter.maxAngle = 6.2;
+        emitter.isEmitting = true;
+        emitter.emitRate = 56;
+        emitter.opacity = 1;
+        emitter.fadeFlag = true;
+        emitter.particleLife = 1000;
+        emitter.maxSize = 5;
+        emitter.minSize = 0.5;
+        emitter.startSize = 0;
+        emitter.endSize = 0;
+        emitter.acceleration = new Vector(0, 0);
+        emitter.beginColor = Color.Orange;
+        emitter.endColor = Color.Yellow;
+        emitter.pos.y = -10
+        emitter.z = 1000
+        this.addChild(emitter);
+        setTimeout(() => {
+            //console.log('clearing')
+            this.removeChild(emitter)
+        }, 200);
+    }
+
 
     onPreUpdate(engine, delta) {
 

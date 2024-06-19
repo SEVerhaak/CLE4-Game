@@ -62,10 +62,10 @@ const Resources = {
     GraduationHat: new ImageSource('images/Hats/GratuationHat.png'),
     SombreroHat: new ImageSource('images/Hats/sombreroHat.png'),
     StartScene: new ImageSource('images/StartScene.png'),
-
     MiniNectar: new ImageSource('images/miniNectar.png'),
     PrideHat: new ImageSource('images/Hats/prideHat.png'),
-    SombreroHat: new ImageSource('images/Hats/sombreroHat.png'),
+    NectarMedium: new ImageSource('images/nectarmed.png'),
+    NectarSFX: new Sound('sfx/sfx_nectar.mp3'),
     Black: new ImageSource ('images/Black.png')
 }
 

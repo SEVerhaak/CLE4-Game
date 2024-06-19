@@ -80,15 +80,17 @@ export class Player extends Actor {
         this.uiComponent.scale = new Vector(0.05, 0.05)
         this.uiComponent.z = 99
         this.addChild(this.uiComponent)
+
         this.nectarUI = new CurrentNectar(this.game)
-        this.nectarUI.pos = new Vector(-113, -72)
-        this.nectarUI.scale = new Vector(0.008, 0.008)
+        this.nectarUI.pos = new Vector(-110, -65)
+        this.nectarUI.scale = new Vector(0.1, 0.1)
+        //this.nectarUI.scoreText.scale = new Vector(1,1)
         this.nectarUI.z = 99
         this.addChild(this.nectarUI)
 
         this.nectarSuperUI = new CurrentSuperNectar(this.game)
-        this.nectarSuperUI.pos = new Vector(-99, -69)
-        this.nectarSuperUI.scale = new Vector(0.008, 0.008)
+        this.nectarSuperUI.pos = new Vector(-95, -63)
+        this.nectarSuperUI.scale = new Vector(0.1, 0.1)
         this.nectarSuperUI.z = 99
         this.addChild(this.nectarSuperUI)
 
