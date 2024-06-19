@@ -21,6 +21,7 @@ import { Hat } from "./hat.js";
 
 export class SombreroHat extends Hat {
     graphic = Resources.SombreroHat.toSprite();
+    icon = Resources.SombreroHat
     name
 
     constructor(x, y) {

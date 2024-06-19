@@ -21,6 +21,7 @@ import { Hat } from "./hat.js";
 
 export class ChristmasHat extends Hat {
     graphic = Resources.ChristmasHat.toSprite();
+    icon = Resources.SantaHatIcon
     name
 
     constructor(x, y) {

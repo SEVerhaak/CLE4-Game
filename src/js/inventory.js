@@ -10,8 +10,9 @@ export class Inventory extends Actor {
     game
     inventory = [];
     projectiles = [];
-    hats = [];
+    hats = [null];
     currentSelectedItemIndex = 0
+    hatIndex = 0
     activeProjectileIndex = -1
     currentSelectedProjectileSprite
     health
@@ -49,8 +50,8 @@ export class Inventory extends Actor {
             console.log(projectileObject)
             this.projectiles.push(projectileObject)
         }else if (isHat){
-            this.hats.push(item)
-            console.log(item)
+            this.hats.push(item.icon)
+            console.log(this.hats)
         } else{
             let existingItem = this.inventory.find(inventoryItem => inventoryItem.itemName === item);
 
@@ -101,6 +102,20 @@ export class Inventory extends Actor {
         }
         //this.setSprite();
         console.log(this.currentSelectedItemIndex)
+    }
+
+    setSelectedHatID(){
+        if (this.hatIndex >= this.hats.length - 1){
+            this.hatIndex = 0
+        } else{
+            this.hatIndex++
+        }
+        //this.setSprite();
+        console.log(this.hatIndex)
+    }
+
+    getSelectedHatID(){
+        return this.hatIndex
     }
 
     removeItem(itemName){

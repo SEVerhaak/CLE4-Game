@@ -293,6 +293,11 @@ export class Player extends Actor {
                 }
                 //this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.getSelectedProjectileId()])
             }
+            if (engine.input.keyboard.wasPressed(Keys.ShiftRight)) {
+                this.inventory.setSelectedHatID()
+                this.hatUI.setIcon(this.inventory.hats[this.inventory.getSelectedHatID()])
+                //this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.getSelectedProjectileId()])
+            }
 
             // Normaliseer de snelheid zodat schuin bewegen dezelfde snelheid als normaal heeft.
             if (velocity.x !== 0 || velocity.y !== 0) {

@@ -21,6 +21,7 @@ import { Hat } from "./hat.js";
 
 export class WizardHat extends Hat {
     graphic = Resources.WizardHat.toSprite();
+    icon = Resources.WizzardIcon;
     name
 
     constructor(x, y) {
