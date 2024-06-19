@@ -33,6 +33,8 @@ export class OverworldLevel extends Scene {
 
 
 
+        this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3);
+        this.add(this.enterlevel3);
 
         for (let i = 0; i < 300; i++) {
             this.flower = new Flower(this.getRandomNumber(50, 2350), this.getRandomNumber(50, 2350))
@@ -100,10 +102,10 @@ export class OverworldLevel extends Scene {
         const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
         return randomNumber;
     }
-    doorLevelHandler(nectar, supernectar){
-        if(nectar >= 10 ){
+    doorLevelHandler(nectar, supernectar) {
+        if (nectar >= 10) {
             this.enterlevel1 = new EnterLevel(2113.75, 450.16, this.game, 1);
-        this.add(this.enterlevel1);
+            this.add(this.enterlevel1);
         }
         this.enterlevel2 = new EnterLevel(1607, 2131.29, this.game, 2);
         this.add(this.enterlevel2);
