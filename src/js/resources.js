@@ -83,7 +83,8 @@ const Resources = {
     SantaHatIcon: new ImageSource('images/hat_icons/santaicon.png'),
     SombreroIcon: new ImageSource('images/hat_icons/sombreroicon.png'),
     TopHatIcon: new ImageSource('images/hat_icons/tophaticon.png'),
-    WizzardIcon: new ImageSource('images/hat_icons/wizzardicon.png')
+    WizzardIcon: new ImageSource('images/hat_icons/wizzardicon.png'),
+    Finalboss: new ImageSource('images/Endboss.png')
 
 }
 
