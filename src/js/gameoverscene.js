@@ -8,23 +8,21 @@ import { Spider } from "./enemies/Spider.js"
 export class GameOverScene extends Scene {
 
     game
-    enemy
 
-    constructor(game, enemy) {
+    constructor(game) {
         super();
         this.game = game
-        this.enemy = enemy
-        console.log(enemy)
     }
 
     onInitialize(engine) {
 
+    }
+    GameOverImageHandler(enemy) {
+        console.log(enemy)
         const gameover = new Actor()
-
-        console.log(this.enemy)
         this.game.scenes['overworld'].RestartOverWorld();
 
-        if (this.enemy instanceof Bat) {
+        if (enemy instanceof Bat) {
 
             gameover.graphics.use(Resources.GameOverBat.toSprite())
             gameover.pos = new Vector(720, 450)
@@ -32,7 +30,7 @@ export class GameOverScene extends Scene {
 
         }
 
-        else if (this.enemy instanceof Pigeon) {
+        else if (enemy instanceof Pigeon) {
 
             gameover.graphics.use(Resources.GameOverPigeon.toSprite())
             gameover.pos = new Vector(720, 450)
@@ -40,7 +38,7 @@ export class GameOverScene extends Scene {
 
         }
 
-        else if (this.enemy instanceof Phoenix) {
+        else if (enemy instanceof Phoenix) {
 
             gameover.graphics.use(Resources.GameOverPhoenix.toSprite())
             gameover.pos = new Vector(720, 450)
@@ -48,7 +46,7 @@ export class GameOverScene extends Scene {
 
         }
 
-        else if (this.enemy instanceof Spider) {
+        else if (enemy instanceof Spider) {
 
             gameover.graphics.use(Resources.GameOverSpider.toSprite())
             gameover.pos = new Vector(720, 450)
@@ -65,11 +63,7 @@ export class GameOverScene extends Scene {
         }
 
         this.add(gameover)
-
-
         setTimeout(() => { this.game.goToScene('overworld') }, 5000)
-
-
 
     }
 
