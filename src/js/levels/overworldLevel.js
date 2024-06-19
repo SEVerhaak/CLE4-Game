@@ -18,6 +18,9 @@ export class OverworldLevel extends Scene {
     enterlevel2bool
     enterlevel3bool
     enterlevel4bool
+
+    
+
     constructor(game) {
         super();
         this.game = game
@@ -27,6 +30,8 @@ export class OverworldLevel extends Scene {
         super.onInitialize(engine);
         this.FillOverWorld(engine)
         this.engine = engine;
+
+        Resources.Worldmusic.play()
 
     }
     RestartOverWorld() {
@@ -39,6 +44,8 @@ export class OverworldLevel extends Scene {
         // this.finalboss = new Finalboss(null, this.game);
         // this.finalboss.pos = new Vector(1300, 1300)
         // this.add(this.finalboss);
+        // Resources.Worldmusic.stop()
+        // Resources.Finalbossmusic.play()
 
         for (let i = 0; i < 300; i++) {
             this.flower = new Flower(this.getRandomNumber(50, 2350), this.getRandomNumber(50, 2350))

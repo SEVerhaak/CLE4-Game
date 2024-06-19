@@ -24,6 +24,8 @@ export class Level2 extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+        Resources.Worldmusic.stop()
+        Resources.Levelbossmusic.play()
 
         Resources.Level2.addToScene(this);
         this.phoenix = new Phoenix(this, this.game);

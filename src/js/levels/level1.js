@@ -24,7 +24,8 @@ export class Level1 extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
-
+        Resources.Worldmusic.stop()
+        Resources.Levelbossmusic.play()
         Resources.Level1.addToScene(this);
         this.spider = new Spider(this, this.game);
         this.spider.pos = new Vector(300, 300);

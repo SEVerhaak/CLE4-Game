@@ -27,6 +27,9 @@ export class Level3 extends Scene {
     onInitialize(engine) {
         super.onInitialize(engine);
 
+        Resources.Worldmusic.stop()
+        Resources.Levelbossmusic.play()
+
         const pickup = new ProjectilePickup(400, 425)
         this.add(pickup)
 

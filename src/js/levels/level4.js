@@ -22,6 +22,9 @@ export class Level4 extends Scene {
     onInitialize(engine) {
         super.onInitialize(engine);
 
+        Resources.Worldmusic.stop()
+        Resources.Levelbossmusic.play()
+
         Resources.Level4.addToScene(this);
         this.pigeon = new Pigeon(this, this.game);
         this.pigeon.pos = new Vector(300, 300);
