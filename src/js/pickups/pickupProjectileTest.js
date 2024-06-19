@@ -5,12 +5,12 @@ import {
 } from "excalibur";
 import {Resources} from "../resources.js";
 import {Player} from "../player.js";
-import {Pickup} from "../pickups/pickup.js";
+import {Pickup} from "./pickup.js";
 import {FireProjectile1} from "../projectiles/fireProjectile1.js";
 
 export class ProjectilePickup extends Pickup {
 
-    sprite = this.graphics.use(Resources.Nectar.toSprite())
+    sprite = Resources.Nectar
     itemName = 'fireProjectile1'
     scaleVec = new Vector(0.01, 0.01)
     isProjectile = true

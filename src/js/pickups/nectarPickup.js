@@ -19,5 +19,6 @@ export class NectarPickup extends Pickup {
         this.pos.x = x;
         this.pos.y = y;
         this.z = 99;
+
     }
 }

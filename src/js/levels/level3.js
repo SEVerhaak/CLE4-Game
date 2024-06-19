@@ -5,7 +5,7 @@ import { Bat } from "../enemies/bat.js";
 import { Door } from "../door.js";
 import { Pickup } from "../pickups/pickup.js";
 import { NectarPickup } from "../pickups/nectarPickup.js";
-import { ProjectilePickup } from "../enemies/pickupProjectileTest.js";
+import { ProjectilePickup } from "../pickups/pickupProjectileTest.js";
 import { FireProjectile2Pickup } from "../pickups/FireProjectile2Pickup.js";
 import { FireProjectile3Pickup } from "../pickups/FireProjectile3Pickup.js";
 
