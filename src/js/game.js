@@ -65,7 +65,6 @@ export class Game extends Engine {
         this.goToGameOverScene(this);
         //this.goToGameOverScene(this)
         // go to specific scene
-        this.goToScene('level3');
 
 
     }
