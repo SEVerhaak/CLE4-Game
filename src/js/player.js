@@ -454,7 +454,7 @@ export class Player extends Actor {
         }, 1000)
     }
 
-    HatHandler(hat) {
+    hatHandler(hat) {
         let hatFound = false
 
         for (let i = 0; i < this.hats.length; i++) {
