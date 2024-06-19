@@ -1,4 +1,4 @@
-import {ImageSource, Sound, Resource, Loader, FontSource} from 'excalibur'
+import { ImageSource, Sound, Resource, Loader, FontSource } from 'excalibur'
 import { TiledResource } from '@excaliburjs/plugin-tiled'
 import { StartScene } from './startScene'
 
@@ -85,7 +85,8 @@ const Resources = {
     TopHatIcon: new ImageSource('images/hat_icons/tophaticon.png'),
     WizzardIcon: new ImageSource('images/hat_icons/wizzardicon.png'),
     Transparent: new ImageSource('images/hat_icons/transparent.png'),
-    Finalboss: new ImageSource('images/Endboss.png')
+    Finalboss: new ImageSource('images/Endboss.png'),
+    SuperNectar: new ImageSource('images/superNectar.png')
 
 }
 
