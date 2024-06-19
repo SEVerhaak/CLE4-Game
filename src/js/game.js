@@ -62,12 +62,12 @@ export class Game extends Engine {
         //this.goToLevel3();
         //this.goToEndcredits();
         //this.goToEndcredits();
-        //this.goToOverWorld();
+        // this.goToOverWorld();
         //this.goToLevel3(this);
 
         //this.goToStoryScene();
-        // this.goToStoryScene();
-        this.goToStartScene();
+        this.goToStoryScene();
+        // this.goToStartScene();
     }
 
     goToOverWorld() {
@@ -112,11 +112,11 @@ export class Game extends Engine {
         this.goToScene('level2');
     }
 
-    goToStartScene(){
+    goToStartScene() {
         const startScene = new StartScene(this);
         this.add('startScene', startScene);
 
-        this.goToScene ('startScene');
+        this.goToScene('startScene');
     }
 
 
