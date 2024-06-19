@@ -53,6 +53,6 @@ export class CurrentNectar extends ScreenElement {
         value = value.toString()
         this.scoreText.text = value
         this.scoreTextBG.text = value
-        //this.game.scenes['overworld'].doorLevelHandler(value, 0);
+        this.game.scenes['overworld'].doorLevelHandler(value, 0);
     }
 }
