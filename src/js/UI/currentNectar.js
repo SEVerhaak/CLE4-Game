@@ -43,6 +43,12 @@ export class CurrentNectar extends ScreenElement {
     }
 
     setScore() {
+        setTimeout(() => {
+            this.setScore2()
+        }, 10);
+    }
+
+    setScore2() {
         let value = this.game.inventory.nectarAmount + 1
         value = value.toString()
         this.scoreText.text = value

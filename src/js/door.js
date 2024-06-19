@@ -16,7 +16,6 @@ export class Door extends Actor {
     }
     onCollisionStart(evt) {
         if (evt.other instanceof Player) {
-
             this.game.goToScene('overworld');
         }
     }

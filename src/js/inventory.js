@@ -12,6 +12,7 @@ export class Inventory extends Actor {
     inventory = [];
     projectiles = [];
     hats = [null];
+    lastHat
     currentSelectedItemIndex = 0
     hatIndex = 0
     activeProjectileIndex = -1
@@ -51,7 +52,7 @@ export class Inventory extends Actor {
             console.log(projectileObject)
             this.projectiles.push(projectileObject)
         }else if (isHat){
-            this.hats.push(item.icon)
+            this.lastHat = item
             console.log(this.hats)
         } else{
             let existingItem = this.inventory.find(inventoryItem => inventoryItem.itemName === item);
