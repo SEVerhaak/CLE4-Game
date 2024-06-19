@@ -20,16 +20,20 @@ export class EnterLevel extends Actor {
         if (evt.other instanceof Player) {
             console.log(game)
             if (level === 1) {
-                game.goToLevel1();
+                console.log('enterlevel1')
+                this.game.goToScene('level1');
             }
             if (level === 2) {
-                game.goToLevel2();
+                console.log('enterlevel2')
+                this.game.goToScene('level2');
             }
             if (level === 3) {
-                game.goToLevel3();
+                console.log('enterleve3')
+                this.game.goToScene('level3');
             }
             if (level === 4) {
-                game.goToLevel4();
+                console.log('enterleve4')
+                this.game.goToScene('level4');
             }
 
         }

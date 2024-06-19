@@ -22,6 +22,7 @@ export class GameOverScene extends Scene {
         const gameover = new Actor()
 
         console.log(this.enemy)
+        this.game.scenes['overworld'].RestartOverWorld();
 
         if (this.enemy instanceof Bat) {
 
@@ -65,8 +66,8 @@ export class GameOverScene extends Scene {
 
         this.add(gameover)
 
-    
-        setTimeout(() => { this.game.goToOverWorld() }, 10000)
+
+        setTimeout(() => { this.game.goToScene('overworld') }, 5000)
 
 
 

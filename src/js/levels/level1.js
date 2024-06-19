@@ -29,15 +29,15 @@ export class Level1 extends Scene {
         this.add(this.spider);
 
 
-        for(let i = 0; i < 50 ;i++){
+        for (let i = 0; i < 50; i++) {
             this.tinyspider = new TinySpider();
-            this.tinyspider.pos = new Vector((300+i), 350);
+            this.tinyspider.pos = new Vector((300 + i), 350);
             this.add(this.tinyspider);
 
         }
 
-        
-        
+
+
 
         this.door = new Door(301, 50, this.game);
         this.add(this.door);
@@ -53,7 +53,7 @@ export class Level1 extends Scene {
         console.log('activate')
         this.cameraDelay(this.engine)
         this.player = new Player(this.game)
-        this.player.pos = new Vector(302, 58)
+        this.player.pos = new Vector(302, 100)
         this.add(this.player)
     }
     cameraDelay(engine) {

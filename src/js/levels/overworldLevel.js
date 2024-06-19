@@ -26,7 +26,7 @@ export class OverworldLevel extends Scene {
     }
     RestartOverWorld() {
         this.clear()
-        this.FillMainScene()
+        this.FillOverWorld(this.engine)
     }
     FillOverWorld(engine) {
         Resources.MainScene.addToScene(this);
@@ -91,7 +91,7 @@ export class OverworldLevel extends Scene {
         console.log('activate')
         this.cameraDelay(this.engine)
         this.player = new Player(this.game)
-        this.player.pos = new Vector(200, 1500)
+        this.player.pos = new Vector(1300, 1200)
         this.add(this.player)
     }
     cameraDelay(engine) {

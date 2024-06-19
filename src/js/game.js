@@ -13,7 +13,6 @@ import { GameOverScene } from './gameoverscene.js';
 import { StartScene } from './startScene.js';
 import { Player } from "./player.js";
 import { Endscene } from './endscene.js';
-import { Player } from './player.js';
 
 export class Game extends Engine {
 
@@ -59,18 +58,21 @@ export class Game extends Engine {
 
     startGame() {
         console.log("start de game!")
-
+        this.goToLevel1(this);
+        this.goToLevel2(this);
+        this.goToLevel3(this);
+        this.goToLevel4(this);
         // go to specific scene
         this.goToOverWorld();
         //this.goToLevel3();
         //this.goToEndcredits();
         //this.goToEndcredits();
         //this.goToOverWorld();
-        //this.goToLevel3(this);
+        this.goToLevel3(this);
 
         //this.goToStoryScene();
         // this.goToStoryScene();
-        this.goToStartScene();
+        // this.goToStartScene();
     }
 
     goToOverWorld() {
@@ -88,34 +90,22 @@ export class Game extends Engine {
         // Create and add the new scene
         const level3 = new Level3(this);
         this.add('level3', level3);
-
-        // Go to the new scene
-        this.goToScene('level3');
     }
     goToLevel4() {
         // Create and add the new scene
         const level4 = new Level4(this);
         this.add('level4', level4);
-
-        // Go to the new scene
-        this.goToScene('level4');
     }
     goToLevel1() {
         // Create and add the new scene
         const level1 = new Level1(this);
         this.add('level1', level1);
-
-        // Go to the new scene
-        this.goToScene('level1');
     }
 
     goToLevel2() {
         // Create and add the new scene
         const level2 = new Level2(this);
         this.add('level2', level2);
-
-        // Go to the new scene
-        this.goToScene('level2');
     }
 
     goToStartScene() {
