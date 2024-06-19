@@ -1,5 +1,6 @@
 import { Actor, Animation, CollisionType, Engine, Input, Keys, range, SpriteSheet, Vector } from "excalibur";
 import { Player } from "./player";
+import { Resources, ResourceLoader } from './resources.js'
 
 export class Door extends Actor {
     game
@@ -16,7 +17,8 @@ export class Door extends Actor {
     }
     onCollisionStart(evt) {
         if (evt.other instanceof Player) {
-
+            Resources.Levelbossmusic.stop()
+            Resources.Worldmusic.play()
             this.game.goToScene('overworld');
         }
     }

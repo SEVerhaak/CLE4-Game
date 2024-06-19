@@ -85,7 +85,11 @@ const Resources = {
     TopHatIcon: new ImageSource('images/hat_icons/tophaticon.png'),
     WizzardIcon: new ImageSource('images/hat_icons/wizzardicon.png'),
     Transparent: new ImageSource('images/hat_icons/transparent.png'),
-    Finalboss: new ImageSource('images/Endboss.png')
+    Finalboss: new ImageSource('images/Endboss.png'),
+    Levelbossmusic: new Sound ('music/Levelmusic.mp3'),
+    Worldmusic: new Sound ('music/overworldmusic.mp3'),
+    Finalbossmusic: new Sound ('music/Finalbossmusic.mp3')
+    
 
 }
 

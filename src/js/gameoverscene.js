@@ -16,6 +16,8 @@ export class GameOverScene extends Scene {
 
     onInitialize(engine) {
 
+        Resources.Worldmusic.stop()
+        Resources.Levelbossmusic.stop()
     }
     
     GameOverImageHandler(enemy) {
