@@ -41,7 +41,7 @@ export class GameOverScene extends Scene {
 
             gameover.graphics.use(Resources.GameOverPhoenix.toSprite())
             gameover.pos = new Vector(720, 450)
-            gameover.scale = new Vector(1.5, 1.5)
+            gameover.scale = new Vector(2, 2)
 
         }
 
