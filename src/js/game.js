@@ -58,7 +58,7 @@ export class Game extends Engine {
         console.log("start de game!")
 
         // go to specific scene
-        //this.goToOverWorld();
+        this.goToOverWorld();
         //this.goToLevel3();
         //this.goToEndcredits();
         //this.goToEndcredits();
@@ -66,8 +66,8 @@ export class Game extends Engine {
         //this.goToLevel3(this);
 
         //this.goToStoryScene();
-        this.goToStoryScene();
-        // this.goToStartScene();
+        // this.goToStoryScene();
+        this.goToStartScene();
     }
 
     goToOverWorld() {
