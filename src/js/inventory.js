@@ -10,7 +10,9 @@ export class Inventory extends Actor {
     game
     inventory = [];
     projectiles = [];
+    hats = [null];
     currentSelectedItemIndex = 0
+    hatIndex = 0
     activeProjectileIndex = -1
     currentSelectedProjectileSprite
     health
@@ -37,7 +39,7 @@ export class Inventory extends Actor {
         this.graphics.use(this.currentSelectedProjectileSprite.toSprite())
     }
 
-    addItem(item, isProjectile, projectileIndex, projectileSprite, endFrame, player){
+    addItem(item, isProjectile, projectileIndex, projectileSprite, endFrame, isHat){
         if (isProjectile){
             let projectileObject = {
                 itemName: item,
@@ -47,18 +49,18 @@ export class Inventory extends Actor {
             }
             console.log(projectileObject)
             this.projectiles.push(projectileObject)
-        }else{
-            // Find the item in the inventory
+        }else if (isHat){
+            this.hats.push(item.icon)
+            console.log(this.hats)
+        } else{
             let existingItem = this.inventory.find(inventoryItem => inventoryItem.itemName === item);
 
             if (existingItem) {
-                // If the item exists, increment the amount
                 let itemIndex = this.inventory.findIndex(inventoryItem => inventoryItem.itemName === item);
                 //player.updateNectarScore()
                 this.nectarAmount = this.inventory[itemIndex].itemAmount
                 existingItem.itemAmount++;
             } else {
-                // If the item does not exist, add it to the inventory with itemAmount 1
                  let itemObject = {
                     itemName: item,
                     itemAmount: 1
@@ -100,6 +102,20 @@ export class Inventory extends Actor {
         }
         //this.setSprite();
         console.log(this.currentSelectedItemIndex)
+    }
+
+    setSelectedHatID(){
+        if (this.hatIndex >= this.hats.length - 1){
+            this.hatIndex = 0
+        } else{
+            this.hatIndex++
+        }
+        //this.setSprite();
+        console.log(this.hatIndex)
+    }
+
+    getSelectedHatID(){
+        return this.hatIndex
     }
 
     removeItem(itemName){

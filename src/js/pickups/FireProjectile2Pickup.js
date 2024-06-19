@@ -10,7 +10,7 @@ import {FireProjectile1} from "../projectiles/fireProjectile1.js";
 
 export class FireProjectile2Pickup extends Pickup {
 
-    sprite = this.graphics.use(Resources.Nectar.toSprite())
+    sprite = Resources.Nectar
     itemName = 'fireProjectile2'
     scaleVec = new Vector(0.015, 0.015)
     isProjectile = true

@@ -3,8 +3,8 @@ import {
     Vector,
     CollisionType
 } from "excalibur";
-import {Resources} from "../resources.js";
-import {Player} from "../player.js";
+import { Resources } from "../resources.js";
+import { Player } from "../player.js";
 
 export class Pickup extends Actor {
 
@@ -17,8 +17,8 @@ export class Pickup extends Actor {
     endFrame
     playerInstance
 
-    constructor(x,y, player ) {
-        super({ width: 8, height: 8, collisionType: CollisionType.PreventCollision});
+    constructor(x, y, player) {
+        super({ width: 8, height: 8, collisionType: CollisionType.PreventCollision });
         this.pos.x = x;
         this.pos.y = y;
         this.z = 99;
@@ -26,6 +26,7 @@ export class Pickup extends Actor {
     }
 
     onInitialize(engine) {
+        console.log(this.sprite)
         this.scale = this.scaleVec
         this.graphics.use(this.sprite.toSprite())
         this.on('collisionstart', (evt) => this.onCollisionStart(evt));
@@ -44,15 +45,15 @@ export class Pickup extends Actor {
     }
 
     onPlayerCollision(player) {
-        if (this.isProjectile){
-            if (!player.inventory.checkIfProjectileIsEquipped(this.itemName)){
+        if (this.isProjectile) {
+            if (!player.inventory.checkIfProjectileIsEquipped(this.itemName)) {
                 player.inventory.addItem(this.itemName, true, this.projectileIndex, this.projectileSprite, this.endFrame)
                 player.currentProjectileUI.setIcon(player.inventory.projectiles[player.inventory.currentSelectedItemIndex].projectileSprite, 3)
                 this.kill();
-            } else{
+            } else {
                 // item zit dan al in de inventory niks meer me doen
             }
-        } else{
+        } else {
             player.updateNectarScore();
             player.inventory.addItem(this.itemName, false)
             this.kill();
@@ -61,7 +62,7 @@ export class Pickup extends Actor {
 
     spawnDelay() {
         setTimeout(() => {
-           this.body.collisionType = CollisionType.Passive
+            this.body.collisionType = CollisionType.Passive
         }, 500);
     }
 

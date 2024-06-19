@@ -67,7 +67,14 @@ const Resources = {
     PrideHat: new ImageSource('images/Hats/prideHat.png'),
     NectarMedium: new ImageSource('images/nectarmed.png'),
     NectarSFX: new Sound('sfx/sfx_nectar.mp3'),
-    Black: new ImageSource ('images/Black.png')
+    Black: new ImageSource ('images/Black.png'),
+    GayHatIcon: new ImageSource('images/hat_icons/gayhaticon.png'),
+    GradHatIcon: new ImageSource('images/hat_icons/gradhaticon.png'),
+    SantaHatIcon: new ImageSource('images/hat_icons/santaicon.png'),
+    SombreroIcon: new ImageSource('images/hat_icons/sombreroicon.png'),
+    TopHatIcon: new ImageSource('images/hat_icons/tophaticon.png'),
+    WizzardIcon: new ImageSource('images/hat_icons/wizzardicon.png')
+
 }
 
 

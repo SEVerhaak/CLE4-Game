@@ -14,6 +14,7 @@ import { Player } from "../player.js";
 export class Hat extends Actor {
     spriteSheet
     graphic
+    icon
 
 
     constructor(x, y) {

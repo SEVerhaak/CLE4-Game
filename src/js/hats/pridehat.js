@@ -21,6 +21,7 @@ import { Hat } from "./hat.js";
 
 export class PrideHat extends Hat {
     graphic = Resources.PrideHat.toSprite();
+    icon = Resources.GayHatIcon
     name
 
     constructor(x, y) {

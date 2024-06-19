@@ -12,17 +12,16 @@ export class Level2 extends Scene {
     spider
     game
     phoenix
+    engine
 
-    constructor(game) {
+    constructor(game, engine) {
         super();
         this.game = game
+        this.engine = engine
     }
 
     onInitialize(engine) {
         super.onInitialize(engine);
-        this.player = new Player(this.game);
-        this.player.pos = new Vector(375, 135);
-        this.add(this.player);
 
         Resources.Level2.addToScene(this);
         this.phoenix = new Phoenix(this, this.game);
@@ -31,9 +30,25 @@ export class Level2 extends Scene {
 
         this.door = new Door(373, 100, this.game);
         this.add(this.door);
-
-        engine.currentScene.camera.strategy.lockToActor(this.player);
-        engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 3040, 960)); // Set the game bounds
-        engine.currentScene.camera.zoom = 4;
+    }
+    onDeactivate(context) {
+        super.onDeactivate(context)
+        console.log('deactivate')
+        this.player.kill()
+    }
+    onActivate(context) {
+        super.onActivate(context)
+        console.log('activate')
+        this.cameraDelay(this.engine)
+        this.player = new Player(this.game)
+        this.player.pos = new Vector(375, 135)
+        this.add(this.player)
+    }
+    cameraDelay(engine) {
+        setTimeout(() => {
+            engine.currentScene.camera.strategy.lockToActor(this.player);
+            engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2500, 3000)); // Set the game bounds
+            engine.currentScene.camera.zoom = 4;
+        }, 10);
     }
 }
