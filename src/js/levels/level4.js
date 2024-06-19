@@ -46,7 +46,7 @@ export class Level4 extends Scene {
     cameraDelay(engine) {
         setTimeout(() => {
             engine.currentScene.camera.strategy.lockToActor(this.player);
-            engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2500, 3000)); // Set the game bounds
+            engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(-300, -300, 2500, 3000)); // Set the game bounds
             engine.currentScene.camera.zoom = 4;
         }, 10);
     }

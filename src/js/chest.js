@@ -21,6 +21,7 @@ import { GraduationHat } from "./hats/graduationhat.js";
 import { SombreroHat } from "./hats/sombrerohat.js";
 import { WizardHat } from "./hats/wizardhat.js";
 import { PrideHat } from "./hats/pridehat.js";
+import { Bush } from "./bush.js";
 
 
 
@@ -86,7 +87,7 @@ export class Chest extends Actor {
             }
             this.chestopened = true
         }
-        if (evt.other instanceof Flower) {
+        if (evt.other instanceof Flower || evt.other instanceof Chest || evt.other instanceof Bush) {
             evt.other.kill();
         }
     }

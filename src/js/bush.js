@@ -52,7 +52,7 @@ export class Bush extends Actor {
 
 
     onCollisionStart(evt) {
-        if (evt.other instanceof Flower) {
+        if (evt.other instanceof Flower || evt.other instanceof Bush) {
             evt.other.kill();
         }
         if (evt.other instanceof Chest) {
