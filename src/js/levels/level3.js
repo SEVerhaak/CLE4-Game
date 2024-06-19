@@ -15,11 +15,13 @@ export class Level3 extends Scene {
     bat
     game
     engine
+    name
 
     constructor(game, engine) {
         super();
         this.game = game
         this.engine = engine;
+        this.name = "enterlevel3"
     }
 
     onInitialize(engine) {

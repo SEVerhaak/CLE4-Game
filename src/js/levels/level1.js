@@ -13,11 +13,13 @@ export class Level1 extends Scene {
     game
     tinyspider
     engine
+    name
 
     constructor(game, engine) {
         super();
         this.game = game
         this.engine = engine;
+        this.name = "enterlevel1"
     }
 
     onInitialize(engine) {
