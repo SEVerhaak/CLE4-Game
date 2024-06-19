@@ -71,6 +71,8 @@ export class Inventory extends Actor {
                 let itemIndex = this.inventory.findIndex(inventoryItem => inventoryItem.itemName === item);
                 //player.updateNectarScore()
                 this.nectarAmount = this.inventory[itemIndex].itemAmount
+
+                console.log(this.inventory)
             }
         }
     }
