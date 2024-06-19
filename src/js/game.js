@@ -75,6 +75,7 @@ export class Game extends Engine {
         // this.goToStoryScene();
         // this.goToStartScene();
         //this.goToStartScene();
+        this.goToEndscene();
     }
 
     goToOverWorld() {
