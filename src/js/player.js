@@ -19,6 +19,7 @@ import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
 import { SombreroHat } from "./hats/sombrerohat.js";
 import {CurrentHat} from "./UI/currentHat.js";
+import {Hat} from "./hats/hat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -75,13 +76,6 @@ export class Player extends Actor {
     onInitialize(engine) {
         super.onInitialize(engine);
 
-        try{
-            this.updateNectarScore()
-
-        } catch (e){
-
-        }
-
         //this.inventory = new Inventory(engine,0,0)
         //this.addChild(this.inventory);
         this.uiComponent = new UI(this.game)
@@ -96,6 +90,7 @@ export class Player extends Actor {
         //this.nectarUI.scoreText.scale = new Vector(1,1)
         this.nectarUI.z = 99
         this.addChild(this.nectarUI)
+        this.nectarUI.setScore();
 
         this.nectarSuperUI = new CurrentSuperNectar(this.game)
         this.nectarSuperUI.pos = new Vector(-95, -63)
@@ -103,11 +98,11 @@ export class Player extends Actor {
         this.nectarSuperUI.z = 99
         this.addChild(this.nectarSuperUI)
 
-        // this.hatUI = new CurrentHat(this.game)
-        // this.hatUI.pos = new Vector(-85, -63)
-        // this.hatUI.scale = new Vector(0.5, 0.5)
-        // this.hatUI.z = 99
-        // this.addChild(this.hatUI)
+        this.hatUI = new CurrentHat(this.game)
+        this.hatUI.pos = new Vector(-80, -66)
+        this.hatUI.scale = new Vector(0.15, 0.15)
+        this.hatUI.z = 99
+        this.addChild(this.hatUI)
 
         this.currentProjectileUI = new CurrentProjectile(this.game)
         this.currentProjectileUI.pos = new Vector(-67, -65)
@@ -130,6 +125,9 @@ export class Player extends Actor {
         this.shadow.pos = new Vector(-2, 5);
         this.shadow.graphics.opacity = 0.5
         this.addChild(this.shadow);
+
+        this.loadHats();
+
 
         this.collider.useBoxCollider(
             16,
@@ -221,7 +219,7 @@ export class Player extends Actor {
     }
 
     updateNectarScore() {
-        this.nectarUI.setScore()
+        this.nectarUI.setScore2(this.game)
     }
 
     add(accumulator, a) {
@@ -301,8 +299,7 @@ export class Player extends Actor {
                 //this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.getSelectedProjectileId()])
             }
             if (engine.input.keyboard.wasPressed(Keys.ShiftRight)) {
-                this.inventory.setSelectedHatID()
-                this.hatUI.setIcon(this.inventory.hats[this.inventory.getSelectedHatID()])
+
                 //this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.getSelectedProjectileId()])
             }
 
@@ -449,7 +446,7 @@ export class Player extends Actor {
             this.inventory.health = 1;
             this.healthBar.setHealth(1)
             this.body.collisionType = CollisionType.Active
-            console.log(this.game.scenes['GameOver'].GameOverImageHandler(enemy));
+            this.game.scenes['GameOver'].GameOverImageHandler(enemy);
             this.game.goToScene('GameOver')
         }, 1000)
     }
@@ -485,6 +482,15 @@ export class Player extends Actor {
         //this.hatChanger();
         this.addChild(this.lastHat)
 
+    }
+
+
+    loadHats(){
+        this.lastHat = this.game.inventory.lastHat
+        if (this.lastHat instanceof  Hat){
+            this.hatHandler(this.lastHat)
+            this.hatUI.setIcon(this.lastHat);
+        }
     }
 
     hatChanger() {

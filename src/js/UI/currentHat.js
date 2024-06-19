@@ -17,14 +17,7 @@ export class CurrentHat extends ScreenElement {
     }
 
     setIcon(hat){
-        console.log('kaas')
-        if (this.game.inventory.hats[this.game.inventory.getSelectedHatID()] === null || this.game.inventory.hats[this.game.inventory.getSelectedHatID()] === undefined){
-            this.graphics.use(Resources.Transparent.toSprite())
-        } else{
-            let icon = hat.icon
-            console.log(icon)
-            this.graphics.use(icon.toSprite())
-        }
-
+        let icon = hat.icon
+        this.graphics.use(icon.toSprite())
     }
 }
