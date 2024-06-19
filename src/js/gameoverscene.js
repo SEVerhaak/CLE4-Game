@@ -17,6 +17,7 @@ export class GameOverScene extends Scene {
     onInitialize(engine) {
 
     }
+    
     GameOverImageHandler(enemy) {
         console.log(enemy)
         const gameover = new Actor()

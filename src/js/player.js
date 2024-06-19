@@ -97,11 +97,11 @@ export class Player extends Actor {
         this.nectarSuperUI.z = 99
         this.addChild(this.nectarSuperUI)
 
-        this.hatUI = new CurrentHat(this.game)
-        this.hatUI.pos = new Vector(-85, -63)
-        this.hatUI.scale = new Vector(0.5, 0.5)
-        this.hatUI.z = 99
-        this.addChild(this.hatUI)
+        // this.hatUI = new CurrentHat(this.game)
+        // this.hatUI.pos = new Vector(-85, -63)
+        // this.hatUI.scale = new Vector(0.5, 0.5)
+        // this.hatUI.z = 99
+        // this.addChild(this.hatUI)
 
         this.currentProjectileUI = new CurrentProjectile(this.game)
         this.currentProjectileUI.pos = new Vector(-67, -65)
@@ -456,7 +456,7 @@ export class Player extends Actor {
             this.inventory.health = 1;
             this.healthBar.setHealth(1)
             this.body.collisionType = CollisionType.Active
-            this.game.scenes['GameOver'].GameOverImageHandler(enemy);
+            console.log(this.game.scenes['GameOver'].GameOverImageHandler(enemy));
             this.game.goToScene('GameOver')
         }, 1000)
     }
