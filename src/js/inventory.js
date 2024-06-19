@@ -5,6 +5,7 @@ import {
     CollisionType
 } from "excalibur";
 import {Resources} from "./resources.js";
+import {Transparenthat} from "./hats/transparenthat.js";
 
 export class Inventory extends Actor {
     game

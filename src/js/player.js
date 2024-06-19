@@ -18,15 +18,14 @@ import { Man } from "./enemies/man.js";
 import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
 import { SombreroHat } from "./hats/sombrerohat.js";
-import { CurrentHat } from "./UI/currentHat.js";
-import { Finalboss } from "./enemies/finalboss.js";
+import {CurrentHat} from "./UI/currentHat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
     keyPressArray = [0, 0, 0, 0];
     // speler snelheid
     playerSpeed = 100;
-    hats = [];
+    hats = [null];
     projectileSpeed = 200;
     projectileSpeedModifier = 1.2;
 
@@ -75,6 +74,13 @@ export class Player extends Actor {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+
+        try{
+            this.updateNectarScore()
+
+        } catch (e){
+
+        }
 
         //this.inventory = new Inventory(engine,0,0)
         //this.addChild(this.inventory);
@@ -203,19 +209,6 @@ export class Player extends Actor {
         if (evt.other instanceof Enemy || evt.other instanceof Man) {
             this.inventory.health -= 0.005;
             this.healthBar.reduceHealth(0.005);
-            if (this.health <= 0.01) {
-                this.graphics.use(this.animationDeath);
-                evt.other.killedOther = true;
-                //this.healthBar.kill();
-                this.body.collisionType = CollisionType.PreventCollision
-                this.TimerGameover(evt.other)
-                //this.kill();
-            }
-        }
-
-        if (evt.other instanceof Finalboss) {
-            this.inventory.health -= 0.010;
-            this.healthBar.reduceHealth(0.010);
             if (this.health <= 0.01) {
                 this.graphics.use(this.animationDeath);
                 evt.other.killedOther = true;
@@ -465,8 +458,10 @@ export class Player extends Actor {
         let hatFound = false
 
         for (let i = 0; i < this.hats.length; i++) {
-            if (this.hats[i].name === hat.name) {
-                hatFound = true;
+            if (i !== 0){
+                if (this.hats[i].name === hat.name) {
+                    hatFound = true;
+                }
             }
         }
 
@@ -474,16 +469,24 @@ export class Player extends Actor {
             hat.pos = new Vector(-0.5, -12)
             this.lastHat.kill()
             this.lastHat = hat
+            this.inventory.hatIndex++
         } else {
             if (this.lastHat) {
                 this.lastHat.kill()
             }
-            hat.pos = new Vector(-0.5, -12)
-            this.lastHat = hat
-            this.inventory.addItem(hat, null, null, null, null, true)
-            this.hats.push(hat)
-
+                hat.pos = new Vector(-0.5, -12)
+                this.lastHat = hat
+                this.inventory.addItem(hat, false, null, null, null, true)
+                this.hats.push(hat)
+                this.inventory.hatIndex++
         }
+        console.log(this.inventory.hatIndex)
+        this.hatUI.setIcon(this.lastHat);
+        //this.hatChanger();
         this.addChild(this.lastHat)
+
+    }
+
+    hatChanger() {
     }
 }
