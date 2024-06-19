@@ -13,13 +13,11 @@ export class CurrentHat extends ScreenElement {
     }
 
     onInitialize(engine) {
-        this.graphics.use(Resources.TopHat.toSprite())
+        //this.graphics.use(Resources.TopHat.toSprite())
     }
 
-    setScore(){
-        let value = this.game.inventory.nectarAmount + 1
-        value = value.toString()
-        this.scoreText.text = value
-        this.scoreTextBG.text = value
+    setIcon(hat){
+        let icon = hat.icon
+        this.graphics.use(icon.toSprite())
     }
 }

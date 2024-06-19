@@ -14,6 +14,10 @@ export class OverworldLevel extends Scene {
     player
     game
     engine
+    enterlevel1bool
+    enterlevel2bool
+    enterlevel3bool
+    enterlevel4bool
     constructor(game) {
         super();
         this.game = game
@@ -32,14 +36,9 @@ export class OverworldLevel extends Scene {
     FillOverWorld(engine) {
         Resources.MainScene.addToScene(this);
 
-
-
-        this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3);
-        this.add(this.enterlevel3);
-
-        this.finalboss = new Finalboss(null , this.game);
-        this.finalboss.pos = new Vector (1300, 1300)
-        this.add(this.finalboss);
+        // this.finalboss = new Finalboss(null, this.game);
+        // this.finalboss.pos = new Vector(1300, 1300)
+        // this.add(this.finalboss);
 
         for (let i = 0; i < 300; i++) {
             this.flower = new Flower(this.getRandomNumber(50, 2350), this.getRandomNumber(50, 2350))
@@ -108,18 +107,42 @@ export class OverworldLevel extends Scene {
         return randomNumber;
     }
     doorLevelHandler(nectar, supernectar) {
-        if (nectar >= 10) {
-            this.enterlevel1 = new EnterLevel(2113.75, 450.16, this.game, 1);
+        let allEnterLevels = this.actors.filter(actor => actor instanceof EnterLevel)
+        for (let i = 0; i < allEnterLevels.length; i++) {
+            if (allEnterLevels[i].name === 'enterlevel1') {
+                this.enterlevel1bool = true;
+            }
+            if (allEnterLevels[i].name === 'enterlevel2') {
+                this.enterlevel2bool = true;
+            }
+            if (allEnterLevels[i].name === 'enterlevel3') {
+                this.enterlevel3bool = true;
+                console.log(this.enterlevel3bool)
+            }
+            if (allEnterLevels[i].name === 'enterlevel4') {
+                this.enterlevel4bool = true;
+            }
+        }
+        if (nectar >= 10 && !this.enterlevel1bool) {
+
+            this.enterlevel1 = new EnterLevel(2113.75, 450.16, this.game, 1, 'enterlevel1');
             this.add(this.enterlevel1);
         }
-        this.enterlevel2 = new EnterLevel(1607, 2131.29, this.game, 2);
-        this.add(this.enterlevel2);
+        if (nectar >= 20 && !this.enterlevel2bool) {
 
-        this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3);
-        this.add(this.enterlevel3);
+            this.enterlevel2 = new EnterLevel(1607, 2131.29, this.game, 2, 'enterlevel2');
+            this.add(this.enterlevel2);
+        }
+        if (nectar >= 30 && !this.enterlevel3bool) {
 
-        this.enterlevel4 = new EnterLevel(287.45, 694, this.game, 4);
-        this.add(this.enterlevel4);
+            this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3, 'enterlevel3');
+            this.add(this.enterlevel3);
+        }
+        if (nectar >= 40 && !this.enterlevel4bool) {
+
+            this.enterlevel4 = new EnterLevel(287.45, 694, this.game, 4, 'enterlevel4');
+            this.add(this.enterlevel4);
+        }
     }
 
 

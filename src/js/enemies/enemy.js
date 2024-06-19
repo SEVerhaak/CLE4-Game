@@ -3,6 +3,7 @@ import { Resources, ResourceLoader } from '../resources.js'
 import { Player } from "../player.js";
 import { Healthbar } from "../UI/healthBar.js";
 import { Projectile } from "../projectiles/projectile.js";
+import { SuperNectarPickup } from "../pickups/supernectarpickup.js";
 
 export class Enemy extends Actor {
     currentAnimation
@@ -24,6 +25,7 @@ export class Enemy extends Actor {
     health = 1;
     scene
     game
+    supernectar
 
     constructor(scene, game) {
         super({
@@ -59,6 +61,9 @@ export class Enemy extends Actor {
                 this.currentAnimation = this.animationDeath
                 this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
+                this.supernectar = new SuperNectarPickup
+                this.supernectar.pos = new Vector(-10, -10)
+                this.addChild(this.supernectar);
             }
             evt.other.kill();
         }
@@ -104,8 +109,8 @@ export class Enemy extends Actor {
                     this.playerSeen = true;
                     const distanceToPlayer = this.pos.distance(actor.pos);
                     if ((distanceToPlayer <= this.detectionRadius || this.damageTaken) && !this.killedOther) {
-                        if (distanceToPlayer <= this.detectionRadius){
-                            this.damageTaken =  false;
+                        if (distanceToPlayer <= this.detectionRadius) {
+                            this.damageTaken = false;
                         }
                         this.direction = actor.pos.sub(this.pos).normalize();
                         playerPosition = actor.pos.x - this.pos.x; // Calculate player position relative to the bat
@@ -145,9 +150,9 @@ export class Enemy extends Actor {
                 }
                 this.vel = this.direction.scale(this.normalSpeed);
             }
-        } else{
-            this.vel = new Vector(0,0);
-            this.body.collisionType =  CollisionType.PreventCollision
+        } else {
+            this.vel = new Vector(0, 0);
+            this.body.collisionType = CollisionType.PreventCollision
         }
     }
 

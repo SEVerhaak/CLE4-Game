@@ -10,11 +10,13 @@ export class Level4 extends Scene {
     pigeon
     game
     engine
+    name
 
     constructor(game, engine) {
         super();
         this.game = game
         this.engine = engine
+        this.name = "enterlevel4"
     }
 
     onInitialize(engine) {

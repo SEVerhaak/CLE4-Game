@@ -84,7 +84,9 @@ const Resources = {
     SombreroIcon: new ImageSource('images/hat_icons/sombreroicon.png'),
     TopHatIcon: new ImageSource('images/hat_icons/tophaticon.png'),
     WizzardIcon: new ImageSource('images/hat_icons/wizzardicon.png'),
-    Finalboss: new ImageSource('images/Endboss.png')
+    Transparent: new ImageSource('images/hat_icons/transparent.png'),
+    Finalboss: new ImageSource('images/Endboss.png'),
+    SuperNectar: new ImageSource('images/superNectar.png')
 
 }
 

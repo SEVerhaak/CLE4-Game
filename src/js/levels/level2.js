@@ -13,11 +13,13 @@ export class Level2 extends Scene {
     game
     phoenix
     engine
+    name
 
     constructor(game, engine) {
         super();
         this.game = game
         this.engine = engine
+        this.name = "enterlevel2"
     }
 
     onInitialize(engine) {

@@ -18,14 +18,15 @@ import { Man } from "./enemies/man.js";
 import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
 import { SombreroHat } from "./hats/sombrerohat.js";
-import { CurrentHat } from "./UI/currentHat.js";
+import {CurrentHat} from "./UI/currentHat.js";
+import {Hat} from "./hats/hat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
     keyPressArray = [0, 0, 0, 0];
     // speler snelheid
     playerSpeed = 100;
-    hats = [];
+    hats = [null];
     projectileSpeed = 200;
     projectileSpeedModifier = 1.2;
 
@@ -89,6 +90,7 @@ export class Player extends Actor {
         //this.nectarUI.scoreText.scale = new Vector(1,1)
         this.nectarUI.z = 99
         this.addChild(this.nectarUI)
+        this.nectarUI.setScore();
 
         this.nectarSuperUI = new CurrentSuperNectar(this.game)
         this.nectarSuperUI.pos = new Vector(-95, -63)
@@ -97,8 +99,8 @@ export class Player extends Actor {
         this.addChild(this.nectarSuperUI)
 
         this.hatUI = new CurrentHat(this.game)
-        this.hatUI.pos = new Vector(-85, -63)
-        this.hatUI.scale = new Vector(0.5, 0.5)
+        this.hatUI.pos = new Vector(-80, -66)
+        this.hatUI.scale = new Vector(0.15, 0.15)
         this.hatUI.z = 99
         this.addChild(this.hatUI)
 
@@ -123,6 +125,9 @@ export class Player extends Actor {
         this.shadow.pos = new Vector(-2, 5);
         this.shadow.graphics.opacity = 0.5
         this.addChild(this.shadow);
+
+        this.loadHats();
+
 
         this.collider.useBoxCollider(
             16,
@@ -214,7 +219,7 @@ export class Player extends Actor {
     }
 
     updateNectarScore() {
-        this.nectarUI.setScore()
+        this.nectarUI.setScore2(this.game)
     }
 
     add(accumulator, a) {
@@ -294,8 +299,7 @@ export class Player extends Actor {
                 //this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.getSelectedProjectileId()])
             }
             if (engine.input.keyboard.wasPressed(Keys.ShiftRight)) {
-                this.inventory.setSelectedHatID()
-                this.hatUI.setIcon(this.inventory.hats[this.inventory.getSelectedHatID()])
+
                 //this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.getSelectedProjectileId()])
             }
 
@@ -447,12 +451,14 @@ export class Player extends Actor {
         }, 1000)
     }
 
-    HatHandler(hat) {
+    hatHandler(hat) {
         let hatFound = false
 
         for (let i = 0; i < this.hats.length; i++) {
-            if (this.hats[i].name === hat.name) {
-                hatFound = true;
+            if (i !== 0){
+                if (this.hats[i].name === hat.name) {
+                    hatFound = true;
+                }
             }
         }
 
@@ -460,16 +466,33 @@ export class Player extends Actor {
             hat.pos = new Vector(-0.5, -12)
             this.lastHat.kill()
             this.lastHat = hat
+            this.inventory.hatIndex++
         } else {
             if (this.lastHat) {
                 this.lastHat.kill()
             }
-            hat.pos = new Vector(-0.5, -12)
-            this.lastHat = hat
-            this.inventory.addItem(hat, null, null, null, null, true)
-            this.hats.push(hat)
-
+                hat.pos = new Vector(-0.5, -12)
+                this.lastHat = hat
+                this.inventory.addItem(hat, false, null, null, null, true)
+                this.hats.push(hat)
+                this.inventory.hatIndex++
         }
+        console.log(this.inventory.hatIndex)
+        this.hatUI.setIcon(this.lastHat);
+        //this.hatChanger();
         this.addChild(this.lastHat)
+
+    }
+
+
+    loadHats(){
+        this.lastHat = this.game.inventory.lastHat
+        if (this.lastHat instanceof  Hat){
+            this.hatHandler(this.lastHat)
+            this.hatUI.setIcon(this.lastHat);
+        }
+    }
+
+    hatChanger() {
     }
 }

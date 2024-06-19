@@ -5,12 +5,14 @@ import {
     CollisionType
 } from "excalibur";
 import {Resources} from "./resources.js";
+import {Transparenthat} from "./hats/transparenthat.js";
 
 export class Inventory extends Actor {
     game
     inventory = [];
     projectiles = [];
     hats = [null];
+    lastHat
     currentSelectedItemIndex = 0
     hatIndex = 0
     activeProjectileIndex = -1
@@ -50,7 +52,7 @@ export class Inventory extends Actor {
             console.log(projectileObject)
             this.projectiles.push(projectileObject)
         }else if (isHat){
-            this.hats.push(item.icon)
+            this.lastHat = item
             console.log(this.hats)
         } else{
             let existingItem = this.inventory.find(inventoryItem => inventoryItem.itemName === item);
@@ -69,6 +71,8 @@ export class Inventory extends Actor {
                 let itemIndex = this.inventory.findIndex(inventoryItem => inventoryItem.itemName === item);
                 //player.updateNectarScore()
                 this.nectarAmount = this.inventory[itemIndex].itemAmount
+
+                console.log(this.inventory)
             }
         }
     }

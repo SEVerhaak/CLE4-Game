@@ -4,12 +4,14 @@ import { Resources } from "./resources";
 
 export class EnterLevel extends Actor {
     game
-    constructor(x, y, game, level) {
+    name
+    constructor(x, y, game, level, name) {
         super({
             width: 24, height: 20, collisionType: CollisionType.Passive, z: 30, x: x, y: y
         });
         this.game = game;
         this.level = level;
+        this.name = name;
     }
 
     onInitialize(engine) {

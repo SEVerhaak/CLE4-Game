@@ -8,7 +8,7 @@ export class Finalboss extends Actor {
     currentAnimation = null;
     detectionRadius = 5000; // Radius to detect the player
     attackradius = 30;
-    normalSpeed = 50; // Normal movement speed
+    normalSpeed = 80; // Normal movement speed
     attackSpeed = 80; // Movement speed when attacking
 
     playerSeen
@@ -28,7 +28,7 @@ export class Finalboss extends Actor {
         super({
             width: 5, height: 5, collisionType: CollisionType.Active, z: 20
         });
-        this.scale = new Vector(1, 1);
+        this.scale = new Vector(1.5, 1.5);
         this.direction = new Vector(0, 0);
         this.changeDirectionInterval = 2000;
         this.timeSinceLastChange = 0;
@@ -82,8 +82,8 @@ export class Finalboss extends Actor {
 
     onCollisionStart(evt) {
         if (evt.other instanceof Projectile) {
-            this.health -= evt.other.damage;
-            this.healthBar.reduceHealth(evt.other.damage);
+            this.health -= evt.other.damage/3;
+            this.healthBar.reduceHealth(evt.other.damage/3);
             this.graphics.use(this.animationHurt);
             this.damageTaken = true
             console.log(this.health)
