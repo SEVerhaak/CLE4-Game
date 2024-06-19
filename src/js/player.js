@@ -18,6 +18,7 @@ import { Man } from "./enemies/man.js";
 import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
 import { SombreroHat } from "./hats/sombrerohat.js";
+import {CurrentHat} from "./UI/currentHat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -58,6 +59,7 @@ export class Player extends Actor {
     nectarUI
     nectarSuperUI
     currentProjectileUI
+    hatUI
 
 
     constructor(game) {
@@ -93,6 +95,12 @@ export class Player extends Actor {
         this.nectarSuperUI.scale = new Vector(0.1, 0.1)
         this.nectarSuperUI.z = 99
         this.addChild(this.nectarSuperUI)
+
+        this.hatUI = new CurrentHat(this.game)
+        this.hatUI.pos = new Vector(-85, -63)
+        this.hatUI.scale = new Vector(0.5, 0.5)
+        this.hatUI.z = 99
+        this.addChild(this.hatUI)
 
         this.currentProjectileUI = new CurrentProjectile(this.game)
         this.currentProjectileUI.pos = new Vector(-67, -65)
@@ -199,7 +207,8 @@ export class Player extends Actor {
                 evt.other.killedOther = true;
                 //this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
-                this.TimerGameover(evt.other);
+                this.TimerGameover(evt.other)
+                //this.kill();
             }
         }
     }
@@ -414,10 +423,6 @@ export class Player extends Actor {
         }
     }
 
-    onDeath() {
-
-    }
-
     resetShootTimer() {
         setTimeout(() => {
             this.canShoot = true; // Reset the flag after 500ms
@@ -435,15 +440,17 @@ export class Player extends Actor {
             this.game.goToGameOverScene(enemy);
         }, 1000)
     }
+
     HatHandler(hat) {
         let hatFound = false
+
         for (let i = 0; i < this.hats.length; i++) {
             if (this.hats[i].name === hat.name) {
                 hatFound = true;
             }
         }
-        if (hatFound) {
 
+        if (hatFound) {
             hat.pos = new Vector(-0.5, -12)
             this.lastHat.kill()
             this.lastHat = hat
@@ -453,6 +460,7 @@ export class Player extends Actor {
             }
             hat.pos = new Vector(-0.5, -12)
             this.lastHat = hat
+            this.inventory.addItem(hat, null, null,null,null,true)
             this.hats.push(hat)
 
         }
