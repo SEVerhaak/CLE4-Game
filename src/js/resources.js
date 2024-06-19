@@ -1,4 +1,4 @@
-import {ImageSource, Sound, Resource, Loader, FontSource} from 'excalibur'
+import { ImageSource, Sound, Resource, Loader, FontSource } from 'excalibur'
 import { TiledResource } from '@excaliburjs/plugin-tiled'
 import { StartScene } from './startScene'
 
@@ -24,11 +24,21 @@ const Resources = {
     tinySpider: new ImageSource('images/Spider_Sprite_Sheet.png'),
     Phoenix: new ImageSource('images/Phoenix_SpriteSheet_1.png'),
     Nectar: new ImageSource('images/nectar.png'),
-    Level4: new TiledResource('images/Level_4.tmx'),
-    Level3: new TiledResource('images/Level_3.tmx'),
-    Level2: new TiledResource('images/Level_2.tmx'),
-    Level1: new TiledResource('images/Level_1.tmx'),
-    MainScene: new TiledResource('images/mainScene_test.tmx'),
+    Level4: new TiledResource('images/Level_4.tmx', {
+        useMapBackgroundColor: true
+    }),
+    Level3: new TiledResource('images/Level_3.tmx', {
+        useMapBackgroundColor: true
+    }),
+    Level2: new TiledResource('images/Level_2.tmx', {
+        useMapBackgroundColor: true
+    }),
+    Level1: new TiledResource('images/Level_1.tmx', {
+        useMapBackgroundColor: true
+    }),
+    MainScene: new TiledResource('images/mainScene_test.tmx', {
+        useMapBackgroundColor: true
+    }),
     Shadow: new ImageSource('images/shadow.png'),
     Endcredits: new ImageSource('images/aftitelingHeemraadsHive.png'),
     FireProjectile3: new ImageSource('images/projectile/projectile3.png'),
@@ -67,13 +77,14 @@ const Resources = {
     PrideHat: new ImageSource('images/Hats/prideHat.png'),
     NectarMedium: new ImageSource('images/nectarmed.png'),
     NectarSFX: new Sound('sfx/sfx_nectar.mp3'),
-    Black: new ImageSource ('images/Black.png'),
+    Black: new ImageSource('images/Black.png'),
     GayHatIcon: new ImageSource('images/hat_icons/gayhaticon.png'),
     GradHatIcon: new ImageSource('images/hat_icons/gradhaticon.png'),
     SantaHatIcon: new ImageSource('images/hat_icons/santaicon.png'),
     SombreroIcon: new ImageSource('images/hat_icons/sombreroicon.png'),
     TopHatIcon: new ImageSource('images/hat_icons/tophaticon.png'),
-    WizzardIcon: new ImageSource('images/hat_icons/wizzardicon.png')
+    WizzardIcon: new ImageSource('images/hat_icons/wizzardicon.png'),
+    Finalboss: new ImageSource('images/Endboss.png')
 
 }
 
