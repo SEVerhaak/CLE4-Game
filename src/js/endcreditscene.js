@@ -31,7 +31,7 @@ export class EndcreditScene extends Scene {
 
     onPreUpdate(){
         if (this.endcredit.pos.y < -2600) {  
-            this.game.goToOverWorld();  
+            this.game.goToStartScene();  
         }
     }
 

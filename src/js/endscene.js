@@ -1,7 +1,7 @@
 import { BoundingBox, Scene, Vector, Actor,} from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 
-export class StoryScene extends Scene {
+export class Endscene extends Scene {
     game
     storyscene1
 
@@ -14,22 +14,27 @@ export class StoryScene extends Scene {
     
 
     onInitialize(engine) {
+        console.log('eindscenetijd')
         this.endscene = new Actor()
-        Resources.Introscenesound.play()
-        this.endscene.graphics.use(Resources.StoryScene1.toSprite())
+        this.endscene.graphics.use(Resources.EndScene.toSprite())
         this.endscene.pos = new Vector(720, 450)
         this.endscene.scale = new Vector (10, 10)
         this.add(this.endscene)
+
+        setTimeout(() => {this.endscene.actions.fade(0, 2000)}, 5000) 
         
-        setTimeout(() => { this.game.goToOverWorld()}, 57000) 
+        setTimeout(() => { this.game.goToEndcredits()}, 7000) 
         
         
+        
+
+
         
 
     }
     onPreUpdate(){
 
-        setTimeout(() => {this.endscene.opacity--}, 500) 
+        
 
         
     }      

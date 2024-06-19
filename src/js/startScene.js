@@ -18,13 +18,10 @@ export class StartScene extends Scene {
         startScene.scale = new Vector(3.4, 3.4)
         this.add(startScene)
 
+        setTimeout(() => { this.game.goToStoryScene() }, 5000)
 
-        engine.input.keyboard.on('press', (evt) => {
-          if (evt.key === Input.Keys.Space) {
-              this.game.goToStoryScene();
-                
-           }
-        }); 
+
+
     }
 
 }

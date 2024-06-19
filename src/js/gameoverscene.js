@@ -21,6 +21,8 @@ export class GameOverScene extends Scene {
 
         const gameover = new Actor()
 
+        console.log(this.enemy)
+
         if (this.enemy instanceof Bat) {
 
             gameover.graphics.use(Resources.GameOverBat.toSprite())
