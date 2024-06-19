@@ -17,14 +17,14 @@ import { CurrentProjectile } from "./UI/currentProjectile.js";
 import { Man } from "./enemies/man.js";
 import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
-import { SombreroHat} from "./hats/sombrerohat.js";
+import { SombreroHat } from "./hats/sombrerohat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
     keyPressArray = [0, 0, 0, 0];
     // speler snelheid
     playerSpeed = 100;
-
+    hats = [];
     projectileSpeed = 200;
     projectileSpeedModifier = 1.2;
 
@@ -80,15 +80,17 @@ export class Player extends Actor {
         this.uiComponent.scale = new Vector(0.05, 0.05)
         this.uiComponent.z = 99
         this.addChild(this.uiComponent)
+
         this.nectarUI = new CurrentNectar(this.game)
-        this.nectarUI.pos = new Vector(-113, -72)
-        this.nectarUI.scale = new Vector(0.008, 0.008)
+        this.nectarUI.pos = new Vector(-110, -65)
+        this.nectarUI.scale = new Vector(0.1, 0.1)
+        //this.nectarUI.scoreText.scale = new Vector(1,1)
         this.nectarUI.z = 99
         this.addChild(this.nectarUI)
 
         this.nectarSuperUI = new CurrentSuperNectar(this.game)
-        this.nectarSuperUI.pos = new Vector(-99, -69)
-        this.nectarSuperUI.scale = new Vector(0.008, 0.008)
+        this.nectarSuperUI.pos = new Vector(-95, -63)
+        this.nectarSuperUI.scale = new Vector(0.1, 0.1)
         this.nectarSuperUI.z = 99
         this.addChild(this.nectarSuperUI)
 
@@ -185,7 +187,7 @@ export class Player extends Actor {
         this.graphics.use(this.animationIdleRight);
         this.on('precollision', (evt) => this.onCollisionStart(evt));
 
-        this.health =  this.inventory.health
+        this.health = this.inventory.health
     }
 
     onCollisionStart(evt) {
@@ -197,12 +199,12 @@ export class Player extends Actor {
                 evt.other.killedOther = true;
                 //this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
-                this.timerOverWorld(evt.other);
+                this.TimerGameover(evt.other);
             }
         }
     }
 
-    updateNectarScore(){
+    updateNectarScore() {
         this.nectarUI.setScore()
     }
 
@@ -412,7 +414,7 @@ export class Player extends Actor {
         }
     }
 
-    onDeath(){
+    onDeath() {
 
     }
 
@@ -435,9 +437,8 @@ export class Player extends Actor {
     }
     HatHandler(hat) {
         let hatFound = false
-        console.log(this.hats.includes(hat))
         for (let i = 0; i < this.hats.length; i++) {
-            if (this.hats[i] === hat) {
+            if (this.hats[i].name === hat.name) {
                 hatFound = true;
             }
         }
@@ -455,7 +456,6 @@ export class Player extends Actor {
             this.hats.push(hat)
 
         }
-        console.log(this.hats)
         this.addChild(this.lastHat)
     }
 }

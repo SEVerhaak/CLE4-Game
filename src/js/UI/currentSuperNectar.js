@@ -16,29 +16,30 @@ export class CurrentSuperNectar extends ScreenElement {
     onInitialize(engine) {
         this.scoreTextBG = new Label({
             text: '0',
-            pos: new Vector(660, 1060),
+            pos: new Vector(25, 35),
             font: Resources.PixelFont.toFont({
                 unit: FontUnit.Px,
-                size: 900,
+                size: 60,
                 color: Color.Black
             })
         })
         this.scoreTextBG.z = 998
         this.addChild(this.scoreTextBG)
 
-        this.graphics.use(Resources.Nectar.toSprite())
+        this.graphics.use(Resources.NectarMedium.toSprite())
 
         this.scoreText = new Label({
             text: '0',
-            pos: new Vector(700, 1100),
+            pos: new Vector(25, 40),
             font: Resources.PixelFont.toFont({
                 unit: FontUnit.Px,
-                size: 900,
+                size: 60,
                 color: Color.White
             })
         })
         this.scoreText.z = 999
         this.addChild(this.scoreText)
+
 
     }
 
