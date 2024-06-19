@@ -16,6 +16,7 @@ export class Pickup extends Actor {
     projectileSprite
     endFrame
     playerInstance
+    isSuperNectar = false;
 
     constructor(x, y, player) {
         super({ width: 8, height: 8, collisionType: CollisionType.PreventCollision });
@@ -53,7 +54,12 @@ export class Pickup extends Actor {
             } else {
                 // item zit dan al in de inventory niks meer me doen
             }
-        } else {
+        } else if (this.isSuperNectar) {
+            console.log('suPernectar opgepakt')
+            this.kill()
+            player.inventory.addItem(this.itemName, false)
+        }
+        else {
             player.updateNectarScore();
             player.inventory.addItem(this.itemName, false)
             this.kill();
