@@ -13,13 +13,18 @@ export class CurrentHat extends ScreenElement {
     }
 
     onInitialize(engine) {
-        this.graphics.use(Resources.TopHat.toSprite())
+        //this.graphics.use(Resources.TopHat.toSprite())
     }
 
-    setScore(){
-        let value = this.game.inventory.nectarAmount + 1
-        value = value.toString()
-        this.scoreText.text = value
-        this.scoreTextBG.text = value
+    setIcon(hat){
+        console.log('kaas')
+        if (this.game.inventory.hats[this.game.inventory.getSelectedHatID()] === null || this.game.inventory.hats[this.game.inventory.getSelectedHatID()] === undefined){
+            this.graphics.use(Resources.Transparent.toSprite())
+        } else{
+            let icon = hat.icon
+            console.log(icon)
+            this.graphics.use(icon.toSprite())
+        }
+
     }
 }

@@ -26,7 +26,6 @@ export class Hat extends Actor {
     onInitialize(engine) {
         //this.sprite = this.graphics.use(Resources.Nectar.toSprite())
         // this.animation = Animation.fromSpriteSheet(this.spriteSheet, range(0, 0), this.delay, this.animStrat);
-        console.log(this.graphic)
         this.graphics.use(this.graphic)
         this.on('collisionstart', (evt) => this.onCollisionStart(evt));
     }
@@ -37,7 +36,7 @@ export class Hat extends Actor {
     onCollisionStart(evt) {
         if (evt.other instanceof Player) {
             this.kill();
-            evt.other.HatHandler(this)
+            evt.other.hatHandler(this)
         }
     }
 }
