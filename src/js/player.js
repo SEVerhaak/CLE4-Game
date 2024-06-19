@@ -19,6 +19,7 @@ import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
 import { SombreroHat } from "./hats/sombrerohat.js";
 import { CurrentHat } from "./UI/currentHat.js";
+import { Finalboss } from "./enemies/finalboss.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -202,6 +203,19 @@ export class Player extends Actor {
         if (evt.other instanceof Enemy || evt.other instanceof Man) {
             this.inventory.health -= 0.005;
             this.healthBar.reduceHealth(0.005);
+            if (this.health <= 0.01) {
+                this.graphics.use(this.animationDeath);
+                evt.other.killedOther = true;
+                //this.healthBar.kill();
+                this.body.collisionType = CollisionType.PreventCollision
+                this.TimerGameover(evt.other)
+                //this.kill();
+            }
+        }
+
+        if (evt.other instanceof Finalboss) {
+            this.inventory.health -= 0.010;
+            this.healthBar.reduceHealth(0.010);
             if (this.health <= 0.01) {
                 this.graphics.use(this.animationDeath);
                 evt.other.killedOther = true;
