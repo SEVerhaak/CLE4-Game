@@ -3,9 +3,9 @@ import {
     Vector,
     CollisionType
 } from "excalibur";
-import {Resources} from "../resources.js";
-import {Player} from "../player.js";
-import {Pickup} from "./pickup.js";
+import { Resources } from "../resources.js";
+import { Player } from "../player.js";
+import { Pickup } from "./pickup.js";
 
 export class NectarPickup extends Pickup {
 
@@ -13,8 +13,8 @@ export class NectarPickup extends Pickup {
     itemName = 'Nectar'
     scaleVec = new Vector(1, 1)
 
-    constructor(x,y) {
-        super({ width: 16, height: 16, collisionType: CollisionType.Passive});
+    constructor(x, y) {
+        super({ width: 16, height: 16, collisionType: CollisionType.Passive });
         //this.scale = new Vector(0.005, 0.005);
         this.pos.x = x;
         this.pos.y = y;

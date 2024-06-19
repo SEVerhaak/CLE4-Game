@@ -12,7 +12,7 @@ export class OverworldLevel extends Scene {
 
     player
     game
-
+    engine
     constructor(game) {
         super();
         this.game = game
@@ -20,7 +20,15 @@ export class OverworldLevel extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+        this.FillOverWorld(engine)
+        this.engine = engine;
 
+    }
+    RestartOverWorld() {
+        this.clear()
+        this.FillMainScene()
+    }
+    FillOverWorld(engine) {
         Resources.MainScene.addToScene(this);
 
 
@@ -36,7 +44,7 @@ export class OverworldLevel extends Scene {
         this.enterlevel4 = new EnterLevel(287.45, 694, this.game, 4);
         this.add(this.enterlevel4);
 
-        for (let i = 0; i < 200; i++) {
+        for (let i = 0; i < 1000; i++) {
 
             this.flower = new Flower(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400), this.game)
 
@@ -75,19 +83,27 @@ export class OverworldLevel extends Scene {
 
             this.add(this.man);
         }
-        this.player = new Player(this.game);
-        this.player.pos = new Vector(200, 1500);
-        this.add(this.player);
-
-
-        engine.currentScene.camera.strategy.lockToActor(this.player);
-        engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2500, 3000)); // Set the game bounds
-        engine.currentScene.camera.zoom = 4;
 
     }
-
+    onDeactivate(context) {
+        super.onDeactivate(context)
+        console.log('deactivate')
+        this.player.kill()
+    }
     onActivate(context) {
-
+        super.onActivate(context)
+        console.log('activate')
+        this.cameraDelay(this.engine)
+        this.player = new Player(this.game)
+        this.player.pos = new Vector(200, 1500)
+        this.add(this.player)
+    }
+    cameraDelay(engine) {
+        setTimeout(() => {
+            engine.currentScene.camera.strategy.lockToActor(this.player);
+            engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2500, 3000)); // Set the game bounds
+            engine.currentScene.camera.zoom = 4;
+        }, 10);
     }
     getRandomNumber(min, max) {
         // Controleer of de invoerwaarden geldig zijn
