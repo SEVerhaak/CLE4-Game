@@ -113,7 +113,7 @@ export class OverworldLevel extends Scene {
         const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
         return randomNumber;
     }
-    doorLevelHandler(nectar, supernectar) {
+    doorLevelHandler() {
         let allEnterLevels = this.actors.filter(actor => actor instanceof EnterLevel)
         for (let i = 0; i < allEnterLevels.length; i++) {
             if (allEnterLevels[i].name === 'enterlevel1') {
@@ -130,7 +130,7 @@ export class OverworldLevel extends Scene {
                 this.enterlevel4bool = true;
             }
         }
-        if (nectar >= 10 && !this.enterlevel1bool) {
+        if (this.game.inventory.nectarAmount >= 10 && !this.enterlevel1bool) {
 
             this.enterlevel1 = new EnterLevel(2113.75, 450.16, this.game, 1, 'enterlevel1');
             this.add(this.enterlevel1);
