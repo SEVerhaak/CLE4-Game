@@ -23,13 +23,12 @@ export class Flower extends Actor {
     glow
     game
 
-    constructor(x, y, game) {
+    constructor(x, y) {
         super({
             width: 32, height: 32, collisionType: CollisionType.Passive, x: x, y: y
         });
         this.scale = new Vector(0.5, 0.5);
         this.z = 80
-        this.game = game
     }
 
     onInitialize(engine) {
@@ -136,11 +135,4 @@ export class Flower extends Actor {
             this.removeChild(emitter)
         }, 200);
     }
-
-
-    onPreUpdate(engine, delta) {
-
-    }
-
-
 }

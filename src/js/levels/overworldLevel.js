@@ -44,17 +44,13 @@ export class OverworldLevel extends Scene {
         this.enterlevel4 = new EnterLevel(287.45, 694, this.game, 4);
         this.add(this.enterlevel4);
 
-        for (let i = 0; i < 1000; i++) {
-
-            this.flower = new Flower(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400), this.game)
-
+        for (let i = 0; i < 300; i++) {
+            this.flower = new Flower(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
             this.add(this.flower);
         }
 
         for (let i = 0; i < 100; i++) {
-
             this.bush = new Bush(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
-
             this.add(this.bush);
         }
 

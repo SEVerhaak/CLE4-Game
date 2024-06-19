@@ -11,6 +11,7 @@ import { StoryScene } from './storyscene.js';
 import { Inventory } from "./inventory.js";
 import { GameOverScene } from './gameoverscene.js';
 import { StartScene } from './startScene.js';
+import { Player } from "./player.js";
 import { Endscene } from './endscene.js';
 import { Player } from './player.js';
 
@@ -60,12 +61,12 @@ export class Game extends Engine {
         console.log("start de game!")
 
         // go to specific scene
-        //this.goToOverWorld();
+        this.goToOverWorld();
         //this.goToLevel3();
         //this.goToEndcredits();
         //this.goToEndcredits();
-        // this.goToOverWorld();
-        //this.goToLevel1(this);
+        //this.goToOverWorld();
+        //this.goToLevel3(this);
 
         //this.goToStoryScene();
         // this.goToStoryScene();
@@ -73,7 +74,7 @@ export class Game extends Engine {
     }
 
     goToOverWorld() {
-       
+
         // Create and add the new scene
         const overWorldScene = new OverworldLevel(this);
 
