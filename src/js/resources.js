@@ -45,6 +45,7 @@ const Resources = {
     StoryScene3: new ImageSource('images/Story/StoryScene3.png'),
     StoryScene4: new ImageSource('images/Story/StoryScene4.png'),
     StoryScene5: new ImageSource('images/Story/StoryScene5.png'),
+    EndScene: new ImageSource('images/Story/endscene.png'),
     Man1: new ImageSource('images/Player.png'),
     Man2: new ImageSource('images/Player 1.png'),
     Man3: new ImageSource('images/Player 2.png'),
