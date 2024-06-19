@@ -7,6 +7,7 @@ import { noFlower } from "../noflowers.js";
 import { Chest } from "../chest.js";
 import { Bush } from "../bush.js";
 import { Man } from "../enemies/man.js";
+import { Finalboss } from "../enemies/finalboss.js";
 
 export class OverworldLevel extends Scene {
 
@@ -43,6 +44,10 @@ export class OverworldLevel extends Scene {
 
         this.enterlevel4 = new EnterLevel(287.45, 694, this.game, 4);
         this.add(this.enterlevel4);
+
+        this.finalboss = new Finalboss(null , this.game);
+        this.finalboss.pos = new Vector (1300, 1300)
+        this.add(this.finalboss);
 
         for (let i = 0; i < 300; i++) {
             this.flower = new Flower(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
