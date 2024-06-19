@@ -16,6 +16,8 @@ import { Resources, ResourceLoader } from './resources.js'
 import {Glow} from "./glow.js";
 import {Player} from "./player.js";
 import {NectarPickup} from "./pickups/nectarPickup.js";
+import { Bush } from "./bush.js";
+import { Chest } from "./chest.js";
 
 
 export class Flower extends Actor {
@@ -104,6 +106,9 @@ export class Flower extends Actor {
                     this.removeChild(this.glow)
                 }
             }
+        }if(evt.other instanceof Chest || evt.other instanceof Bush || evt.other instanceof Flower){
+            this.kill()
+            evt.other.kill()
         }
     }
 

@@ -32,25 +32,15 @@ export class OverworldLevel extends Scene {
         Resources.MainScene.addToScene(this);
 
 
-        this.enterlevel1 = new EnterLevel(2113.75, 450.16, this.game, 1);
-        this.add(this.enterlevel1);
 
-        this.enterlevel2 = new EnterLevel(1607, 2131.29, this.game, 2);
-        this.add(this.enterlevel2);
-
-        this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3);
-        this.add(this.enterlevel3);
-
-        this.enterlevel4 = new EnterLevel(287.45, 694, this.game, 4);
-        this.add(this.enterlevel4);
 
         for (let i = 0; i < 300; i++) {
-            this.flower = new Flower(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
+            this.flower = new Flower(this.getRandomNumber(50, 2350), this.getRandomNumber(50, 2350))
             this.add(this.flower);
         }
 
         for (let i = 0; i < 100; i++) {
-            this.bush = new Bush(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
+            this.bush = new Bush(this.getRandomNumber(50, 2350), this.getRandomNumber(50, 2350))
             this.add(this.bush);
         }
 
@@ -67,7 +57,7 @@ export class OverworldLevel extends Scene {
 
         for (let i = 0; i < 50; i++) {
 
-            this.chest = new Chest(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
+            this.chest = new Chest(this.getRandomNumber(50, 2350), this.getRandomNumber(50, 2350))
 
             this.add(this.chest);
         }
@@ -75,7 +65,7 @@ export class OverworldLevel extends Scene {
         for (let i = 0; i < 10; i++) {
 
             this.man = new Man(null, this.game)
-            this.man.pos = new Vector(this.getRandomNumber(0, 2400), this.getRandomNumber(0, 2400))
+            this.man.pos = new Vector(this.getRandomNumber(50, 2350), this.getRandomNumber(50, 2350))
 
             this.add(this.man);
         }
@@ -97,7 +87,7 @@ export class OverworldLevel extends Scene {
     cameraDelay(engine) {
         setTimeout(() => {
             engine.currentScene.camera.strategy.lockToActor(this.player);
-            engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(0, 0, 2500, 3000)); // Set the game bounds
+            engine.currentScene.camera.strategy.limitCameraBounds(new BoundingBox(-600, -600, 3000, 3000)); // Set the game bounds
             engine.currentScene.camera.zoom = 4;
         }, 10);
     }
@@ -109,6 +99,20 @@ export class OverworldLevel extends Scene {
         // Genereer een willekeurig getal tussen min en max (inclusief)
         const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
         return randomNumber;
+    }
+    doorLevelHandler(nectar, supernectar){
+        if(nectar >= 10 ){
+            this.enterlevel1 = new EnterLevel(2113.75, 450.16, this.game, 1);
+        this.add(this.enterlevel1);
+        }
+        this.enterlevel2 = new EnterLevel(1607, 2131.29, this.game, 2);
+        this.add(this.enterlevel2);
+
+        this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3);
+        this.add(this.enterlevel3);
+
+        this.enterlevel4 = new EnterLevel(287.45, 694, this.game, 4);
+        this.add(this.enterlevel4);
     }
 
 
