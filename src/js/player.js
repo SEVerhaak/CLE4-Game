@@ -18,7 +18,7 @@ import { Man } from "./enemies/man.js";
 import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
 import { SombreroHat } from "./hats/sombrerohat.js";
-import {CurrentHat} from "./UI/currentHat.js";
+import { CurrentHat } from "./UI/currentHat.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -442,7 +442,8 @@ export class Player extends Actor {
             this.inventory.health = 1;
             this.healthBar.setHealth(1)
             this.body.collisionType = CollisionType.Active
-            this.game.goToGameOverScene(enemy);
+            this.game.scenes['GameOver'].GameOverImageHandler(enemy);
+            this.game.goToScene('GameOver')
         }, 1000)
     }
 
@@ -465,7 +466,7 @@ export class Player extends Actor {
             }
             hat.pos = new Vector(-0.5, -12)
             this.lastHat = hat
-            this.inventory.addItem(hat, null, null,null,null,true)
+            this.inventory.addItem(hat, null, null, null, null, true)
             this.hats.push(hat)
 
         }
