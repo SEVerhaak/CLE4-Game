@@ -45,7 +45,7 @@ export class Level2 extends Scene {
         console.log('activate')
         this.cameraDelay(this.engine)
         this.player = new Player(this.game)
-        this.player.pos = new Vector(375, 135)
+        this.player.pos = new Vector(375, 160)
         this.add(this.player)
         Resources.Levelbossmusic.play()
 

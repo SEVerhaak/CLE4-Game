@@ -59,9 +59,11 @@ export class Pickup extends Actor {
             this.kill()
             player.inventory.addItem(this.itemName, false)
             player.updateNectarScore();
+            player.updateTaskBar()
         }
         else {
             player.updateNectarScore();
+            player.taskBarUI.updateTasks();
             player.inventory.addItem(this.itemName, false)
             this.kill();
         }

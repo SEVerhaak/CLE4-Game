@@ -19,6 +19,7 @@ import {CurrentHat} from "./UI/currentHat.js";
 import {Hat} from "./hats/hat.js";
 import {TaskbarUI} from "./UI/taskbarUI.js";
 import {Pickup} from "./pickups/pickup.js";
+import { Finalboss } from "./enemies/finalboss.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -105,15 +106,15 @@ export class Player extends Actor {
         this.addChild(this.hatUI)
 
         this.taskBarUI = new TaskbarUI(this.game)
-        this.taskBarUI.pos = new Vector(40, -70)
-        this.taskBarUI.scale = new Vector(0.2,0.2)
+        this.taskBarUI.pos = new Vector(40, -62)
+        this.taskBarUI.scale = new Vector(0.05,0.05)
+        this.taskBarUI.z = 99
         this.addChild(this.taskBarUI)
 
         this.currentProjectileUI = new CurrentProjectile(this.game)
         this.currentProjectileUI.pos = new Vector(-67, -65)
         this.currentProjectileUI.scale = new Vector(0.7, 0.7)
         this.currentProjectileUI.z = 99
-
 
 
         if (this.inventory.getSelectedProjectileId() !== -1) {
@@ -223,7 +224,19 @@ export class Player extends Actor {
                 this.TimerGameover(evt.other)
                 //this.kill();
             }
-        } if (evt.other instanceof Pickup) {
+        } if (evt.other instanceof Finalboss) {
+            this.inventory.health -= 0.010;
+            this.healthBar.reduceHealth(0.010);
+            if (this.health <= 0.01) {
+                this.graphics.use(this.animationDeath);
+                evt.other.killedOther = true;
+                //this.healthBar.kill();
+                this.body.collisionType = CollisionType.PreventCollision
+                this.TimerGameover(evt.other)
+                //this.kill();
+            }
+        }
+         if (evt.other instanceof Pickup) {
             this.game.scenes['overworld'].doorLevelHandler();
         }
     }
@@ -233,9 +246,14 @@ export class Player extends Actor {
         this.nectarSuperUI.setScore(this.game)
     }
 
+    updateTaskBar(){
+        this.taskBarUI.updateLevel()
+    }
+
     delayNectarScore(){
         setTimeout(() => {
             this.updateNectarScore()
+            this.updateTaskBar();
         }, 500);
     }
 
