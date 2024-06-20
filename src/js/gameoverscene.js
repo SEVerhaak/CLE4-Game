@@ -19,7 +19,7 @@ export class GameOverScene extends Scene {
         Resources.Worldmusic.stop()
         Resources.Levelbossmusic.stop()
     }
-    
+
     GameOverImageHandler(enemy) {
         console.log(enemy)
         const gameover = new Actor()
@@ -66,11 +66,14 @@ export class GameOverScene extends Scene {
         }
 
         this.add(gameover)
-        setTimeout(() => { this.game.goToScene('overworld') }, 5000)
+        this.gotoOverWorld()
 
     }
 
 
+    gotoOverWorld() {
+        setTimeout(() => { this.game.goToScene('overworld') }, 2000)
+    }
 
 
 

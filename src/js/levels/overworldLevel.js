@@ -19,7 +19,7 @@ export class OverworldLevel extends Scene {
     enterlevel3bool
     enterlevel4bool
 
-    
+
 
     constructor(game) {
         super();
@@ -113,7 +113,7 @@ export class OverworldLevel extends Scene {
         const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
         return randomNumber;
     }
-    doorLevelHandler() {
+    doorLevelHandler(nectar) {
         let allEnterLevels = this.actors.filter(actor => actor instanceof EnterLevel)
         for (let i = 0; i < allEnterLevels.length; i++) {
             if (allEnterLevels[i].name === 'enterlevel1') {
