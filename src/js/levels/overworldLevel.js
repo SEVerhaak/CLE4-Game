@@ -8,7 +8,7 @@ import { Chest } from "../chest.js";
 import { Bush } from "../bush.js";
 import { Man } from "../enemies/man.js";
 import { Finalboss } from "../enemies/finalboss.js";
-import {SuperNectarPickup} from "../pickups/supernectarpickup.js";
+import { SuperNectarPickup } from "../pickups/supernectarpickup.js";
 
 export class OverworldLevel extends Scene {
 
@@ -19,6 +19,16 @@ export class OverworldLevel extends Scene {
     enterlevel2bool
     enterlevel3bool
     enterlevel4bool
+
+    nectarLevel1 = 10
+    nectarLevel2 = 20
+    nectarLevel3 = 30
+    nectarLevel4 = 40
+
+    superNectarLevel2 = 1
+    superNectarLevel3 = 2
+    superNectarLevel4 = 3
+    superNectarBossLevel = 4
 
 
 
@@ -42,9 +52,7 @@ export class OverworldLevel extends Scene {
     FillOverWorld(engine) {
         Resources.MainScene.addToScene(this);
 
-        // this.finalboss = new Finalboss(null, this.game);
-        // this.finalboss.pos = new Vector(1300, 1300)
-        // this.add(this.finalboss);
+
         // Resources.Worldmusic.stop()
         // Resources.Finalbossmusic.play()
 
@@ -98,7 +106,7 @@ export class OverworldLevel extends Scene {
         this.player.pos = new Vector(1300, 1200)
         this.add(this.player)
 
-        const superNectar = new SuperNectarPickup(1250,1200)
+        const superNectar = new SuperNectarPickup(1250, 1200)
         this.add(superNectar)
     }
     cameraDelay(engine) {
@@ -117,7 +125,7 @@ export class OverworldLevel extends Scene {
         const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
         return randomNumber;
     }
-    doorLevelHandler(nectar) {
+    doorLevelHandler() {
         let allEnterLevels = this.actors.filter(actor => actor instanceof EnterLevel)
         for (let i = 0; i < allEnterLevels.length; i++) {
             if (allEnterLevels[i].name === 'enterlevel1') {
@@ -134,25 +142,34 @@ export class OverworldLevel extends Scene {
                 this.enterlevel4bool = true;
             }
         }
-        if (this.game.inventory.nectarAmount >= 10 && this.game.inventory.superNectarAmount >= 1 && !this.enterlevel1bool) {
+        if (this.game.inventory.nectarAmount >= this.nectarLevel1 && !this.enterlevel1bool) {
 
             this.enterlevel1 = new EnterLevel(2113.75, 450.16, this.game, 1, 'enterlevel1');
             this.add(this.enterlevel1);
         }
-        if (nectar >= 20 && !this.enterlevel2bool) {
+        if (this.game.inventory.nectarAmount >= this.nectarLevel2 && this.game.inventory.superNectarAmount >= this.superNectarLevel2 && !this.enterlevel2bool) {
 
             this.enterlevel2 = new EnterLevel(1607, 2131.29, this.game, 2, 'enterlevel2');
             this.add(this.enterlevel2);
         }
-        if (nectar >= 30 && !this.enterlevel3bool) {
+        if (this.game.inventory.nectarAmount >= this.nectarLevel3 && this.game.inventory.superNectarAmount >= this.superNectarLevel3 && !this.enterlevel3bool) {
 
             this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3, 'enterlevel3');
             this.add(this.enterlevel3);
         }
-        if (nectar >= 40 && !this.enterlevel4bool) {
+        if (this.game.inventory.nectarAmount >= this.nectarLevel4 && this.game.inventory.superNectarAmount >= this.superNectarLevel4 && !this.enterlevel4bool) {
 
             this.enterlevel4 = new EnterLevel(287.45, 694, this.game, 4, 'enterlevel4');
             this.add(this.enterlevel4);
+        }
+        if (this.game.inventory.superNectarAmount >= this.superNectarBossLevel) {
+            for (let i = 0; i < allEnterLevels.length; i++) {
+                allEnterLevels[i].kill()
+                this.finalboss = new Finalboss(null, this.game);
+                this.finalboss.pos = new Vector(1300, 1300)
+                this.add(this.finalboss);
+                this.player.pos = new Vector(1200, 1200)
+            }
         }
     }
 
