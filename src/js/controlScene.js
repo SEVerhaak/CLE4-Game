@@ -6,7 +6,7 @@ export class ControlScene extends Scene {
     game
 
     constructor(game) {
-        super(); 
+        super();
         this.game = game;
     }
 
@@ -18,7 +18,7 @@ export class ControlScene extends Scene {
         controlScene.scale = new Vector(3.6, 3.6)
         this.add(controlScene)
 
-        setTimeout(() => { this.game.goToScene('overworld') }, 10000)
+
 
 
 
@@ -31,9 +31,16 @@ export class ControlScene extends Scene {
     }
     onActivate() {
         this.space = true;
+        setTimeout(() => { this.sceneSwitch() }, 10000)
     }
     onDeactivate() {
         this.space = false
+    }
+    sceneSwitch() {
+        if (this.space) {
+            console.log('ga naar storyscene')
+            this.game.goToScene('overworld')
+        }
     }
 
 }
