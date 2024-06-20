@@ -4,11 +4,12 @@ import {
 } from "excalibur";
 import {Resources} from "../resources.js";
 import {Projectile} from "./projectile.js";
+import {Man} from "../enemies/man.js";
 
 export class FireProjectile3 extends Projectile {
 
     //sprite = this.graphics.use(Resources.Nectar.toSprite())
-    damage = 0.1
+    damage = 0
     spriteSheet = SpriteSheet.fromImageSource({
         image: Resources.FireProjectile3,
         grid: {
@@ -33,7 +34,7 @@ export class FireProjectile3 extends Projectile {
 
     onPostKill(scene){
         console.log('cheese')
-        const explosionActor = new Actor({width: 50, height: 50, collisionType: CollisionType.Passive})
+        const explosionActor = new Actor({width: 100, height: 100, collisionType: CollisionType.Passive, name: 'explosion'})
         explosionActor.graphics.add(Resources.NectarMedium.toSprite())
         explosionActor.pos = new Vector(this.pos.x, this.pos.y)
 
@@ -50,6 +51,8 @@ export class FireProjectile3 extends Projectile {
         let animation = Animation.fromSpriteSheet(spriteSheetExplosion, range(0, 40), 5, AnimationStrategy.End);
         explosionActor.graphics.use(animation)
         explosionActor.z = 99
+        explosionActor.on('collisionstart', (evt) => this.explosionDamage(evt));
+
         scene.add(explosionActor)
 
         animation.events.on('end', () => {
@@ -57,4 +60,11 @@ export class FireProjectile3 extends Projectile {
         });
 
     }
+
+    explosionDamage(evt){
+        if (evt.other instanceof Man){
+            evt.other.takeExplosionDamage()
+        }
+    }
+
 }
