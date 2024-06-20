@@ -207,13 +207,14 @@ export class Player extends Actor {
 
         // standaard start animatie
         this.graphics.use(this.animationIdleRight);
-        this.on('precollision', (evt) => this.onCollisionStart(evt));
+        this.on('precollision', (evt) => this.onCollisionStart(evt, engine));
 
         this.health = this.inventory.health
     }
 
-    onCollisionStart(evt) {
+    onCollisionStart(evt, engine) {
         if (evt.other instanceof Enemy || evt.other instanceof Man) {
+            engine.currentScene.camera.shake(8, 8, 1000)
             this.inventory.health -= 0.005;
             this.healthBar.reduceHealth(0.005);
             if (this.health <= 0.01) {
@@ -223,8 +224,10 @@ export class Player extends Actor {
                 this.body.collisionType = CollisionType.PreventCollision
                 this.TimerGameover(evt.other)
                 //this.kill();
+
             }
         } if (evt.other instanceof Finalboss) {
+            engine.currentScene.camera.shake(8, 8, 1000)
             this.inventory.health -= 0.010;
             this.healthBar.reduceHealth(0.010);
             if (this.health <= 0.01) {

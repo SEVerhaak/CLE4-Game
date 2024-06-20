@@ -57,14 +57,14 @@ export class OverworldLevel extends Scene {
     }
     FillOverWorld(engine) {
         Resources.MainScene.addToScene(this);
-        const pickup = new ProjectilePickup(1300, 1300)
-        this.add(pickup)
+        // const pickup = new ProjectilePickup(1300, 1300)
+        // this.add(pickup)
 
-        const pickup2 = new FireProjectile2Pickup(1300, 1300)
-        this.add(pickup2)
+        // const pickup2 = new FireProjectile2Pickup(1300, 1300)
+        // this.add(pickup2)
 
-        const pickup3 = new FireProjectile3Pickup(1300, 1300)
-        this.add(pickup3)
+        // const pickup3 = new FireProjectile3Pickup(1300, 1300)
+        // this.add(pickup3)
 
 
 
@@ -124,11 +124,6 @@ export class OverworldLevel extends Scene {
         this.add(this.player)
         Resources.Worldmusic.play()
         this.doorLevelHandler()
-        for (let i = 0; i < 4; i++) {
-            this.supernectar = new SuperNectarPickup
-            this.supernectar.pos = new Vector(1300 + (10 * i), 1300)
-            this.add(this.supernectar);
-        }
 
     }
     cameraDelay(engine) {
