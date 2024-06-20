@@ -4,7 +4,7 @@ import { Resources, ResourceLoader } from './resources.js'
 
 export class ControlScene extends Scene {
     game
-
+    engine
     constructor(game) {
         super();
         this.game = game;
@@ -18,7 +18,7 @@ export class ControlScene extends Scene {
         controlScene.scale = new Vector(3.6, 3.6)
         this.add(controlScene)
 
-
+        this.engine = engine;
 
 
 

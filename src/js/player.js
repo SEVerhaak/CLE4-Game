@@ -15,10 +15,10 @@ import { CurrentNectar } from "./UI/currentNectar.js";
 import { CurrentSuperNectar } from "./UI/currentSuperNectar.js";
 import { CurrentProjectile } from "./UI/currentProjectile.js";
 import { Man } from "./enemies/man.js";
-import {CurrentHat} from "./UI/currentHat.js";
-import {Hat} from "./hats/hat.js";
-import {TaskbarUI} from "./UI/taskbarUI.js";
-import {Pickup} from "./pickups/pickup.js";
+import { CurrentHat } from "./UI/currentHat.js";
+import { Hat } from "./hats/hat.js";
+import { TaskbarUI } from "./UI/taskbarUI.js";
+import { Pickup } from "./pickups/pickup.js";
 import { Finalboss } from "./enemies/finalboss.js";
 
 export class Player extends Actor {
@@ -107,7 +107,7 @@ export class Player extends Actor {
 
         this.taskBarUI = new TaskbarUI(this.game)
         this.taskBarUI.pos = new Vector(40, -62)
-        this.taskBarUI.scale = new Vector(0.05,0.05)
+        this.taskBarUI.scale = new Vector(0.05, 0.05)
         this.taskBarUI.z = 99
         this.addChild(this.taskBarUI)
 
@@ -236,8 +236,11 @@ export class Player extends Actor {
                 //this.kill();
             }
         }
-         if (evt.other instanceof Pickup) {
-            this.game.scenes['overworld'].doorLevelHandler();
+        if (evt.other instanceof Pickup) {
+            setTimeout(() => {
+                this.game.scenes['overworld'].doorLevelHandler();
+            }, 500);
+
         }
     }
 
@@ -246,11 +249,11 @@ export class Player extends Actor {
         this.nectarSuperUI.setScore(this.game)
     }
 
-    updateTaskBar(){
+    updateTaskBar() {
         this.taskBarUI.updateLevel()
     }
 
-    delayNectarScore(){
+    delayNectarScore() {
         setTimeout(() => {
             this.updateNectarScore()
             this.updateTaskBar();
@@ -488,6 +491,7 @@ export class Player extends Actor {
             this.healthBar.setHealth(1)
             this.body.collisionType = CollisionType.Active
             this.game.scenes['GameOver'].GameOverImageHandler(enemy);
+            this.game.scenes['overworld'].finalbosslevelbool = false;
             this.game.goToScene('GameOver')
         }, 1000)
     }

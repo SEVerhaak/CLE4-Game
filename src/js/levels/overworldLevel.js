@@ -21,7 +21,8 @@ export class OverworldLevel extends Scene {
     enterlevel1bool
     enterlevel2bool
     enterlevel3bool
-    enterlevel4bool = false
+    enterlevel4bool
+    finalbosslevelbool = false;
 
     nectarLevel1 = 10
     nectarLevel2 = 20
@@ -112,6 +113,7 @@ export class OverworldLevel extends Scene {
         console.log('deactivate')
         this.player.kill()
         Resources.Worldmusic.stop()
+        Resources.Finalbossmusic.stop()
     }
     onActivate(context) {
         super.onActivate(context)
@@ -124,7 +126,7 @@ export class OverworldLevel extends Scene {
         this.doorLevelHandler()
         for (let i = 0; i < 4; i++) {
             this.supernectar = new SuperNectarPickup
-            this.supernectar.pos = new Vector(1300 + (10*i), 1300)
+            this.supernectar.pos = new Vector(1300 + (10 * i), 1300)
             this.add(this.supernectar);
         }
 
@@ -147,7 +149,7 @@ export class OverworldLevel extends Scene {
     }
     doorLevelHandler() {
         let allEnterLevels = this.actors.filter(actor => actor instanceof EnterLevel)
-        console.log("ik heb dingen")
+        console.log('supernectar' + this.game.inventory.superNecterAmount)
         for (let i = 0; i < allEnterLevels.length; i++) {
             if (allEnterLevels[i].name === 'enterlevel1') {
                 this.enterlevel1bool = true;
@@ -192,18 +194,23 @@ export class OverworldLevel extends Scene {
             this.levelUnlocked = 4;
             this.game.inventory.level = this.levelUnlocked
         }
-        if (this.game.inventory.superNecterAmount >= this.superNectarBossLevel && !this.finalbosslevelbool) {
+        if (this.game.inventory.superNecterAmount >= this.superNectarBossLevel && this.finalbosslevelbool === false) {
             this.finalbosslevelbool = true;
+            let allMen = this.actors.filter(actor => actor instanceof Man)
             for (let i = 0; i < allEnterLevels.length; i++) {
                 allEnterLevels[i].kill()
-                this.finalboss = new Finalboss(null, this.game);
-                this.finalboss.pos = new Vector(1300, 1300)
-                this.add(this.finalboss);
-                this.player.pos = new Vector(1200, 1200)
-                Resources.Worldmusic.stop()
-                Resources.Finalbossmusic.play()
-                this.levelUnlocked = 5;
             }
+            for (let i = 0; i < allMen.length; i++) {
+                allMen[i].kill()
+            }
+            this.finalboss = new Finalboss(this.game);
+            this.finalboss.pos = new Vector(1300, 1300)
+            this.finalboss.z = 30;
+            this.add(this.finalboss);
+            this.player.pos = new Vector(1200, 1200)
+            Resources.Worldmusic.stop()
+            Resources.Finalbossmusic.play()
+            this.levelUnlocked = 5;
         }
     }
 
