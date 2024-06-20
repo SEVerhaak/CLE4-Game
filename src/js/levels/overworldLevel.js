@@ -21,7 +21,7 @@ export class OverworldLevel extends Scene {
     enterlevel1bool
     enterlevel2bool
     enterlevel3bool
-    enterlevel4bool
+    enterlevel4bool = false
 
     nectarLevel1 = 10
     nectarLevel2 = 20
@@ -105,6 +105,9 @@ export class OverworldLevel extends Scene {
 
     }
     onDeactivate(context) {
+        if (this.finalboss) {
+            this.finalboss.kill();
+        }
         super.onDeactivate(context)
         console.log('deactivate')
         this.player.kill()
@@ -181,7 +184,8 @@ export class OverworldLevel extends Scene {
             this.add(this.enterlevel4);
             this.levelUnlocked = 4;
         }
-        if (this.game.inventory.superNecterAmount >= this.superNectarBossLevel) {
+        if (this.game.inventory.superNecterAmount >= this.superNectarBossLevel && !this.finalbosslevelbool) {
+            this.finalbosslevelbool = true;
             for (let i = 0; i < allEnterLevels.length; i++) {
                 allEnterLevels[i].kill()
                 this.finalboss = new Finalboss(null, this.game);

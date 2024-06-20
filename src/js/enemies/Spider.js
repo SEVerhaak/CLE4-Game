@@ -19,16 +19,17 @@ export class Spider extends Enemy {
         this.direction = new Vector(0, 0);
         this.changeDirectionInterval = 2000;
         this.timeSinceLastChange = 0;
+        this.anchor = new Vector(0.5, 1)
     }
 
     onInitialize(engine) {
         super.onInitialize(engine);
         this.collider.useBoxCollider(
-            10, 8, new Vector(0, 0), new Vector(-5, 8)
+            10, 8, new Vector(0, 0), new Vector(-5, -10)
         )
-
+        // this.healthbar.pos = new Vector(-8, -10)
         // Spritesheets
-        
+
         const spriteSheetSmallSpider = SpriteSheet.fromImageSource({
             image: Resources.SmallSpider,
             grid: {

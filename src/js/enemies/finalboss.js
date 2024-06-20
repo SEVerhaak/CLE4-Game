@@ -214,7 +214,7 @@ export class Finalboss extends Actor {
         setTimeout(() => {
             enemy.killedOther = false;
             this.body.collisionType = CollisionType.Active
-            this.game.goToEndscene(); 
+            this.game.goToScene('endcredit'); 
         }, 1000)
     }
 

@@ -19,6 +19,7 @@ import {CurrentHat} from "./UI/currentHat.js";
 import {Hat} from "./hats/hat.js";
 import {TaskbarUI} from "./UI/taskbarUI.js";
 import {Pickup} from "./pickups/pickup.js";
+import { Finalboss } from "./enemies/finalboss.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -223,7 +224,19 @@ export class Player extends Actor {
                 this.TimerGameover(evt.other)
                 //this.kill();
             }
-        } if (evt.other instanceof Pickup) {
+        } if (evt.other instanceof Finalboss) {
+            this.inventory.health -= 0.010;
+            this.healthBar.reduceHealth(0.010);
+            if (this.health <= 0.01) {
+                this.graphics.use(this.animationDeath);
+                evt.other.killedOther = true;
+                //this.healthBar.kill();
+                this.body.collisionType = CollisionType.PreventCollision
+                this.TimerGameover(evt.other)
+                //this.kill();
+            }
+        }
+         if (evt.other instanceof Pickup) {
             this.game.scenes['overworld'].doorLevelHandler();
         }
     }
