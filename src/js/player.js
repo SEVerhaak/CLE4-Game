@@ -106,15 +106,15 @@ export class Player extends Actor {
         this.addChild(this.hatUI)
 
         this.taskBarUI = new TaskbarUI(this.game)
-        this.taskBarUI.pos = new Vector(40, -70)
-        this.taskBarUI.scale = new Vector(0.2,0.2)
+        this.taskBarUI.pos = new Vector(40, -62)
+        this.taskBarUI.scale = new Vector(0.05,0.05)
+        this.taskBarUI.z = 99
         this.addChild(this.taskBarUI)
 
         this.currentProjectileUI = new CurrentProjectile(this.game)
         this.currentProjectileUI.pos = new Vector(-67, -65)
         this.currentProjectileUI.scale = new Vector(0.7, 0.7)
         this.currentProjectileUI.z = 99
-
 
 
         if (this.inventory.getSelectedProjectileId() !== -1) {
@@ -246,9 +246,14 @@ export class Player extends Actor {
         this.nectarSuperUI.setScore(this.game)
     }
 
+    updateTaskBar(){
+        this.taskBarUI.updateLevel()
+    }
+
     delayNectarScore(){
         setTimeout(() => {
             this.updateNectarScore()
+            this.updateTaskBar();
         }, 500);
     }
 

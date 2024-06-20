@@ -20,6 +20,7 @@ export class Inventory extends Actor {
     health
     nectarAmount = 0;
     superNecterAmount = 0;
+    level
 
     constructor(game) {
         super({ width: 16, height: 16, collisionType: CollisionType.PreventCollision});
