@@ -18,8 +18,9 @@ import { Man } from "./enemies/man.js";
 import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
 import { SombreroHat } from "./hats/sombrerohat.js";
-import {CurrentHat} from "./UI/currentHat.js";
-import {Hat} from "./hats/hat.js";
+import { CurrentHat } from "./UI/currentHat.js";
+import { Hat } from "./hats/hat.js";
+import { Pickup } from "./pickups/pickup.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -61,6 +62,7 @@ export class Player extends Actor {
     nectarSuperUI
     currentProjectileUI
     hatUI
+    
 
 
     constructor(game) {
@@ -210,11 +212,13 @@ export class Player extends Actor {
             if (this.health <= 0.01) {
                 this.graphics.use(this.animationDeath);
                 evt.other.killedOther = true;
-                //this.healthBar.kill();
+                // this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
                 this.TimerGameover(evt.other)
-                //this.kill();
+                // this.kill();
             }
+        } if (evt.other instanceof Pickup) {
+            this.game.scenes['overworld'].doorLevelHandler();
         }
     }
 
@@ -446,7 +450,10 @@ export class Player extends Actor {
             enemy.killedOther = false;
             this.inventory.health = 1;
             this.inventory.nectarAmount = 0
-            this.removeChild(this.lastHat)
+            if (this.lastHat) {
+                this.removeChild(this.lastHat)
+            }
+
             this.healthBar.setHealth(1)
             this.body.collisionType = CollisionType.Active
             this.game.scenes['GameOver'].GameOverImageHandler(enemy);
@@ -458,7 +465,7 @@ export class Player extends Actor {
         let hatFound = false
 
         for (let i = 0; i < this.hats.length; i++) {
-            if (i !== 0){
+            if (i !== 0) {
                 if (this.hats[i].name === hat.name) {
                     hatFound = true;
                 }
@@ -474,11 +481,11 @@ export class Player extends Actor {
             if (this.lastHat) {
                 this.lastHat.kill()
             }
-                hat.pos = new Vector(-0.5, -12)
-                this.lastHat = hat
-                this.inventory.addItem(hat, false, null, null, null, true)
-                this.hats.push(hat)
-                this.inventory.hatIndex++
+            hat.pos = new Vector(-0.5, -12)
+            this.lastHat = hat
+            this.inventory.addItem(hat, false, null, null, null, true)
+            this.hats.push(hat)
+            this.inventory.hatIndex++
         }
         console.log(this.inventory.hatIndex)
         this.hatUI.setIcon(this.lastHat);
@@ -488,9 +495,9 @@ export class Player extends Actor {
     }
 
 
-    loadHats(){
+    loadHats() {
         this.lastHat = this.game.inventory.lastHat
-        if (this.lastHat instanceof  Hat){
+        if (this.lastHat instanceof Hat) {
             this.hatHandler(this.lastHat)
             this.hatUI.setIcon(this.lastHat);
         }
