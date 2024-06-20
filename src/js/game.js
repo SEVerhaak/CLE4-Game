@@ -13,6 +13,7 @@ import { GameOverScene } from './gameoverscene.js';
 import { StartScene } from './startScene.js';
 import { Player } from "./player.js";
 import { Endscene } from './endscene.js';
+import { ControlScene } from './controlScene.js';
 
 export class Game extends Engine {
 
@@ -64,6 +65,7 @@ export class Game extends Engine {
         this.goToLevel4(this);
         this.goToGameOverScene(this);
         this.goToOverWorld(this)
+        this.goToControlScene();
         //this.goToEndscene();
     }
 
@@ -102,6 +104,13 @@ export class Game extends Engine {
         this.add('startScene', startScene);
 
         this.goToScene('startScene');
+    }
+
+    goToControlScene() {
+        const controlScene = new ControlScene(this);
+        this.add('controlScene', controlScene);
+
+        this.goToScene('controlScene');
     }
 
 
