@@ -65,8 +65,9 @@ export class Game extends Engine {
         this.goToLevel4(this);
         this.goToGameOverScene(this);
         this.goToOverWorld(this)
-        this.goToControlScene();
+        //this.goToControlScene();
         //this.goToEndscene();
+        this.goToStartScene();
     }
 
     goToOverWorld() {
