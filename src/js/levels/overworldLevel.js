@@ -124,6 +124,15 @@ export class OverworldLevel extends Scene {
         this.add(this.player)
         Resources.Worldmusic.play()
         this.doorLevelHandler()
+        // this.supernectar = new SuperNectarPickup
+        // this.supernectar.pos = new Vector(1300, 1300)
+        // this.add(this.supernectar);
+        // this.supernectar = new SuperNectarPickup
+        // this.supernectar.pos = new Vector(1300, 1300)
+        // this.add(this.supernectar);
+        // this.supernectar = new SuperNectarPickup
+        // this.supernectar.pos = new Vector(1300, 1300)
+        // this.add(this.supernectar);
 
     }
     cameraDelay(engine) {
@@ -144,7 +153,6 @@ export class OverworldLevel extends Scene {
     }
     doorLevelHandler() {
         let allEnterLevels = this.actors.filter(actor => actor instanceof EnterLevel)
-        console.log('supernectar' + this.game.inventory.superNecterAmount)
         for (let i = 0; i < allEnterLevels.length; i++) {
             if (allEnterLevels[i].name === 'enterlevel1') {
                 this.enterlevel1bool = true;
@@ -154,7 +162,6 @@ export class OverworldLevel extends Scene {
             }
             if (allEnterLevels[i].name === 'enterlevel3') {
                 this.enterlevel3bool = true;
-                console.log(this.enterlevel3bool)
             }
             if (allEnterLevels[i].name === 'enterlevel4') {
                 this.enterlevel4bool = true;
@@ -176,7 +183,7 @@ export class OverworldLevel extends Scene {
             this.game.inventory.level = this.levelUnlocked
         }
         if (this.game.inventory.nectarAmount >= this.nectarLevel3 && this.game.inventory.superNecterAmount >= this.superNectarLevel3 && !this.enterlevel3bool) {
-
+            console.log('enterlevel3 gespawned')
             this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3, 'enterlevel3');
             this.add(this.enterlevel3);
             this.levelUnlocked = 3;
