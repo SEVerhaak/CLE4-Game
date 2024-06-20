@@ -406,6 +406,16 @@ export class Player extends Actor {
         }
     }
 
+    healthPickup(){
+        if (this.inventory.health <= 0.9){
+            this.healtBar.increaseHealth(0.1)
+        } else if (this.inventory.health > 0.9 && player.inventory.health < 1){
+            this.healtBar.setHealth(1)
+        } else{
+
+        }
+    }
+
     shoot(velocityVector, overRide) {
         if (this.canShoot === true || overRide === true) {
             this.canShoot = false

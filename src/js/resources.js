@@ -94,7 +94,8 @@ const Resources = {
     Finalbossmusic: new Sound ('music/Finalbossmusic.mp3'),
     Cross: new ImageSource('images/cross.png'),
     Check: new ImageSource('images/check.png'),
-    Explosion: new ImageSource('images/explosion.png')
+    Explosion: new ImageSource('images/explosion.png'),
+    MedicNectar: new ImageSource('images/medicnectar.png')
 }
 
 

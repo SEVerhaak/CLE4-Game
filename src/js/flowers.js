@@ -21,6 +21,7 @@ import {Chest} from "./chest.js";
 import {ProjectilePickup} from "./pickups/pickupProjectileTest.js";
 import {FireProjectile2Pickup} from "./pickups/FireProjectile2Pickup.js";
 import {FireProjectile3Pickup} from "./pickups/FireProjectile3Pickup.js";
+import {HealthPickup} from "./pickups/healthPickup.js";
 
 
 export class Flower extends Actor {
@@ -117,7 +118,7 @@ export class Flower extends Actor {
             }else{
                 const randomXPositive = this.generateRandomNumber(15, 40)
                 const randomYPositive = this.generateRandomNumber(15, 40)
-                const randomSelector = randomIntInRange(1,3)
+                const randomSelector = randomIntInRange(1,4)
                 switch (randomSelector){
                     case 1:
                         const projectile = new ProjectilePickup(0, 0)
@@ -142,6 +143,13 @@ export class Flower extends Actor {
                         this.removeChild(this.glow)
                         this.body.collisionType = CollisionType.PreventCollision
 
+                        break
+                    case 4:
+                        const health = new HealthPickup(0, 0)
+                        this.addChild(health)
+                        health.actions.moveTo(new Vector(randomXPositive, randomYPositive), 50)
+                        this.removeChild(this.glow)
+                        this.body.collisionType = CollisionType.PreventCollision
                         break
 
                 }

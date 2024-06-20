@@ -60,6 +60,16 @@ export class Pickup extends Actor {
             player.inventory.addItem(this.itemName, false)
             player.updateNectarScore();
             player.updateTaskBar()
+        } else if (this.itemName === 'Health'){
+            if (player.inventory.health <= 0.9){
+                player.healthBar.increaseHealth(0.1)
+                this.kill()
+            } else if (player.inventory.health > 0.9 && player.inventory.health < 1){
+                player.healthBar.setHealth(1)
+                this.kill()
+            } else{
+                this.kill()
+            }
         }
         else {
             player.updateNectarScore();
