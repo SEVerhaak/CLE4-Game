@@ -15,12 +15,10 @@ import { CurrentNectar } from "./UI/currentNectar.js";
 import { CurrentSuperNectar } from "./UI/currentSuperNectar.js";
 import { CurrentProjectile } from "./UI/currentProjectile.js";
 import { Man } from "./enemies/man.js";
-import { TopHat } from "./hats/tophat.js";
-import { WizardHat } from "./hats/wizardhat.js";
-import { SombreroHat } from "./hats/sombrerohat.js";
 import {CurrentHat} from "./UI/currentHat.js";
 import {Hat} from "./hats/hat.js";
 import {TaskbarUI} from "./UI/taskbarUI.js";
+import {Pickup} from "./pickups/pickup.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
