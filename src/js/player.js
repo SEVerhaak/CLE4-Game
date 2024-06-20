@@ -15,10 +15,10 @@ import { CurrentNectar } from "./UI/currentNectar.js";
 import { CurrentSuperNectar } from "./UI/currentSuperNectar.js";
 import { CurrentProjectile } from "./UI/currentProjectile.js";
 import { Man } from "./enemies/man.js";
-import {CurrentHat} from "./UI/currentHat.js";
-import {Hat} from "./hats/hat.js";
-import {TaskbarUI} from "./UI/taskbarUI.js";
-import {Pickup} from "./pickups/pickup.js";
+import { CurrentHat } from "./UI/currentHat.js";
+import { Hat } from "./hats/hat.js";
+import { TaskbarUI } from "./UI/taskbarUI.js";
+import { Pickup } from "./pickups/pickup.js";
 import { Finalboss } from "./enemies/finalboss.js";
 
 export class Player extends Actor {
@@ -80,13 +80,13 @@ export class Player extends Actor {
         //this.inventory = new Inventory(engine,0,0)
         //this.addChild(this.inventory);
         this.uiComponent = new UI(this.game)
-        this.uiComponent.pos = new Vector(-115, -80)
+        this.uiComponent.pos = new Vector(-160, -80)
         this.uiComponent.scale = new Vector(0.05, 0.05)
         this.uiComponent.z = 99
         this.addChild(this.uiComponent)
 
         this.nectarUI = new CurrentNectar(this.game)
-        this.nectarUI.pos = new Vector(-110, -65)
+        this.nectarUI.pos = new Vector(-155, -65)
         this.nectarUI.scale = new Vector(0.1, 0.1)
         //this.nectarUI.scoreText.scale = new Vector(1,1)
         this.nectarUI.z = 99
@@ -94,25 +94,25 @@ export class Player extends Actor {
         this.nectarUI.setScore();
 
         this.nectarSuperUI = new CurrentSuperNectar(this.game)
-        this.nectarSuperUI.pos = new Vector(-95, -63)
+        this.nectarSuperUI.pos = new Vector(-140, -63)
         this.nectarSuperUI.scale = new Vector(0.1, 0.1)
         this.nectarSuperUI.z = 99
         this.addChild(this.nectarSuperUI)
 
         this.hatUI = new CurrentHat(this.game)
-        this.hatUI.pos = new Vector(-80, -66)
+        this.hatUI.pos = new Vector(-125, -66)
         this.hatUI.scale = new Vector(0.15, 0.15)
         this.hatUI.z = 99
         this.addChild(this.hatUI)
 
         this.taskBarUI = new TaskbarUI(this.game)
-        this.taskBarUI.pos = new Vector(40, -62)
-        this.taskBarUI.scale = new Vector(0.05,0.05)
+        this.taskBarUI.pos = new Vector(100, -65)
+        this.taskBarUI.scale = new Vector(0.05, 0.05)
         this.taskBarUI.z = 99
         this.addChild(this.taskBarUI)
 
         this.currentProjectileUI = new CurrentProjectile(this.game)
-        this.currentProjectileUI.pos = new Vector(-67, -65)
+        this.currentProjectileUI.pos = new Vector(-112, -65)
         this.currentProjectileUI.scale = new Vector(0.7, 0.7)
         this.currentProjectileUI.z = 99
 
@@ -207,13 +207,14 @@ export class Player extends Actor {
 
         // standaard start animatie
         this.graphics.use(this.animationIdleRight);
-        this.on('precollision', (evt) => this.onCollisionStart(evt));
+        this.on('precollision', (evt) => this.onCollisionStart(evt, engine));
 
         this.health = this.inventory.health
     }
 
-    onCollisionStart(evt) {
+    onCollisionStart(evt, engine) {
         if (evt.other instanceof Enemy || evt.other instanceof Man) {
+            engine.currentScene.camera.shake(8, 8, 1000)
             this.inventory.health -= 0.005;
             this.healthBar.reduceHealth(0.005);
             if (this.health <= 0.01) {
@@ -223,8 +224,10 @@ export class Player extends Actor {
                 this.body.collisionType = CollisionType.PreventCollision
                 this.TimerGameover(evt.other)
                 //this.kill();
+
             }
         } if (evt.other instanceof Finalboss) {
+            engine.currentScene.camera.shake(8, 8, 1000)
             this.inventory.health -= 0.010;
             this.healthBar.reduceHealth(0.010);
             if (this.health <= 0.01) {
@@ -236,8 +239,11 @@ export class Player extends Actor {
                 //this.kill();
             }
         }
-         if (evt.other instanceof Pickup) {
-            this.game.scenes['overworld'].doorLevelHandler();
+        if (evt.other instanceof Pickup) {
+            setTimeout(() => {
+                this.game.scenes['overworld'].doorLevelHandler();
+            }, 500);
+
         }
     }
 
@@ -246,11 +252,11 @@ export class Player extends Actor {
         this.nectarSuperUI.setScore(this.game)
     }
 
-    updateTaskBar(){
+    updateTaskBar() {
         this.taskBarUI.updateLevel()
     }
 
-    delayNectarScore(){
+    delayNectarScore() {
         setTimeout(() => {
             this.updateNectarScore()
             this.updateTaskBar();
@@ -488,6 +494,7 @@ export class Player extends Actor {
             this.healthBar.setHealth(1)
             this.body.collisionType = CollisionType.Active
             this.game.scenes['GameOver'].GameOverImageHandler(enemy);
+            this.game.scenes['overworld'].finalbosslevelbool = false;
             this.game.goToScene('GameOver')
         }, 1000)
     }

@@ -1,10 +1,10 @@
-import { BoundingBox, Scene, Vector, Actor, Keys } from "excalibur"
+import { BoundingBox, Scene, Vector, Actor, Keys, Input } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 
 
 export class ControlScene extends Scene {
     game
-
+    engine
     constructor(game) {
         super();
         this.game = game;
@@ -18,13 +18,14 @@ export class ControlScene extends Scene {
         controlScene.scale = new Vector(3.6, 3.6)
         this.add(controlScene)
 
-
+        this.engine = engine;
 
 
 
     }
     onPreUpdate() {
-        if (this.engine.input.keyboard.wasPressed(Keys.Space) && this.space) {
+        if ((this.engine.input.keyboard.wasPressed(Keys.Space) && this.space) ||
+            this.engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1)) {
             console.log('In deze spatie')
             this.game.goToScene('overworld')
         }

@@ -21,10 +21,9 @@ export class Finalboss extends Actor {
     animationHurt
     healthBar
     health = 1;
-    scene
     game
 
-    constructor(scene, game) {
+    constructor(game) {
         super({
             width: 5, height: 5, collisionType: CollisionType.Active, z: 20
         });
@@ -32,7 +31,6 @@ export class Finalboss extends Actor {
         this.direction = new Vector(0, 0);
         this.changeDirectionInterval = 2000;
         this.timeSinceLastChange = 0;
-        this.scene = scene;
         this.game = game
     }
 
@@ -41,9 +39,9 @@ export class Finalboss extends Actor {
         this.collider.useBoxCollider(
             25, 10, new Vector(0, 0), new Vector(-10, -5)
         )
-       
 
-       
+
+
 
         // Define the sprite sheet
         const SpriteSheetFinalboss = SpriteSheet.fromImageSource({
@@ -82,9 +80,8 @@ export class Finalboss extends Actor {
 
     onCollisionStart(evt) {
         if (evt.other instanceof Projectile) {
-            this.health -= evt.other.damage/3;
-            this.healthBar.reduceHealth(evt.other.damage/3);
-            this.graphics.use(this.animationHurt);
+            this.health -= evt.other.damage / 3;
+            this.healthBar.reduceHealth(evt.other.damage / 3);
             this.damageTaken = true
             console.log(this.health)
             if (this.health <= 0.01) {
@@ -92,7 +89,7 @@ export class Finalboss extends Actor {
                 this.currentAnimation = this.animationDeath
                 this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
-                this.TimerGameover(evt.other)
+                this.TimerGameover(this)
             }
             evt.other.kill();
         }
@@ -214,7 +211,8 @@ export class Finalboss extends Actor {
         setTimeout(() => {
             enemy.killedOther = false;
             this.body.collisionType = CollisionType.Active
-            this.game.goToScene('endcredit'); 
+            this.game.goToScene('endcredit');
+            this.game.final
         }, 1000)
     }
 

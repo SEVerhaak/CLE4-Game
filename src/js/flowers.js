@@ -12,12 +12,15 @@ import {
     SpriteSheet,
     Vector
 } from "excalibur";
-import { Resources, ResourceLoader } from './resources.js'
+import {Resources, ResourceLoader} from './resources.js'
 import {Glow} from "./glow.js";
 import {Player} from "./player.js";
 import {NectarPickup} from "./pickups/nectarPickup.js";
-import { Bush } from "./bush.js";
-import { Chest } from "./chest.js";
+import {Bush} from "./bush.js";
+import {Chest} from "./chest.js";
+import {ProjectilePickup} from "./pickups/pickupProjectileTest.js";
+import {FireProjectile2Pickup} from "./pickups/FireProjectile2Pickup.js";
+import {FireProjectile3Pickup} from "./pickups/FireProjectile3Pickup.js";
 
 
 export class Flower extends Actor {
@@ -59,6 +62,7 @@ export class Flower extends Actor {
         this.glow.z = 79
         this.on('collisionstart', (evt) => this.onCollisionStart(evt));
     }
+
     getRandomNumber(x, y) {
         // Maak een nieuwe instantie van de Random class
         const random = new Random();
@@ -81,39 +85,77 @@ export class Flower extends Actor {
             //player position
             const playerPos = evt.other.pos
 
-            const amount = this.generateRandomNumber(1,3)
+            const amount = this.generateRandomNumber(1, 3)
 
-            for (let i = 0; i < amount; i++) {
-                const randomXNegative = this.generateRandomNumber(-40,-15)
-                const randomYNegative = this.generateRandomNumber(-40,-15)
-                const randomXPositive = this.generateRandomNumber(15,40)
-                const randomYPositive = this.generateRandomNumber(15,40)
+            const randomInit = Math.random();
 
-                this.spawnParticles()
+            if (randomInit > 0.1) {
+                for (let i = 0; i < amount; i++) {
+                    const randomXNegative = this.generateRandomNumber(-40, -15)
+                    const randomYNegative = this.generateRandomNumber(-40, -15)
+                    const randomXPositive = this.generateRandomNumber(15, 40)
+                    const randomYPositive = this.generateRandomNumber(15, 40)
 
-                if (Math.random() < 0.5){
-                    const nectar = new NectarPickup(0,0, evt.other)
-                    this.addChild(nectar)
-                    this.body.collisionType = CollisionType.PreventCollision
-                    nectar.actions.moveTo(new Vector(randomXNegative, randomYNegative), 50)
-                    this.removeChild(this.glow)
-                } else{
-                    const nectar = new NectarPickup(0,0, evt.other)
-                    this.addChild(nectar)
-                    this.body.collisionType = CollisionType.PreventCollision
-                    nectar.actions.moveTo(new Vector(randomXPositive, randomYPositive), 50)
-                    //evt.other.nectarUI.setScore()
-                    this.removeChild(this.glow)
+                    this.spawnParticles()
+
+                    const rand = Math.random();
+                   if (rand < 0.5) {
+                        const nectar = new NectarPickup(0, 0, evt.other)
+                        this.addChild(nectar)
+                        this.body.collisionType = CollisionType.PreventCollision
+                        nectar.actions.moveTo(new Vector(randomXNegative, randomYNegative), 50)
+                        this.removeChild(this.glow)
+                    } else {
+                        const nectar = new NectarPickup(0, 0, evt.other)
+                        this.addChild(nectar)
+                        this.body.collisionType = CollisionType.PreventCollision
+                        nectar.actions.moveTo(new Vector(randomXPositive, randomYPositive), 50)
+                        //evt.other.nectarUI.setScore()
+                        this.removeChild(this.glow)
+                    }
+                }
+            }else{
+                const randomXPositive = this.generateRandomNumber(15, 40)
+                const randomYPositive = this.generateRandomNumber(15, 40)
+                const randomSelector = randomIntInRange(1,3)
+                switch (randomSelector){
+                    case 1:
+                        const projectile = new ProjectilePickup(0, 0)
+                        this.addChild(projectile)
+                        projectile.actions.moveTo(new Vector(randomXPositive, randomYPositive), 50)
+                        this.removeChild(this.glow)
+                        this.body.collisionType = CollisionType.PreventCollision
+
+                        break
+                    case 2:
+                        const projectile2 = new FireProjectile2Pickup(0, 0)
+                        this.addChild(projectile2)
+                        projectile2.actions.moveTo(new Vector(randomXPositive, randomYPositive), 50)
+                        this.removeChild(this.glow)
+                        this.body.collisionType = CollisionType.PreventCollision
+
+                        break
+                    case 3:
+                        const projectile3 = new FireProjectile3Pickup(0, 0)
+                        this.addChild(projectile3)
+                        projectile3.actions.moveTo(new Vector(randomXPositive, randomYPositive), 50)
+                        this.removeChild(this.glow)
+                        this.body.collisionType = CollisionType.PreventCollision
+
+                        break
+
                 }
             }
-        }if(evt.other instanceof Chest || evt.other instanceof Bush || evt.other instanceof Flower){
+        }
+        if (evt.other instanceof Chest || evt.other instanceof Bush || evt.other instanceof Flower) {
+
             this.kill()
             evt.other.kill()
         }
     }
 
-    spawnParticles(){
-        let emitter = new ParticleEmitter(0,0,0,2);
+    spawnParticles() {
+        let emitter = new ParticleEmitter(0, 0, 0, 2);
         emitter.emitterType = EmitterType.Rectangle;
         emitter.radius = 5;
         emitter.minVel = 10;

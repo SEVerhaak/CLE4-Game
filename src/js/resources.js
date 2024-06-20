@@ -93,7 +93,8 @@ const Resources = {
     Worldmusic: new Sound ('music/overworldmusic.mp3'),
     Finalbossmusic: new Sound ('music/Finalbossmusic.mp3'),
     Cross: new ImageSource('images/cross.png'),
-    Check: new ImageSource('images/check.png')
+    Check: new ImageSource('images/check.png'),
+    Explosion: new ImageSource('images/explosion.png')
 }
 
 

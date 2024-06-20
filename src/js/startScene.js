@@ -1,4 +1,4 @@
-import { BoundingBox, Scene, Vector, Actor, Keys } from "excalibur"
+import { BoundingBox, Scene, Vector, Actor, Keys, Input } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 
 
@@ -22,7 +22,8 @@ export class StartScene extends Scene {
 
     }
     onPreUpdate() {
-        if (this.engine.input.keyboard.wasPressed(Keys.Space) && this.space) {
+        if ((this.engine.input.keyboard.wasPressed(Keys.Space) && this.space) ||
+            this.engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1)) {
             this.game.goToScene('storyscene')
         }
     }

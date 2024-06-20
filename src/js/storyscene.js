@@ -1,4 +1,4 @@
-import { BoundingBox, Scene, Vector, Actor, Keys } from "excalibur"
+import { BoundingBox, Scene, Vector, Actor, Keys, Input } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 
 export class StoryScene extends Scene {
@@ -16,15 +16,11 @@ export class StoryScene extends Scene {
 
 
     onInitialize(engine) {
-
-
         this.engine = engine
-
-
-
     }
     onPreUpdate() {
-        if (this.engine.input.keyboard.wasPressed(Keys.Space) && this.space) {
+        if ((this.engine.input.keyboard.wasPressed(Keys.Space) && this.space) ||
+            this.engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1)) {
             console.log('In deze spatie')
             this.game.goToScene('controlScene')
         }
@@ -42,12 +38,18 @@ export class StoryScene extends Scene {
         setTimeout(() => { this.storyscene1.graphics.use(Resources.StoryScene4.toSprite()) }, 26000)
         setTimeout(() => { this.storyscene1.graphics.use(Resources.StoryScene5.toSprite()) }, 32000)
         setTimeout(() => { this.storyscene1.graphics.use(Resources.StoryScene2.toSprite()) }, 52000)
-        setTimeout(() => { this.game.goToScene('controlScene') }, 57000)
+        setTimeout(() => { this.sceneSwitch() }, 10000)
     }
+
     onDeactivate() {
         this.space = false
-        Resources.Introscenesound.stop();
-        this.storyscene1.kill();
+        Resources.Introscenesound.stop()
+    }
+    sceneSwitch() {
+        if (this.space) {
+            console.log('ga naar storyscene')
+            this.game.goToScene('controlscene')
+        }
     }
 
 

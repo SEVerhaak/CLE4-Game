@@ -1,4 +1,4 @@
-import {Color, Font, FontUnit, Graphic, Label, ScreenElement, Vector} from "excalibur";
+import { Color, Font, FontUnit, Graphic, Label, ScreenElement, Vector } from "excalibur";
 import { Resources } from "../resources.js";
 
 export class TaskbarUI extends ScreenElement {
@@ -14,14 +14,14 @@ export class TaskbarUI extends ScreenElement {
     task2
     task3
     task4
-    taskArray = [this.task1,this.task2,this.task3,this.task4]
+    taskArray = [this.task1, this.task2, this.task3, this.task4]
 
     constructor(game) {
         super();
         this.game = game
     }
 
-    initTaskBar(){
+    initTaskBar() {
         this.graphics.use(Resources.Cross.toSprite())
 
         this.taskTextBG = new Label({
@@ -50,46 +50,46 @@ export class TaskbarUI extends ScreenElement {
 
     }
 
-    updateTasks(){
+    updateTasks() {
         console.log(this.neededNectarArray[this.currentLevel])
-        if (this.game.inventory.nectarAmount >= this.neededNectarArray[this.game.inventory.superNecterAmount]){
+        if (this.game.inventory.nectarAmount >= this.neededNectarArray[this.game.inventory.superNecterAmount]) {
             //this.currentLevel = this.game.inventory.level
             this.graphics.use(Resources.Check.toSprite())
-            this.taskText.text = 'De boom is nu open!'
-            this.taskTextBG.text = 'De boom is nu open!'
+            this.taskText.text = 'Level ' + (this.currentLevel + 1) + ' is nu open!'
+            this.taskTextBG.text = 'Level ' + (this.currentLevel + 1) + ' is nu open!'
         }
     }
 
-    updateLevel(){
+    updateLevel() {
         this.currentLevel = this.game.inventory.superNecterAmount
-        if (this.currentLevel <= 3){
-            this.taskText.text =  this.taskArray[this.currentLevel]
-            this.taskTextBG.text =  this.taskArray[this.currentLevel]
+        if (this.currentLevel <= 3) {
+            this.taskText.text = this.taskArray[this.currentLevel]
+            this.taskTextBG.text = this.taskArray[this.currentLevel]
             this.graphics.use(Resources.Cross.toSprite())
             console.log(this.currentLevel)
-        } else{
+        } else {
             this.taskText.text = 'Vecht met de imker'
             this.taskTextBG.text = 'Vecht met de imker'
         }
     }
 
-    checkLevelUnlocked(){
+    checkLevelUnlocked() {
         this.currentLevel = this.game.inventory.level
         console.log(this.currentLevel)
     }
 
-    initValues(){
+    initValues() {
         this.currentLevel = this.game.inventory.level
 
         let scene = this.game.scenes['overworld']
-        this.neededNectarArray.push(scene.nectarLevel1,scene.nectarLevel2, scene.nectarLevel3, scene.nectarLevel4)
+        this.neededNectarArray.push(scene.nectarLevel1, scene.nectarLevel2, scene.nectarLevel3, scene.nectarLevel4)
         console.log(this.neededNectarArray);
 
-        this.task1 = 'Verzamel '+ this.neededNectarArray[0]  +' nectar'
-        this.task2 = 'Verzamel '+ this.neededNectarArray[1]  +' nectar'
-        this.task3 = 'Verzamel '+ this.neededNectarArray[2]  +' nectar'
-        this.task4 = 'Verzamel '+ this.neededNectarArray[3]  +' nectar'
-        this.taskArray = [this.task1,this.task2,this.task3,this.task4]
+        this.task1 = 'Verzamel ' + this.neededNectarArray[0] + ' nectar'
+        this.task2 = 'Verzamel ' + this.neededNectarArray[1] + ' nectar'
+        this.task3 = 'Verzamel ' + this.neededNectarArray[2] + ' nectar'
+        this.task4 = 'Verzamel ' + this.neededNectarArray[3] + ' nectar'
+        this.taskArray = [this.task1, this.task2, this.task3, this.task4]
         /*
         nectarLevel1 = 10
         nectarLevel2 = 20
