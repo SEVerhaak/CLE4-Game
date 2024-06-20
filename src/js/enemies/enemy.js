@@ -50,7 +50,9 @@ export class Enemy extends Actor {
     }
 
     onCollisionStart(evt) {
-        if (evt.other instanceof Projectile) {
+        if (evt.other.name === 'explosion') {
+           console.log('cheese2erter')
+        } else if ( evt.other instanceof Projectile){
             this.health -= evt.other.damage;
             this.healthBar.reduceHealth(evt.other.damage);
             this.graphics.use(this.animationHurt);

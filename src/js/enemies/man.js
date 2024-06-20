@@ -103,6 +103,18 @@ export class Man extends Actor {
         }
     }
 
+    takeExplosionDamage(){
+        this.health -= 0.2
+        this.healthBar.reduceHealth(0.2);
+        this.graphics.use(this.animationHurt);
+        this.damageTaken = true
+        if (this.health <= 0.01) {
+            this.currentAnimation = this.animationDeath
+            this.healthBar.kill();
+            this.body.collisionType = CollisionType.PreventCollision
+        }
+    }
+
     changeDirection() {
         if (this.health > 0.01) {
             const directions = [
