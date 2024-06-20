@@ -90,9 +90,9 @@ const Resources = {
     SuperNectarIcon: new ImageSource('images/supernectaricon.png'),
     Levelbossmusic: new Sound ('music/Levelmusic.mp3'),
     Worldmusic: new Sound ('music/overworldmusic.mp3'),
-    Finalbossmusic: new Sound ('music/Finalbossmusic.mp3')
-
-
+    Finalbossmusic: new Sound ('music/Finalbossmusic.mp3'),
+    Cross: new ImageSource('images/cross.png'),
+    Check: new ImageSource('images/check.png')
 }
 
 

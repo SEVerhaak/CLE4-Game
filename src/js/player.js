@@ -18,9 +18,9 @@ import { Man } from "./enemies/man.js";
 import { TopHat } from "./hats/tophat.js";
 import { WizardHat } from "./hats/wizardhat.js";
 import { SombreroHat } from "./hats/sombrerohat.js";
-import { CurrentHat } from "./UI/currentHat.js";
-import { Hat } from "./hats/hat.js";
-import { Pickup } from "./pickups/pickup.js";
+import {CurrentHat} from "./UI/currentHat.js";
+import {Hat} from "./hats/hat.js";
+import {TaskbarUI} from "./UI/taskbarUI.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -62,7 +62,7 @@ export class Player extends Actor {
     nectarSuperUI
     currentProjectileUI
     hatUI
-    
+    taskBarUI
 
 
     constructor(game) {
@@ -106,10 +106,17 @@ export class Player extends Actor {
         this.hatUI.z = 99
         this.addChild(this.hatUI)
 
+        this.taskBarUI = new TaskbarUI(this.game)
+        this.taskBarUI.pos = new Vector(40, -70)
+        this.taskBarUI.scale = new Vector(0.2,0.2)
+        this.addChild(this.taskBarUI)
+
         this.currentProjectileUI = new CurrentProjectile(this.game)
         this.currentProjectileUI.pos = new Vector(-67, -65)
         this.currentProjectileUI.scale = new Vector(0.7, 0.7)
         this.currentProjectileUI.z = 99
+
+
 
         if (this.inventory.getSelectedProjectileId() !== -1) {
             this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.currentSelectedItemIndex].projectileSprite, 3)
@@ -129,6 +136,7 @@ export class Player extends Actor {
         this.addChild(this.shadow);
 
         this.loadHats();
+        this.delayNectarScore();
 
 
         this.collider.useBoxCollider(
@@ -212,10 +220,10 @@ export class Player extends Actor {
             if (this.health <= 0.01) {
                 this.graphics.use(this.animationDeath);
                 evt.other.killedOther = true;
-                // this.healthBar.kill();
+                //this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
                 this.TimerGameover(evt.other)
-                // this.kill();
+                //this.kill();
             }
         } if (evt.other instanceof Pickup) {
             this.game.scenes['overworld'].doorLevelHandler();
@@ -226,6 +234,13 @@ export class Player extends Actor {
         this.nectarUI.setScore2(this.game)
         this.nectarSuperUI.setScore(this.game)
     }
+
+    delayNectarScore(){
+        setTimeout(() => {
+            this.updateNectarScore()
+        }, 500);
+    }
+
 
     add(accumulator, a) {
         return accumulator + a;
