@@ -15,11 +15,10 @@ import { CurrentNectar } from "./UI/currentNectar.js";
 import { CurrentSuperNectar } from "./UI/currentSuperNectar.js";
 import { CurrentProjectile } from "./UI/currentProjectile.js";
 import { Man } from "./enemies/man.js";
-import { TopHat } from "./hats/tophat.js";
-import { WizardHat } from "./hats/wizardhat.js";
-import { SombreroHat } from "./hats/sombrerohat.js";
 import {CurrentHat} from "./UI/currentHat.js";
 import {Hat} from "./hats/hat.js";
+import {TaskbarUI} from "./UI/taskbarUI.js";
+import {Pickup} from "./pickups/pickup.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -61,6 +60,7 @@ export class Player extends Actor {
     nectarSuperUI
     currentProjectileUI
     hatUI
+    taskBarUI
 
 
     constructor(game) {
@@ -104,10 +104,17 @@ export class Player extends Actor {
         this.hatUI.z = 99
         this.addChild(this.hatUI)
 
+        this.taskBarUI = new TaskbarUI(this.game)
+        this.taskBarUI.pos = new Vector(40, -70)
+        this.taskBarUI.scale = new Vector(0.2,0.2)
+        this.addChild(this.taskBarUI)
+
         this.currentProjectileUI = new CurrentProjectile(this.game)
         this.currentProjectileUI.pos = new Vector(-67, -65)
         this.currentProjectileUI.scale = new Vector(0.7, 0.7)
         this.currentProjectileUI.z = 99
+
+
 
         if (this.inventory.getSelectedProjectileId() !== -1) {
             this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.currentSelectedItemIndex].projectileSprite, 3)
@@ -127,6 +134,7 @@ export class Player extends Actor {
         this.addChild(this.shadow);
 
         this.loadHats();
+        this.delayNectarScore();
 
 
         this.collider.useBoxCollider(
@@ -215,12 +223,22 @@ export class Player extends Actor {
                 this.TimerGameover(evt.other)
                 //this.kill();
             }
+        } if (evt.other instanceof Pickup) {
+            this.game.scenes['overworld'].doorLevelHandler();
         }
     }
 
     updateNectarScore() {
         this.nectarUI.setScore2(this.game)
+        this.nectarSuperUI.setScore(this.game)
     }
+
+    delayNectarScore(){
+        setTimeout(() => {
+            this.updateNectarScore()
+        }, 500);
+    }
+
 
     add(accumulator, a) {
         return accumulator + a;
@@ -444,6 +462,11 @@ export class Player extends Actor {
         setTimeout(() => {
             enemy.killedOther = false;
             this.inventory.health = 1;
+            this.inventory.nectarAmount = 0
+            if (this.lastHat) {
+                this.removeChild(this.lastHat)
+            }
+
             this.healthBar.setHealth(1)
             this.body.collisionType = CollisionType.Active
             this.game.scenes['GameOver'].GameOverImageHandler(enemy);
@@ -455,7 +478,7 @@ export class Player extends Actor {
         let hatFound = false
 
         for (let i = 0; i < this.hats.length; i++) {
-            if (i !== 0){
+            if (i !== 0) {
                 if (this.hats[i].name === hat.name) {
                     hatFound = true;
                 }
@@ -471,11 +494,11 @@ export class Player extends Actor {
             if (this.lastHat) {
                 this.lastHat.kill()
             }
-                hat.pos = new Vector(-0.5, -12)
-                this.lastHat = hat
-                this.inventory.addItem(hat, false, null, null, null, true)
-                this.hats.push(hat)
-                this.inventory.hatIndex++
+            hat.pos = new Vector(-0.5, -12)
+            this.lastHat = hat
+            this.inventory.addItem(hat, false, null, null, null, true)
+            this.hats.push(hat)
+            this.inventory.hatIndex++
         }
         console.log(this.inventory.hatIndex)
         this.hatUI.setIcon(this.lastHat);
@@ -485,9 +508,9 @@ export class Player extends Actor {
     }
 
 
-    loadHats(){
+    loadHats() {
         this.lastHat = this.game.inventory.lastHat
-        if (this.lastHat instanceof  Hat){
+        if (this.lastHat instanceof Hat) {
             this.hatHandler(this.lastHat)
             this.hatUI.setIcon(this.lastHat);
         }

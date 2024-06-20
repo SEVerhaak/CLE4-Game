@@ -49,10 +49,9 @@ export class CurrentNectar extends ScreenElement {
     }
 
     setScore2() {
-        let value = this.game.inventory.nectarAmount + 1
+        let value = this.game.inventory.nectarAmount
         value = value.toString()
         this.scoreText.text = value
         this.scoreTextBG.text = value
-        this.game.scenes['overworld'].doorLevelHandler(value, 0);
     }
 }

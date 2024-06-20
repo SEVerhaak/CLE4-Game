@@ -53,6 +53,8 @@ export class Level3 extends Scene {
         super.onDeactivate(context)
         console.log('deactivate')
         this.player.kill()
+        Resources.Levelbossmusic.stop()
+
     }
     onActivate(context) {
         super.onActivate(context)
@@ -61,6 +63,8 @@ export class Level3 extends Scene {
         this.player = new Player(this.game)
         this.player.pos = new Vector(400, 400)
         this.add(this.player)
+        Resources.Levelbossmusic.play()
+
     }
     cameraDelay(engine) {
         setTimeout(() => {

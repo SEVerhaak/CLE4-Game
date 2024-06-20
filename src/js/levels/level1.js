@@ -24,8 +24,6 @@ export class Level1 extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
-        Resources.Worldmusic.stop()
-        Resources.Levelbossmusic.play()
         Resources.Level1.addToScene(this);
         this.spider = new Spider(this, this.game);
         this.spider.pos = new Vector(300, 300);
@@ -50,6 +48,7 @@ export class Level1 extends Scene {
         super.onDeactivate(context)
         console.log('deactivate')
         this.player.kill()
+        Resources.Levelbossmusic.stop()
     }
     onActivate(context) {
         super.onActivate(context)
@@ -58,6 +57,7 @@ export class Level1 extends Scene {
         this.player = new Player(this.game)
         this.player.pos = new Vector(302, 100)
         this.add(this.player)
+        Resources.Levelbossmusic.play()
     }
     cameraDelay(engine) {
         setTimeout(() => {
