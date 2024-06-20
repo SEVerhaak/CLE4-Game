@@ -19,6 +19,8 @@ export class Projectile extends Actor {
     scaleModifier
     animStrat
     delay
+    range
+    speed
 
 
     constructor(velocity, pos) {
@@ -33,9 +35,13 @@ export class Projectile extends Actor {
         this.animation = Animation.fromSpriteSheet(this.spriteSheet, range(0, this.animEndFrame), this.delay, this.animStrat);
         this.graphics.use(this.animation)
         this.scale = new Vector(this.scaleModifier, this.scaleModifier)
+        this.killDelay();
     }
 
-    onPreUpdate(engine, delta) {
-        super.onPreUpdate(engine, delta);
+    killDelay(){
+        setTimeout(() => {
+            this.kill()
+        }, this.range);
     }
+
 }
