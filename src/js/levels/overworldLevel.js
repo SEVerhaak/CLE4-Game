@@ -8,6 +8,7 @@ import { Chest } from "../chest.js";
 import { Bush } from "../bush.js";
 import { Man } from "../enemies/man.js";
 import { Finalboss } from "../enemies/finalboss.js";
+import {SuperNectarPickup} from "../pickups/supernectarpickup.js";
 
 export class OverworldLevel extends Scene {
 
@@ -96,6 +97,9 @@ export class OverworldLevel extends Scene {
         this.player = new Player(this.game)
         this.player.pos = new Vector(1300, 1200)
         this.add(this.player)
+
+        const superNectar = new SuperNectarPickup(1250,1200)
+        this.add(superNectar)
     }
     cameraDelay(engine) {
         setTimeout(() => {

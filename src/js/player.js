@@ -220,6 +220,7 @@ export class Player extends Actor {
 
     updateNectarScore() {
         this.nectarUI.setScore2(this.game)
+        this.nectarSuperUI.setScore(this.game)
     }
 
     add(accumulator, a) {
@@ -444,6 +445,8 @@ export class Player extends Actor {
         setTimeout(() => {
             enemy.killedOther = false;
             this.inventory.health = 1;
+            this.inventory.nectarAmount = 0
+            this.removeChild(this.lastHat)
             this.healthBar.setHealth(1)
             this.body.collisionType = CollisionType.Active
             this.game.scenes['GameOver'].GameOverImageHandler(enemy);
