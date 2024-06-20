@@ -130,7 +130,7 @@ export class OverworldLevel extends Scene {
                 this.enterlevel4bool = true;
             }
         }
-        if (this.game.inventory.nectarAmount >= 10 && !this.enterlevel1bool) {
+        if (this.game.inventory.nectarAmount >= 10 && this.game.inventory.superNectarAmount >= 1 && !this.enterlevel1bool) {
 
             this.enterlevel1 = new EnterLevel(2113.75, 450.16, this.game, 1, 'enterlevel1');
             this.add(this.enterlevel1);
