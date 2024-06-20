@@ -44,11 +44,11 @@ export class OverworldLevel extends Scene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+        this.game.inventory.level = this.levelUnlocked;
+
+        console.log(this.game.inventory.level)
         this.FillOverWorld(engine)
         this.engine = engine;
-
-
-
     }
     RestartOverWorld() {
         this.clear()
@@ -119,9 +119,12 @@ export class OverworldLevel extends Scene {
         this.add(this.player)
         Resources.Worldmusic.play()
         this.doorLevelHandler()
-        this.supernectar = new SuperNectarPickup
-        this.supernectar.pos = new Vector(1300, 1300)
-        this.add(this.supernectar);
+        for (let i = 0; i < 4; i++) {
+            this.supernectar = new SuperNectarPickup
+            this.supernectar.pos = new Vector(1300 + (10*i), 1300)
+            this.add(this.supernectar);
+        }
+
     }
     cameraDelay(engine) {
         setTimeout(() => {
@@ -162,24 +165,29 @@ export class OverworldLevel extends Scene {
             this.enterlevel1 = new EnterLevel(2113.75, 450.16, this.game, 1, 'enterlevel1');
             this.add(this.enterlevel1);
             this.levelUnlocked = 1;
+            //this.player.taskBarUI.checkLevelUnlocked();
+            this.game.inventory.level = this.levelUnlocked
         }
         if (this.game.inventory.nectarAmount >= this.nectarLevel2 && this.game.inventory.superNecterAmount >= this.superNectarLevel2 && !this.enterlevel2bool) {
 
             this.enterlevel2 = new EnterLevel(1607, 2131.29, this.game, 2, 'enterlevel2');
             this.add(this.enterlevel2);
             this.levelUnlocked = 2;
+            this.game.inventory.level = this.levelUnlocked
         }
         if (this.game.inventory.nectarAmount >= this.nectarLevel3 && this.game.inventory.superNecterAmount >= this.superNectarLevel3 && !this.enterlevel3bool) {
 
             this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3, 'enterlevel3');
             this.add(this.enterlevel3);
             this.levelUnlocked = 3;
+            this.game.inventory.level = this.levelUnlocked
         }
         if (this.game.inventory.nectarAmount >= this.nectarLevel4 && this.game.inventory.superNecterAmount >= this.superNectarLevel4 && !this.enterlevel4bool) {
 
             this.enterlevel4 = new EnterLevel(287.45, 694, this.game, 4, 'enterlevel4');
             this.add(this.enterlevel4);
             this.levelUnlocked = 4;
+            this.game.inventory.level = this.levelUnlocked
         }
         if (this.game.inventory.superNecterAmount >= this.superNectarBossLevel) {
             for (let i = 0; i < allEnterLevels.length; i++) {
