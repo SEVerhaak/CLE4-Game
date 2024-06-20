@@ -19,6 +19,7 @@ export class Inventory extends Actor {
     currentSelectedProjectileSprite
     health
     nectarAmount = 0;
+    superNecterAmount = 0;
 
     constructor(game) {
         super({ width: 16, height: 16, collisionType: CollisionType.PreventCollision});
@@ -58,23 +59,32 @@ export class Inventory extends Actor {
             let existingItem = this.inventory.find(inventoryItem => inventoryItem.itemName === item);
 
             if (existingItem) {
-                let itemIndex = this.inventory.findIndex(inventoryItem => inventoryItem.itemName === item);
-                //player.updateNectarScore()
-                this.nectarAmount = this.inventory[itemIndex].itemAmount
-                existingItem.itemAmount++;
+                this.increaseItemAmount(existingItem)
             } else {
                  let itemObject = {
                     itemName: item,
                     itemAmount: 1
                 };
                 this.inventory.push(itemObject);
-                let itemIndex = this.inventory.findIndex(inventoryItem => inventoryItem.itemName === item);
+                this.increaseItemAmount(itemObject)
                 //player.updateNectarScore()
-                this.nectarAmount = this.inventory[itemIndex].itemAmount
-
+                //this.setItemAmount(itemObject)
                 console.log(this.inventory)
             }
         }
+    }
+
+    increaseItemAmount(item){
+        console.log(item)
+        if (item.itemName === 'Nectar'){
+            this.nectarAmount++
+        } else{
+            this.superNecterAmount++
+        }
+    }
+
+    setItemAmount(item){
+        let existingItem = this.inventory.find(inventoryItem => inventoryItem.itemName === item);
     }
 
     checkIfProjectileIsEquipped(item){

@@ -58,6 +58,7 @@ export class Pickup extends Actor {
             console.log('suPernectar opgepakt')
             this.kill()
             player.inventory.addItem(this.itemName, false)
+            player.updateNectarScore();
         }
         else {
             player.updateNectarScore();
@@ -69,7 +70,7 @@ export class Pickup extends Actor {
     spawnDelay() {
         setTimeout(() => {
             this.body.collisionType = CollisionType.Passive
-        }, 500);
+        }, 1000);
     }
 
 }

@@ -87,10 +87,11 @@ const Resources = {
     Transparent: new ImageSource('images/hat_icons/transparent.png'),
     Finalboss: new ImageSource('images/Endboss.png'),
     SuperNectar: new ImageSource('images/superNectar.png'),
+    SuperNectarIcon: new ImageSource('images/supernectaricon.png')
     Levelbossmusic: new Sound ('music/Levelmusic.mp3'),
     Worldmusic: new Sound ('music/overworldmusic.mp3'),
     Finalbossmusic: new Sound ('music/Finalbossmusic.mp3')
-    
+
 
 }
 

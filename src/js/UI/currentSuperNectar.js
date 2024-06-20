@@ -26,7 +26,7 @@ export class CurrentSuperNectar extends ScreenElement {
         this.scoreTextBG.z = 998
         this.addChild(this.scoreTextBG)
 
-        this.graphics.use(Resources.NectarMedium.toSprite())
+        this.graphics.use(Resources.SuperNectarIcon.toSprite())
 
         this.scoreText = new Label({
             text: '0',
@@ -43,8 +43,12 @@ export class CurrentSuperNectar extends ScreenElement {
 
     }
 
-    setScore(value){
+    setScore() {
+        let value = this.game.inventory.superNecterAmount
+        console.log(value)
+        value = value.toString()
         this.scoreText.text = value
         this.scoreTextBG.text = value
+        //this.game.scenes['overworld'].doorLevelHandler(value, 0);
     }
 }
