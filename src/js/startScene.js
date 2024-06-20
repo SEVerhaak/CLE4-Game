@@ -1,4 +1,4 @@
-import { BoundingBox, Scene, Vector, Actor, Keys } from "excalibur"
+import { BoundingBox, Scene, Vector, Actor, Keys, Input } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 
 
