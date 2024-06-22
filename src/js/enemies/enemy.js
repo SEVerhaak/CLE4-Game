@@ -49,6 +49,18 @@ export class Enemy extends Actor {
         this.on('collisionstart', (evt) => this.onCollisionStart(evt));
     }
 
+    takeExplosionDamage(damage){
+        this.health -= damage
+        this.healthBar.reduceHealth(damage);
+        this.graphics.use(this.animationHurt);
+        this.damageTaken = true
+        if (this.health <= 0.01) {
+            this.currentAnimation = this.animationDeath
+            this.healthBar.kill();
+            this.body.collisionType = CollisionType.PreventCollision
+        }
+    }
+
     onCollisionStart(evt) {
         if (evt.other instanceof Projectile) {
             this.health -= evt.other.damage;

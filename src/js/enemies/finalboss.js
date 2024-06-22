@@ -43,6 +43,19 @@ export class Finalboss extends Actor {
         this.game = game
     }
 
+    takeExplosionDamage(damage){
+        this.health -= damage
+        this.healthBar.reduceHealth(damage);
+        this.spawnBlood();
+        this.graphics.use(this.animationHurt);
+        this.damageTaken = true
+        if (this.health <= 0.01) {
+            this.currentAnimation = this.animationDeath
+            this.healthBar.kill();
+            this.body.collisionType = CollisionType.PreventCollision
+        }
+    }
+
     onInitialize(engine) {
         super.onInitialize(engine);
         this.collider.useBoxCollider(
