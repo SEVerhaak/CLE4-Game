@@ -333,7 +333,8 @@ export class Player extends Actor {
                 this.attacking = true
                 this.attack(velocity)
             }
-            if (engine.input.keyboard.wasPressed(Keys.ShiftLeft)) {
+            if (engine.input.keyboard.wasPressed(Keys.ShiftLeft) ||
+                engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face2)) {
                 this.inventory.setSelectedProjectileID()
                 if (this.inventory.getSelectedProjectileId() !== -1) {
                     this.currentProjectileUI.setIcon(this.inventory.projectiles[this.inventory.currentSelectedItemIndex].projectileSprite, this.inventory.projectiles[this.inventory.currentSelectedItemIndex].endFrame)
