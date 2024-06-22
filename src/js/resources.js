@@ -89,16 +89,16 @@ const Resources = {
     Finalboss: new ImageSource('images/Endboss.png'),
     SuperNectar: new ImageSource('images/superNectar.png'),
     SuperNectarIcon: new ImageSource('images/supernectaricon.png'),
-    Levelbossmusic: new Sound ('music/Levelmusic.mp3'),
-    Worldmusic: new Sound ('music/overworldmusic.mp3'),
-    Finalbossmusic: new Sound ('music/Finalbossmusic.mp3'),
+    Levelbossmusic: new Sound('music/Levelmusic.mp3'),
+    Worldmusic: new Sound('music/overworldmusic.mp3'),
+    Finalbossmusic: new Sound('music/Finalbossmusic.mp3'),
     GameOverSound: new Sound('music/gameOverSound.mp3'),
     Cross: new ImageSource('images/cross.png'),
     Check: new ImageSource('images/check.png'),
     Explosion: new ImageSource('images/explosion.png'),
     MedicNectar: new ImageSource('images/medicnectar.png'),
     FireProjectile4: new ImageSource('images/projectile/projectile4.png'),
-    FireProjectile5: new ImageSource('images/projectile/projectile5.png')
+    // FireProjectile5: new ImageSource('images/projectile/projectile5.png')
 }
 
 
