@@ -1,7 +1,7 @@
 import {
     Actor,
     Vector,
-    CollisionType
+    CollisionType, Sprite
 } from "excalibur";
 import { Resources } from "../resources.js";
 import { Player } from "../player.js";
@@ -9,7 +9,9 @@ import { Pickup } from "./pickup.js";
 
 export class HealthPickup extends Pickup {
 
-    sprite = Resources.MedicNectar
+    sprite = new Sprite({
+        image: Resources.MedicNectar,
+    })
     itemName = 'Health'
     scaleVec = new Vector(1, 1)
 

@@ -29,7 +29,7 @@ export class Pickup extends Actor {
     onInitialize(engine) {
         console.log(this.sprite)
         this.scale = this.scaleVec
-        this.graphics.use(this.sprite.toSprite())
+        this.graphics.use(this.sprite)
         this.on('collisionstart', (evt) => this.onCollisionStart(evt));
         this.spawnDelay();
     }
