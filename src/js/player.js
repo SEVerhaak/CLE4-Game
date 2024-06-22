@@ -77,11 +77,10 @@ export class Player extends Actor {
 
     onInitialize(engine) {
         super.onInitialize(engine);
-
         //this.inventory = new Inventory(engine,0,0)
         //this.addChild(this.inventory);
         this.uiComponent = new UI(this.game)
-        this.uiComponent.pos = new Vector(-160, -80)
+        this.uiComponent.pos = new Vector(331 - engine.drawWidth, -80)
         this.uiComponent.scale = new Vector(0.05, 0.05)
         this.uiComponent.z = 99
         this.addChild(this.uiComponent)
@@ -408,12 +407,12 @@ export class Player extends Actor {
         }
     }
 
-    healthPickup(){
-        if (this.inventory.health <= 0.9){
+    healthPickup() {
+        if (this.inventory.health <= 0.9) {
             this.healtBar.increaseHealth(0.1)
-        } else if (this.inventory.health > 0.9 && player.inventory.health < 1){
+        } else if (this.inventory.health > 0.9 && player.inventory.health < 1) {
             this.healtBar.setHealth(1)
-        } else{
+        } else {
 
         }
     }

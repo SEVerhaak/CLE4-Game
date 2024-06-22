@@ -16,8 +16,13 @@ export class GameOverScene extends Scene {
 
     onInitialize(engine) {
 
-        Resources.Worldmusic.stop()
-        Resources.Levelbossmusic.stop()
+    }
+    onActivate() {
+        Resources.GameOverSound.play()
+    }
+    onDeactivate() {
+        Resources.GameOverSound.stop()
+
     }
 
     GameOverImageHandler(enemy) {
@@ -72,7 +77,7 @@ export class GameOverScene extends Scene {
 
 
     gotoOverWorld() {
-        setTimeout(() => { this.game.goToScene('overworld') }, 2000)
+        setTimeout(() => { this.game.goToScene('overworld') }, 5500)
     }
 
 
