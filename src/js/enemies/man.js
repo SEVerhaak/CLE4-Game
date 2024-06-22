@@ -104,6 +104,7 @@ export class Man extends Actor {
             this.damageTaken = true
             console.log(this.health)
             if (this.health <= 0.01) {
+                this.spawnDeathBlood();
                 this.graphics.use(this.animationDeath);
                 this.currentAnimation = this.animationDeath
                 this.healthBar.kill();
@@ -265,6 +266,35 @@ export class Man extends Actor {
             //console.log('clearing')
             this.removeChild(emitter)
         }, 100);
+    }
+
+    spawnDeathBlood(){
+        let emitter = new ParticleEmitter(0, 0, 0, 2);
+        emitter.emitterType = EmitterType.Rectangle;
+        emitter.radius = 5;
+        emitter.minVel = 20;
+        emitter.maxVel = 120;
+        emitter.minAngle = 3.5;
+        emitter.maxAngle = 5.7;
+        emitter.isEmitting = true;
+        emitter.emitRate = 300;
+        emitter.fadeFlag = true;
+        emitter.particleLife = 1000;
+        emitter.maxSize = 2;
+        emitter.minSize = 0.5;
+        emitter.startSize = 0;
+        emitter.endSize = 0;
+        emitter.acceleration = new Vector(0, -50);
+        emitter.beginColor = Color.Red;
+        emitter.endColor = Color.Red;
+        emitter.z = 1000
+        emitter.opacity = 0.5;
+        emitter.scale = new Vector(0.5, 0.5)
+        this.addChild(emitter);
+        setTimeout(() => {
+            //console.log('clearing')
+            this.removeChild(emitter)
+        }, 2500);
     }
 
 }
