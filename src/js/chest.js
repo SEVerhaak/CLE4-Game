@@ -22,6 +22,9 @@ import { SombreroHat } from "./hats/sombrerohat.js";
 import { WizardHat } from "./hats/wizardhat.js";
 import { PrideHat } from "./hats/pridehat.js";
 import { Bush } from "./bush.js";
+import {FireProjectile3Pickup} from "./pickups/FireProjectile3Pickup.js";
+import {FireProjectile4Pickup} from "./pickups/fireProjectile4Pickup.js";
+import {FireProjectile5Pickup} from "./pickups/fireProjectile5Pickup.js";
 
 
 
@@ -75,15 +78,19 @@ export class Chest extends Actor {
     onCollisionStart(evt, chest) {
         if (evt.other instanceof Player) {
             if (!(this.chestopened)) {
-                let tophat = new TopHat(-3, -2)
-                let christmasHat = new ChristmasHat(-3, -2)
-                let graduationHat = new GraduationHat(-3, -2)
-                let sombreroHat = new SombreroHat(-3, -2)
-                let wizardhat = new WizardHat(-3, -2)
-                let prideHat = new PrideHat(-3, -2)
-                let hats = [tophat, christmasHat, graduationHat, sombreroHat, wizardhat, prideHat]
+                const tophat = new TopHat(-3, -2)
+                const christmasHat = new ChristmasHat(-3, -2)
+                const graduationHat = new GraduationHat(-3, -2)
+                const sombreroHat = new SombreroHat(-3, -2)
+                const wizardhat = new WizardHat(-3, -2)
+                const prideHat = new PrideHat(-3, -2)
+                const projectile3 = new FireProjectile3Pickup(-3, -2)
+                const projectile4 = new FireProjectile4Pickup(-3, -2)
+                const projectile5 = new FireProjectile5Pickup(-3, -2)
+
+                const hats = [tophat, christmasHat, graduationHat, sombreroHat, wizardhat, prideHat,projectile3,projectile4,projectile5]
                 this.graphics.use(this.chestOpen)
-                this.addChild(hats[this.getRandomNumber(0, 5)])
+                this.addChild(hats[this.getRandomNumber(0, 7)])
             }
             this.chestopened = true
         }

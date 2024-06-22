@@ -115,9 +115,10 @@ export class Man extends Actor {
         }
     }
 
-    takeExplosionDamage(){
-        this.health -= 0.2
-        this.healthBar.reduceHealth(0.2);
+    takeExplosionDamage(damage){
+        this.spawnBlood();
+        this.health -= damage
+        this.healthBar.reduceHealth(damage);
         this.graphics.use(this.animationHurt);
         this.damageTaken = true
         if (this.health <= 0.01) {

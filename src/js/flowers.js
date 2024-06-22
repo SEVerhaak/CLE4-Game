@@ -137,7 +137,7 @@ export class Flower extends Actor {
 
                         break
                     case 3:
-                        const projectile3 = new FireProjectile3Pickup(0, 0)
+                        const projectile3 = new ProjectilePickup(0, 0)
                         this.addChild(projectile3)
                         projectile3.actions.moveTo(new Vector(randomXPositive, randomYPositive), 50)
                         this.removeChild(this.glow)

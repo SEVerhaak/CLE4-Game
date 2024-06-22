@@ -20,6 +20,8 @@ import { Hat } from "./hats/hat.js";
 import { TaskbarUI } from "./UI/taskbarUI.js";
 import { Pickup } from "./pickups/pickup.js";
 import { Finalboss } from "./enemies/finalboss.js";
+import {FireProjectile4} from "./projectiles/fireProjectile4.js";
+import {FireProjectile5} from "./projectiles/fireProjectile5.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -449,7 +451,9 @@ export class Player extends Actor {
                 const projectileArray = [
                     new FireProjectile1(projectileVector, this.pos),
                     new FireProjectile2(projectileVector, this.pos),
-                    new FireProjectile3(projectileVector, this.pos)
+                    new FireProjectile3(projectileVector, this.pos),
+                    new FireProjectile4(projectileVector, this.pos),
+                    new FireProjectile5(projectileVector, this.pos)
                 ]
 
                 //const projectile = new FireProjectile2(projectileVector);
