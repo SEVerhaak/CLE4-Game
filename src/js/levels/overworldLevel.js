@@ -12,6 +12,7 @@ import { SuperNectarPickup } from "../pickups/supernectarpickup.js";
 import { ProjectilePickup } from "../pickups/pickupProjectileTest.js";
 import { FireProjectile2Pickup } from "../pickups/FireProjectile2Pickup.js";
 import { FireProjectile3Pickup } from "../pickups/FireProjectile3Pickup.js";
+import {HealthPickup} from "../pickups/healthPickup.js";
 
 export class OverworldLevel extends Scene {
 
@@ -122,6 +123,7 @@ export class OverworldLevel extends Scene {
         this.player = new Player(this.game)
         this.player.pos = new Vector(1300, 1200)
         this.add(this.player)
+
         Resources.Worldmusic.play()
         this.doorLevelHandler()
         // this.supernectar = new SuperNectarPickup

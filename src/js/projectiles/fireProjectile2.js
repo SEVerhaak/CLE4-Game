@@ -8,7 +8,7 @@ import {Projectile} from "./projectile.js";
 export class FireProjectile2 extends Projectile {
 
     //sprite = this.graphics.use(Resources.Nectar.toSprite())
-    damage = 0.1
+    damage = 0.23
     spriteSheet = SpriteSheet.fromImageSource({
         image: Resources.FireProjectile2,
         grid: {
@@ -24,6 +24,8 @@ export class FireProjectile2 extends Projectile {
     delay = 25
     range = 2000
     speed = 1.2
+    canPassThrough = false
+    reloadTime = 500
 
     constructor(velocity, pos) {
         super({ width: 16, height: 16, collisionType: CollisionType.Passive});

@@ -1,4 +1,13 @@
-import { Actor, Animation, AnimationStrategy, CollisionType, range, SpriteSheet, Vector } from "excalibur";
+import {
+    Actor,
+    Animation,
+    AnimationStrategy,
+    CollisionType, Color, EmitterType,
+    ParticleEmitter,
+    range,
+    SpriteSheet,
+    Vector
+} from "excalibur";
 import { Resources } from '../resources.js';
 import { Player } from "../player.js";
 import { Healthbar } from "../UI/healthBar.js";
@@ -80,6 +89,7 @@ export class Finalboss extends Actor {
 
     onCollisionStart(evt) {
         if (evt.other instanceof Projectile) {
+            this.spawnBlood();
             this.health -= evt.other.damage / 3;
             this.healthBar.reduceHealth(evt.other.damage / 3);
             this.damageTaken = true
@@ -214,6 +224,35 @@ export class Finalboss extends Actor {
             this.game.goToScene('endcredit');
             this.game.final
         }, 1000)
+    }
+
+    spawnBlood() {
+        let emitter = new ParticleEmitter(0, 0, 0, 2);
+        emitter.emitterType = EmitterType.Rectangle;
+        emitter.radius = 5;
+        emitter.minVel = 100;
+        emitter.maxVel = 200;
+        emitter.minAngle = 0;
+        emitter.maxAngle = 6.2;
+        emitter.isEmitting = true;
+        emitter.emitRate = 300;
+        emitter.opacity = 0.5;
+        emitter.fadeFlag = true;
+        emitter.particleLife = 1000;
+        emitter.maxSize = 5;
+        emitter.minSize = 1;
+        emitter.startSize = 0;
+        emitter.endSize = 0;
+        emitter.acceleration = new Vector(0, 57);
+        emitter.beginColor = Color.Red;
+        emitter.endColor = Color.Red;
+        emitter.z = 1000
+        emitter.scale = new Vector(0.5, 0.5)
+        this.addChild(emitter);
+        setTimeout(() => {
+            //console.log('clearing')
+            this.removeChild(emitter)
+        }, 100);
     }
 
 

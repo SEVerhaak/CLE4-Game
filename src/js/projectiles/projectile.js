@@ -21,6 +21,8 @@ export class Projectile extends Actor {
     delay
     range
     speed
+    canPassThrough
+    reloadTime
 
 
     constructor(velocity, pos) {

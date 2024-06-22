@@ -24,6 +24,8 @@ export class FireProjectile1 extends Projectile {
     delay = 25
     range = 5000
     speed = 2
+    canPassThrough = true
+    reloadTime = 250
 
 
     constructor(velocity, pos) {

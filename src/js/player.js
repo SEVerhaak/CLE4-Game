@@ -29,6 +29,7 @@ export class Player extends Actor {
     hats = [null];
     projectileSpeed = 200;
     projectileSpeedModifier = 1.2;
+    shootDelay = 500;
 
     lastPressed = 'right'
 
@@ -407,6 +408,16 @@ export class Player extends Actor {
         }
     }
 
+    healthPickup(){
+        if (this.inventory.health <= 0.9){
+            this.healtBar.increaseHealth(0.1)
+        } else if (this.inventory.health > 0.9 && player.inventory.health < 1){
+            this.healtBar.setHealth(1)
+        } else{
+
+        }
+    }
+
     shoot(velocityVector, overRide) {
         if (this.canShoot === true || overRide === true) {
             this.canShoot = false
@@ -445,9 +456,9 @@ export class Player extends Actor {
                 if (this.inventory.getSelectedProjectileId() !== -1) {
                     const projectile = projectileArray[this.inventory.getSelectedProjectileId()];
                     this.game.currentScene.add(projectile)
-                    this.resetShootTimer(); // Call the method to reset the shoot timer
+                    this.resetShootTimer(projectile.reloadTime); // Call the method to reset the shoot timer
                 } else {
-                    this.resetShootTimer(); // Call the method to reset the shoot timer
+                    this.resetShootTimer(500); // Call the method to reset the shoot timer
                     console.log('no items in inventory')
                 }
             }
@@ -475,11 +486,11 @@ export class Player extends Actor {
         }
     }
 
-    resetShootTimer() {
+    resetShootTimer(time) {
         setTimeout(() => {
             this.canShoot = true; // Reset the flag after 500ms
             this.attacking = false;
-        }, 500);
+        }, time);
     }
 
     TimerGameover(enemy) {

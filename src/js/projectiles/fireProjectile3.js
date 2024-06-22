@@ -25,6 +25,8 @@ export class FireProjectile3 extends Projectile {
     delay = 50
     range = 1000
     speed = 0.5
+    canPassThrough = false;
+    reloadTime = 1000
 
     constructor(velocity, pos) {
         super({ width: 16, height: 16, collisionType: CollisionType.Passive});

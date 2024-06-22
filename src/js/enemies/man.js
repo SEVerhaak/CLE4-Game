@@ -1,4 +1,13 @@
-import { Actor, Animation, AnimationStrategy, CollisionType, range, SpriteSheet, Vector } from "excalibur";
+import {
+    Actor,
+    Animation,
+    AnimationStrategy,
+    CollisionType, Color, EmitterType,
+    ParticleEmitter,
+    range,
+    SpriteSheet,
+    Vector
+} from "excalibur";
 import { Resources } from '../resources.js';
 import { Player } from "../player.js";
 import { Healthbar } from "../UI/healthBar.js";
@@ -39,7 +48,7 @@ export class Man extends Actor {
     onInitialize(engine) {
         super.onInitialize(engine);
         this.collider.useBoxCollider(
-            25, 10, new Vector(0, 0), new Vector(-10, -5)
+            17, 25, new Vector(0, 0), new Vector(-10, -15)
         )
         const spriteSheets = [
             Resources.Man1,
@@ -88,9 +97,10 @@ export class Man extends Actor {
 
     onCollisionStart(evt) {
         if (evt.other instanceof Projectile) {
+            this.spawnBlood();
             this.health -= evt.other.damage;
             this.healthBar.reduceHealth(evt.other.damage);
-            this.graphics.use(this.animationHurt);
+            //this.graphics.use(this.animationHurt);
             this.damageTaken = true
             console.log(this.health)
             if (this.health <= 0.01) {
@@ -99,7 +109,9 @@ export class Man extends Actor {
                 this.healthBar.kill();
                 this.body.collisionType = CollisionType.PreventCollision
             }
-            evt.other.kill();
+            if (!evt.other.canPassThrough){
+                evt.other.kill();
+            }
         }
     }
 
@@ -223,6 +235,35 @@ export class Man extends Actor {
             this.vel = new Vector(0, 0);
             this.body.collisionType = CollisionType.PreventCollision
         }
+    }
+
+    spawnBlood() {
+        let emitter = new ParticleEmitter(0, 0, 0, 2);
+        emitter.emitterType = EmitterType.Rectangle;
+        emitter.radius = 5;
+        emitter.minVel = 100;
+        emitter.maxVel = 200;
+        emitter.minAngle = 0;
+        emitter.maxAngle = 6.2;
+        emitter.isEmitting = true;
+        emitter.emitRate = 300;
+        emitter.opacity = 0.5;
+        emitter.fadeFlag = true;
+        emitter.particleLife = 1000;
+        emitter.maxSize = 5;
+        emitter.minSize = 1;
+        emitter.startSize = 0;
+        emitter.endSize = 0;
+        emitter.acceleration = new Vector(0, 57);
+        emitter.beginColor = Color.Red;
+        emitter.endColor = Color.Red;
+        emitter.z = 1000
+        emitter.scale = new Vector(0.5, 0.5)
+        this.addChild(emitter);
+        setTimeout(() => {
+            //console.log('clearing')
+            this.removeChild(emitter)
+        }, 100);
     }
 
 }

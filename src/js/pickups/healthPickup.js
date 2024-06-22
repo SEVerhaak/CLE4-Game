@@ -7,12 +7,12 @@ import { Resources } from "../resources.js";
 import { Player } from "../player.js";
 import { Pickup } from "./pickup.js";
 
-export class NectarPickup extends Pickup {
+export class HealthPickup extends Pickup {
 
     sprite = new Sprite({
-        image: Resources.MiniNectar,
+        image: Resources.MedicNectar,
     })
-    itemName = 'Nectar'
+    itemName = 'Health'
     scaleVec = new Vector(1, 1)
 
     constructor(x, y) {

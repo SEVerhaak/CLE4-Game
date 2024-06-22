@@ -65,7 +65,9 @@ export class Enemy extends Actor {
                 this.supernectar.pos = new Vector(-10, -10)
                 this.addChild(this.supernectar);
             }
-            evt.other.kill();
+            if (!evt.other.canPassThrough){
+                evt.other.kill();
+            }
         }
     }
 
@@ -141,7 +143,6 @@ export class Enemy extends Actor {
                 }
 
             });
-
             if (!this.playerSeen) {
                 this.timeSinceLastChange += delta;
                 if (this.timeSinceLastChange >= this.changeDirectionInterval) {
@@ -155,5 +156,4 @@ export class Enemy extends Actor {
             this.body.collisionType = CollisionType.PreventCollision
         }
     }
-
 }
