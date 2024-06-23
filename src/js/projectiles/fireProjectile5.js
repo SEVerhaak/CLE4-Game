@@ -26,6 +26,7 @@ export class FireProjectile5 extends Projectile {
     range = 1000
     speed = 0.75
     canPassThrough = false;
+    isExplosive = true;
     reloadTime = 2000
 
     constructor(velocity, pos) {
@@ -65,7 +66,7 @@ export class FireProjectile5 extends Projectile {
 
     explosionDamage(evt){
         if (evt.other instanceof Man){
-            evt.other.takeExplosionDamage(0.48)
+            evt.other.takeExplosionDamage(0.40)
         }
     }
 

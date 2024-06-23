@@ -55,30 +55,37 @@ export class Enemy extends Actor {
         this.graphics.use(this.animationHurt);
         this.damageTaken = true
         if (this.health <= 0.01) {
-            this.currentAnimation = this.animationDeath
-            this.healthBar.kill();
-            this.body.collisionType = CollisionType.PreventCollision
+            this.killedEvent()
         }
+    }
+
+    killedEvent(){
+        this.graphics.use(this.animationDeath);
+        this.currentAnimation = this.animationDeath
+        this.healthBar.kill();
+        this.body.collisionType = CollisionType.PreventCollision
+        this.supernectar = new SuperNectarPickup
+        this.supernectar.pos = new Vector(-10, -10)
+        this.addChild(this.supernectar);
     }
 
     onCollisionStart(evt) {
         if (evt.other instanceof Projectile) {
-            this.health -= evt.other.damage;
-            this.healthBar.reduceHealth(evt.other.damage);
-            this.graphics.use(this.animationHurt);
-            this.damageTaken = true
-            console.log(this.health)
-            if (this.health <= 0.01) {
-                this.graphics.use(this.animationDeath);
-                this.currentAnimation = this.animationDeath
-                this.healthBar.kill();
-                this.body.collisionType = CollisionType.PreventCollision
-                this.supernectar = new SuperNectarPickup
-                this.supernectar.pos = new Vector(-10, -10)
-                this.addChild(this.supernectar);
-            }
-            if (!evt.other.canPassThrough){
-                evt.other.kill();
+            if (!evt.other.isExplosive) {
+                this.health -= evt.other.damage;
+                this.healthBar.reduceHealth(evt.other.damage);
+                this.graphics.use(this.animationHurt);
+                this.damageTaken = true
+                console.log(this.health)
+                if (this.health <= 0.01) {
+                    this.killedEvent()
+                }
+                if (!evt.other.canPassThrough) {
+                    evt.other.kill();
+                }
+            } else{
+                this.takeExplosionDamage(0.10)
+                evt.other.kill()
             }
         }
     }

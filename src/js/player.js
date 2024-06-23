@@ -82,13 +82,13 @@ export class Player extends Actor {
         //this.inventory = new Inventory(engine,0,0)
         //this.addChild(this.inventory);
         this.uiComponent = new UI(this.game)
-        this.uiComponent.pos = new Vector(331 - engine.drawWidth, -80)
+        this.uiComponent.pos = new Vector(-115, -80)
         this.uiComponent.scale = new Vector(0.05, 0.05)
         this.uiComponent.z = 99
         this.addChild(this.uiComponent)
 
         this.nectarUI = new CurrentNectar(this.game)
-        this.nectarUI.pos = new Vector(-155, -65)
+        this.nectarUI.pos = new Vector(-110, -65)
         this.nectarUI.scale = new Vector(0.1, 0.1)
         //this.nectarUI.scoreText.scale = new Vector(1,1)
         this.nectarUI.z = 99
@@ -96,25 +96,25 @@ export class Player extends Actor {
         this.nectarUI.setScore();
 
         this.nectarSuperUI = new CurrentSuperNectar(this.game)
-        this.nectarSuperUI.pos = new Vector(-140, -63)
+        this.nectarSuperUI.pos = new Vector(-95, -63)
         this.nectarSuperUI.scale = new Vector(0.1, 0.1)
         this.nectarSuperUI.z = 99
         this.addChild(this.nectarSuperUI)
 
         this.hatUI = new CurrentHat(this.game)
-        this.hatUI.pos = new Vector(-125, -66)
+        this.hatUI.pos = new Vector(-80, -66)
         this.hatUI.scale = new Vector(0.15, 0.15)
         this.hatUI.z = 99
         this.addChild(this.hatUI)
 
         this.taskBarUI = new TaskbarUI(this.game)
-        this.taskBarUI.pos = new Vector(100, -65)
+        this.taskBarUI.pos = new Vector(55, -65)
         this.taskBarUI.scale = new Vector(0.05, 0.05)
         this.taskBarUI.z = 99
         this.addChild(this.taskBarUI)
 
         this.currentProjectileUI = new CurrentProjectile(this.game)
-        this.currentProjectileUI.pos = new Vector(-112, -65)
+        this.currentProjectileUI.pos = new Vector(-66.5, -65)
         this.currentProjectileUI.scale = new Vector(0.7, 0.7)
         this.currentProjectileUI.z = 99
 

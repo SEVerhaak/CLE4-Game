@@ -25,6 +25,7 @@ export class FireProjectile4 extends Projectile {
     range = 1000
     speed = 0.5
     canPassThrough = false
+    isExplosive = false;
     reloadTime = 1000
 
     constructor(velocity, pos) {

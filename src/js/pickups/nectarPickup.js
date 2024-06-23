@@ -21,6 +21,11 @@ export class NectarPickup extends Pickup {
         this.pos.x = x;
         this.pos.y = y;
         this.z = 99;
+    }
 
+    onInitialize(engine) {
+        this.graphics.use(this.sprite)
+        this.on('collisionstart', (evt) => this.onCollisionStart(evt));
+        this.spawnDelay();
     }
 }

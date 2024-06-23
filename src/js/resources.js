@@ -77,7 +77,11 @@ const Resources = {
     MiniNectar: new ImageSource('images/miniNectar.png'),
     PrideHat: new ImageSource('images/Hats/prideHat.png'),
     NectarMedium: new ImageSource('images/nectarmed.png'),
-    NectarSFX: new Sound('sfx/sfx_nectar.mp3'),
+    NectarSFX: new Sound('sfx/bubble.mp3'),
+    InterActionSFX: new Sound('sfx/interactsound.mp3'),
+    InteractSFXOne: new Sound ('sfx/interact1.mp3'),
+    InteractSFXTwo: new Sound ('sfx/interact2.mp3'),
+    InteractSFXThree: new Sound ('sfx/interact3.mp3'),
     Black: new ImageSource('images/Black.png'),
     GayHatIcon: new ImageSource('images/hat_icons/gayhaticon.png'),
     GradHatIcon: new ImageSource('images/hat_icons/gradhaticon.png'),
@@ -98,7 +102,7 @@ const Resources = {
     Explosion: new ImageSource('images/explosion.png'),
     MedicNectar: new ImageSource('images/medicnectar.png'),
     FireProjectile4: new ImageSource('images/projectile/projectile4.png'),
-    // FireProjectile5: new ImageSource('images/projectile/projectile5.png')
+    FireProjectile5: new ImageSource('images/projectile/projectile5.png')
 }
 
 
