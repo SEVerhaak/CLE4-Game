@@ -20,8 +20,8 @@ import { Hat } from "./hats/hat.js";
 import { TaskbarUI } from "./UI/taskbarUI.js";
 import { Pickup } from "./pickups/pickup.js";
 import { Finalboss } from "./enemies/finalboss.js";
-import {FireProjectile4} from "./projectiles/fireProjectile4.js";
-import {FireProjectile5} from "./projectiles/fireProjectile5.js";
+import { FireProjectile4 } from "./projectiles/fireProjectile4.js";
+import { FireProjectile5 } from "./projectiles/fireProjectile5.js";
 
 export class Player extends Actor {
     // keyPressArray up, down, left, right
@@ -82,7 +82,7 @@ export class Player extends Actor {
         //this.inventory = new Inventory(engine,0,0)
         //this.addChild(this.inventory);
         this.uiComponent = new UI(this.game)
-        this.uiComponent.pos = new Vector(331 - engine.drawWidth, -80)
+        this.uiComponent.pos = new Vector(-160, -80)
         this.uiComponent.scale = new Vector(0.05, 0.05)
         this.uiComponent.z = 99
         this.addChild(this.uiComponent)

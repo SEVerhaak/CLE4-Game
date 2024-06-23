@@ -98,7 +98,7 @@ const Resources = {
     Explosion: new ImageSource('images/explosion.png'),
     MedicNectar: new ImageSource('images/medicnectar.png'),
     FireProjectile4: new ImageSource('images/projectile/projectile4.png'),
-    // FireProjectile5: new ImageSource('images/projectile/projectile5.png')
+    FireProjectile5: new ImageSource('images/projectile/projectile5.png')
 }
 
 
