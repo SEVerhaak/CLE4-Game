@@ -1,7 +1,7 @@
 import {
     Actor,
     Vector,
-    CollisionType
+    CollisionType, Sound
 } from "excalibur";
 import { Resources } from "../resources.js";
 import { Player } from "../player.js";
@@ -46,6 +46,7 @@ export class Pickup extends Actor {
     }
 
     onPlayerCollision(player) {
+
         if (this.isProjectile) {
             if (!player.inventory.checkIfProjectileIsEquipped(this.itemName)) {
                 player.inventory.addItem(this.itemName, true, this.projectileIndex, this.projectileSprite, this.endFrame)
@@ -72,6 +73,8 @@ export class Pickup extends Actor {
             }
         }
         else {
+            Resources.NectarSFX.play()
+
             player.updateNectarScore();
             player.taskBarUI.updateTasks();
             player.inventory.addItem(this.itemName, false)

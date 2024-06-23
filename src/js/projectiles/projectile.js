@@ -23,6 +23,7 @@ export class Projectile extends Actor {
     speed
     canPassThrough
     reloadTime
+    isExplosive
 
 
     constructor(velocity, pos) {

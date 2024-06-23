@@ -28,6 +28,20 @@ export class Hat extends Actor {
         // this.animation = Animation.fromSpriteSheet(this.spriteSheet, range(0, 0), this.delay, this.animStrat);
         this.graphics.use(this.graphic)
         this.on('collisionstart', (evt) => this.onCollisionStart(evt));
+        this.moveDown();
+    }
+    moveDown() {
+        // Move down 2 units over 200ms
+        this.actions.moveTo(-0.5, -12.5, 7).callMethod(() => {
+            this.moveUp();
+        });
+    }
+
+    moveUp() {
+        // Move up 2 units over 200ms
+        this.actions.moveTo(-0.5, -11.5, 7).callMethod(() => {
+            this.moveDown();
+        });
     }
 
     onPreUpdate(engine, delta) {

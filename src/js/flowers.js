@@ -83,6 +83,7 @@ export class Flower extends Actor {
 
     onCollisionStart(evt) {
         if (evt.other instanceof Player) {
+            Resources.InterActionSFX.play()
             //player position
             const playerPos = evt.other.pos
 

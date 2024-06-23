@@ -24,9 +24,10 @@ export class Game extends Engine {
             width: 1440,
             height: 900,
             maxFps: 60,
-            displayMode: DisplayMode.FitScreenAndFill,
+            displayMode: DisplayMode.Fixed,
             antialiasing: false,
-            backgroundColor: Color.Black
+            suppressPlayButton: true,
+            pixelArt: true
         })
         this.start(ResourceLoader).then(() => this.startGame())
     }
