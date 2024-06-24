@@ -21,8 +21,7 @@ export class StoryScene extends Scene {
     onPreUpdate() {
         if ((this.engine.input.keyboard.wasPressed(Keys.Space) && this.space) ||
             this.engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1)) {
-            console.log('In deze spatie')
-            this.game.goToScene('controlScene')
+            this.sceneSwitch();
         }
     }
     onActivate() {
@@ -47,7 +46,7 @@ export class StoryScene extends Scene {
     }
     sceneSwitch() {
         if (this.space) {
-            console.log('ga naar storyscene')
+            console.log('ga naar controlscene')
             this.game.goToScene('controlscene')
         }
     }
