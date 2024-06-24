@@ -28,6 +28,8 @@ export class FireProjectile5 extends Projectile {
     canPassThrough = false;
     isExplosive = true;
     reloadTime = 2000
+    sound = [Resources.WooshLarge]
+
 
     constructor(velocity, pos) {
         super({ width: 32, height: 32, collisionType: CollisionType.Passive});
@@ -37,6 +39,9 @@ export class FireProjectile5 extends Projectile {
 
     onPostKill(scene){
         console.log('cheese')
+
+        Resources.ExplosionSound.play(0.5)
+
         const explosionActor = new Actor({width: 100, height: 100, collisionType: CollisionType.Passive, name: 'explosion'})
         explosionActor.graphics.add(Resources.NectarMedium.toSprite())
         explosionActor.pos = new Vector(this.pos.x, this.pos.y)

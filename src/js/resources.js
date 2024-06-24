@@ -102,11 +102,18 @@ const Resources = {
     Explosion: new ImageSource('images/explosion.png'),
     MedicNectar: new ImageSource('images/medicnectar.png'),
     FireProjectile4: new ImageSource('images/projectile/projectile4.png'),
-    FireProjectile5: new ImageSource('images/projectile/projectile5.png')
+    FireProjectile5: new ImageSource('images/projectile/projectile5.png'),
+    Ambiance: new Sound('sfx/park.mp3'),
+    WooshOne: new Sound('sfx/woosh1.mp3'),
+    WooshTwo: new Sound('sfx/woosh2.mp3'),
+    WooshLarge: new Sound('sfx/wooshLarge.mp3'),
+    Impact: new Sound('sfx/impact.mp3'),
+    Equip: new Sound('sfx/equip.mp3'),
+    ExplosionSound: new Sound('sfx/explosion.mp3'),
+    Open: new Sound('sfx/open.mp3'),
+    DeathSoundMan: new Sound('sfx/deathSoundMan.mp3')
+
 }
-
-
-
 
 const ResourceLoader = new Loader()
 for (let res of Object.values(Resources)) {

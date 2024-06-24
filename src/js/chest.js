@@ -78,6 +78,8 @@ export class Chest extends Actor {
     onCollisionStart(evt, chest) {
         if (evt.other instanceof Player) {
             if (!(this.chestopened)) {
+                Resources.Open.play(0.5)
+
                 const tophat = new TopHat(-3, -2)
                 const christmasHat = new ChristmasHat(-3, -2)
                 const graduationHat = new GraduationHat(-3, -2)

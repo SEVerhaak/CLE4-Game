@@ -46,8 +46,8 @@ export class Pickup extends Actor {
     }
 
     onPlayerCollision(player) {
-
         if (this.isProjectile) {
+            Resources.NectarSFX.play()
             if (!player.inventory.checkIfProjectileIsEquipped(this.itemName)) {
                 player.inventory.addItem(this.itemName, true, this.projectileIndex, this.projectileSprite, this.endFrame)
                 player.currentProjectileUI.setIcon(player.inventory.projectiles[player.inventory.currentSelectedItemIndex].projectileSprite, 3)
@@ -56,12 +56,16 @@ export class Pickup extends Actor {
                 // item zit dan al in de inventory niks meer me doen
             }
         } else if (this.isSuperNectar) {
+            Resources.NectarSFX.play()
+
             console.log('suPernectar opgepakt')
             this.kill()
             player.inventory.addItem(this.itemName, false)
             player.updateNectarScore();
             player.updateTaskBar()
         } else if (this.itemName === 'Health'){
+            Resources.NectarSFX.play()
+
             if (player.inventory.health <= 0.9){
                 player.healthBar.increaseHealth(0.1)
                 this.kill()

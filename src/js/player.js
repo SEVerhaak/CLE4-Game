@@ -357,6 +357,7 @@ export class Player extends Actor {
     }
 
     movementAnim(direction) {
+        // pas animatie + schaduw aan op basis van beweging
         if (this.attacking === false) {
             switch (direction) {
                 case 'up':
@@ -516,6 +517,8 @@ export class Player extends Actor {
 
     hatHandler(hat) {
         let hatFound = false
+
+        Resources.Equip.play(1)
 
         for (let i = 0; i < this.hats.length; i++) {
             if (i !== 0) {

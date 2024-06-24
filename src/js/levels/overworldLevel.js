@@ -124,7 +124,8 @@ export class OverworldLevel extends Scene {
         const projectile = new FireProjectile5Pickup(1250, 1200)
         this.add(projectile);
 
-        Resources.Worldmusic.play()
+        Resources.Worldmusic.play(0.5)
+        Resources.Ambiance.play(0.5)
         this.doorLevelHandler()
         // this.supernectar = new SuperNectarPickup
         // this.supernectar.pos = new Vector(1300, 1300)

@@ -45,32 +45,34 @@ export class Inventory extends Actor {
 
     addItem(item, isProjectile, projectileIndex, projectileSprite, endFrame, isHat){
         if (isProjectile){
+            // maak projectile object aan
             let projectileObject = {
-                itemName: item,
+                itemName: item, // naam (string)
                 projectileIndex: projectileIndex, // projectileindex is de index in de player projectile array
-                projectileSprite: projectileSprite,
-                endFrame: endFrame
+                projectileSprite: projectileSprite, // sprite
+                endFrame: endFrame // laatste frame van de animatie van het projectiel
             }
-            console.log(projectileObject)
+            // voeg het projectile object toe aan de projectiles array
             this.projectiles.push(projectileObject)
         }else if (isHat){
+            // wordt niet meer gebruikt maar stelt de laatst opgepakte hoed in
             this.lastHat = item
-            console.log(this.hats)
         } else{
+            // check of item al in inventory toegevoegd is
             let existingItem = this.inventory.find(inventoryItem => inventoryItem.itemName === item);
-
             if (existingItem) {
+                // als het item al bestaat zorg ervoor dat de hoeveelheid toeneemt
                 this.increaseItemAmount(existingItem)
             } else {
+                // maak item object aan
                  let itemObject = {
                     itemName: item,
                     itemAmount: 1
                 };
+                // voeg het item toe aan de inventory array
                 this.inventory.push(itemObject);
+                // zorg dat de hoeveelheid van nectar/supernectar omhoog gaat
                 this.increaseItemAmount(itemObject)
-                //player.updateNectarScore()
-                //this.setItemAmount(itemObject)
-                console.log(this.inventory)
             }
         }
     }
@@ -84,10 +86,6 @@ export class Inventory extends Actor {
         }
     }
 
-    setItemAmount(item){
-        let existingItem = this.inventory.find(inventoryItem => inventoryItem.itemName === item);
-    }
-
     checkIfProjectileIsEquipped(item){
         for (let i = 0; i < this.projectiles.length; i++) {
             if (this.projectiles[i].itemName === item){
@@ -95,10 +93,6 @@ export class Inventory extends Actor {
                 return true
             }
         }
-    }
-
-    selectItem(index){
-        return this.inventory[index]
     }
 
     getSelectedProjectileId(){
@@ -119,20 +113,6 @@ export class Inventory extends Actor {
         console.log(this.currentSelectedItemIndex)
     }
 
-    setSelectedHatID(){
-        if (this.hatIndex >= this.hats.length - 1){
-            this.hatIndex = 0
-        } else{
-            this.hatIndex++
-        }
-        //this.setSprite();
-        console.log(this.hatIndex)
-    }
-
-    getSelectedHatID(){
-        return this.hatIndex
-    }
-
     removeItem(itemName){
         const index = this.inventory.findIndex(item => item === itemName);
         if (index !== -1) {
@@ -145,6 +125,5 @@ export class Inventory extends Actor {
 
     onPreUpdate(engine, delta) {
         super.onPreUpdate(engine, delta);
-        console.log(this.health)
     }
 }

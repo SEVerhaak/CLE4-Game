@@ -2,11 +2,11 @@ import {
     Actor,
     Animation,
     AnimationStrategy,
-    CollisionType,
+    CollisionType, Color, EmitterType,
     Engine,
     Graphic,
     Input,
-    Keys,
+    Keys, ParticleEmitter,
     Random, randomIntInRange,
     range,
     SpriteSheet,
@@ -45,13 +45,13 @@ export class Bush extends Actor {
         this.glow.scale = new Vector(0.75, 0.75)
         this.glow.pos = new Vector(0, 0)
         this.glow.z = 79
-        this.z = 80
+        this.z = 81
 
         this.bushes = [Resources.Bush1, Resources.Bush2, Resources.Bush3]
         const number = (this.generateRandomNumber(0, 2))
         // standaard start animatie
         this.graphics.use(this.bushes[number].toSprite());
-        this.on('precollision', (evt) => this.onCollisionStart(evt));
+        this.on('collisionstart', (evt) => this.onCollisionStart(evt));
     }
 
     generateRandomNumber(min, max) {
@@ -67,6 +67,7 @@ export class Bush extends Actor {
             this.kill();
         }
         if (evt.other instanceof Player) {
+            this.spawnParticles()
             this.soundArray[this.generateRandomNumber(0,2)].play(0.5)
             Resources.NectarSFX.play(0.25)
             let randomXPositive = this.generateRandomNumber(30, 60)
@@ -135,4 +136,34 @@ export class Bush extends Actor {
             }
         }
     }
+
+    spawnParticles() {
+        let emitter = new ParticleEmitter(0, 0, 0, 2);
+        emitter.emitterType = EmitterType.Rectangle;
+        emitter.radius = 5;
+        emitter.minVel = 20;
+        emitter.maxVel = 80;
+        emitter.minAngle = 0;
+        emitter.maxAngle = 6.2;
+        emitter.isEmitting = true;
+        emitter.emitRate = 300;
+        emitter.opacity = 0.5;
+        emitter.fadeFlag = true;
+        emitter.particleLife = 1000;
+        emitter.maxSize = 10;
+        emitter.minSize = 1;
+        emitter.startSize = 0;
+        emitter.endSize = 0;
+        emitter.acceleration = new Vector(0, 42);
+        emitter.beginColor = Color.Chartreuse;
+        emitter.endColor = Color.Green;
+        emitter.scale = new Vector(0.5,0.5)
+        emitter.z = 80
+        this.addChild(emitter);
+        setTimeout(() => {
+            //console.log('clearing')
+            this.removeChild(emitter)
+        }, 200);
+    }
+
 }

@@ -6,7 +6,7 @@ import {
     Animation,
     range,
     AnimationStrategy,
-    CollisionType
+    CollisionType, randomIntInRange
 } from "excalibur";
 import {Resources} from "../resources.js";
 
@@ -24,6 +24,7 @@ export class Projectile extends Actor {
     canPassThrough
     reloadTime
     isExplosive
+    sound
 
 
     constructor(velocity, pos) {
@@ -38,6 +39,7 @@ export class Projectile extends Actor {
         this.animation = Animation.fromSpriteSheet(this.spriteSheet, range(0, this.animEndFrame), this.delay, this.animStrat);
         this.graphics.use(this.animation)
         this.scale = new Vector(this.scaleModifier, this.scaleModifier)
+        this.sound[randomIntInRange(0, this.sound.length - 1)].play(0.7)
         this.killDelay();
     }
 

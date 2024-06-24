@@ -27,6 +27,7 @@ export class FireProjectile4 extends Projectile {
     canPassThrough = false
     isExplosive = false;
     reloadTime = 1000
+    sound = [Resources.WooshLarge]
 
     constructor(velocity, pos) {
         super({ width: 16, height: 16, collisionType: CollisionType.Passive});

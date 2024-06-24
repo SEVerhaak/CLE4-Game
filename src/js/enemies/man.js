@@ -97,6 +97,7 @@ export class Man extends Actor {
 
     onCollisionStart(evt) {
         if (evt.other instanceof Projectile) {
+            Resources.Impact.play(0.6)
             this.spawnBlood();
             this.health -= evt.other.damage;
             this.healthBar.reduceHealth(evt.other.damage);
@@ -104,6 +105,7 @@ export class Man extends Actor {
             this.damageTaken = true
             console.log(this.health)
             if (this.health <= 0.01) {
+                Resources.DeathSoundMan.play(0.8)
                 this.spawnDeathBlood();
                 this.graphics.use(this.animationDeath);
                 this.currentAnimation = this.animationDeath
