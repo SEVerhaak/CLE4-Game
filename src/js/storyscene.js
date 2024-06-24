@@ -18,9 +18,9 @@ export class StoryScene extends Scene {
     onInitialize(engine) {
         this.engine = engine
     }
-    onPreUpdate() {
-        if ((this.engine.input.keyboard.wasPressed(Keys.Space) && this.space) ||
-            (this.engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) && this.space)) {
+    onPreUpdate(engine) {
+        if ((engine.input.keyboard.wasPressed(Keys.Space) && this.space) ||
+            (engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) && this.space)) {
             this.sceneSwitch();
         }
     }
@@ -37,7 +37,7 @@ export class StoryScene extends Scene {
         setTimeout(() => { this.storyscene1.graphics.use(Resources.StoryScene4.toSprite()) }, 26000)
         setTimeout(() => { this.storyscene1.graphics.use(Resources.StoryScene5.toSprite()) }, 32000)
         setTimeout(() => { this.storyscene1.graphics.use(Resources.StoryScene2.toSprite()) }, 52000)
-        if (!Resources.Introscenesound.isPlaying()){
+        if (!Resources.Introscenesound.isPlaying()) {
             this.sceneSwitch();
         }
         //setTimeout(() => { this.sceneSwitch() }, 10000)
