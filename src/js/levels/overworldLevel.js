@@ -8,8 +8,8 @@ import { Chest } from "../chest.js";
 import { Bush } from "../bush.js";
 import { Man } from "../enemies/man.js";
 import { Finalboss } from "../enemies/finalboss.js";
-import {FireProjectile4Pickup} from "../pickups/fireProjectile4Pickup.js";
-import {FireProjectile5Pickup} from "../pickups/fireProjectile5Pickup.js";
+import { FireProjectile4Pickup } from "../pickups/fireProjectile4Pickup.js";
+import { FireProjectile5Pickup } from "../pickups/fireProjectile5Pickup.js";
 
 export class OverworldLevel extends Scene {
 
@@ -126,6 +126,8 @@ export class OverworldLevel extends Scene {
 
         Resources.Worldmusic.play(0.5)
         Resources.Ambiance.play(0.5)
+        Resources.Worldmusic.loop = true
+        Resources.Ambiance.loop = true;
         this.doorLevelHandler()
         // this.supernectar = new SuperNectarPickup
         // this.supernectar.pos = new Vector(1300, 1300)
