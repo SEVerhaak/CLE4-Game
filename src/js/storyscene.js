@@ -20,7 +20,7 @@ export class StoryScene extends Scene {
     }
     onPreUpdate() {
         if ((this.engine.input.keyboard.wasPressed(Keys.Space) && this.space) ||
-            this.engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1)) {
+            (this.engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) && this.space)) {
             this.sceneSwitch();
         }
     }
