@@ -56,6 +56,7 @@ export class Level1 extends Scene {
         this.player.pos = new Vector(302, 100)
         this.add(this.player)
         Resources.Levelbossmusic.play()
+        Resources.Levelbossmusic.loop = true
     }
     cameraDelay(engine) {
         setTimeout(() => {

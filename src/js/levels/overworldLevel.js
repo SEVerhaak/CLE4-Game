@@ -121,6 +121,8 @@ export class OverworldLevel extends Scene {
 
         Resources.Worldmusic.play(0.5)
         Resources.Ambiance.play(0.5)
+        Resources.Worldmusic.loop = true
+        Resources.Ambiance.loop = true;
         this.doorLevelHandler()
         // this.supernectar = new SuperNectarPickup
         // this.supernectar.pos = new Vector(1300, 1300)
