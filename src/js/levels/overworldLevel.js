@@ -114,6 +114,7 @@ export class OverworldLevel extends Scene {
         Resources.Finalbossmusic.stop()
     }
     onActivate(context) {
+        this.playerDeleteTimer();
         super.onActivate(context)
         this.cameraDelay(this.engine)
         this.player = new Player(this.game)
@@ -217,5 +218,18 @@ export class OverworldLevel extends Scene {
         }
     }
 
+    playerDeleteTimer(){
+        setTimeout(() => {
+            this.playerDeleter();
+        }, 100)
+    }
 
+    playerDeleter(){
+        let allPlayer = this.currentScene.actors.filter(actor => actor instanceof Player)
+        if (allPlayer.length > 1){
+            for (let i = 1; i < allPlayer.length; i++) {
+                allPlayer[i].kill()
+            }
+        }
+    }
 }
