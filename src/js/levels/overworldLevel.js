@@ -10,6 +10,7 @@ import { Man } from "../enemies/man.js";
 import { Finalboss } from "../enemies/finalboss.js";
 import {FireProjectile4Pickup} from "../pickups/fireProjectile4Pickup.js";
 import {FireProjectile5Pickup} from "../pickups/fireProjectile5Pickup.js";
+import {ProjectilePickup} from "../pickups/pickupProjectileTest.js";
 
 export class OverworldLevel extends Scene {
 
@@ -117,9 +118,6 @@ export class OverworldLevel extends Scene {
         this.player = new Player(this.game)
         this.player.pos = new Vector(1300, 1200)
         this.add(this.player)
-
-        const projectile = new FireProjectile5Pickup(1250, 1200)
-        this.add(projectile);
 
         Resources.Worldmusic.play(0.5)
         Resources.Ambiance.play(0.5)
