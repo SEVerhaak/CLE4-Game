@@ -29,16 +29,6 @@ export class Level3 extends Scene {
 
         Resources.Worldmusic.stop()
         Resources.Levelbossmusic.play()
-
-        const pickup = new ProjectilePickup(400, 425)
-        this.add(pickup)
-
-        const pickup2 = new FireProjectile2Pickup(450, 425)
-        this.add(pickup2)
-
-        const pickup3 = new FireProjectile3Pickup(500, 425)
-        this.add(pickup3)
-
         Resources.Level3.addToScene(this);
 
         this.bat = new Bat(this, this.game);

@@ -233,6 +233,7 @@ export class Player extends Actor {
             this.inventory.health -= 0.010;
             this.healthBar.reduceHealth(0.010);
             if (this.health <= 0.01) {
+                Resources.ExplosionSound.play(1)
                 this.graphics.use(this.animationDeath);
                 evt.other.killedOther = true;
                 //this.healthBar.kill();

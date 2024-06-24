@@ -102,18 +102,24 @@ export class Finalboss extends Actor {
 
     onCollisionStart(evt) {
         if (evt.other instanceof Projectile) {
-            this.spawnBlood();
-            this.health -= evt.other.damage / 3;
-            this.healthBar.reduceHealth(evt.other.damage / 3);
-            this.damageTaken = true
-            if (this.health <= 0.01) {
-                this.graphics.use(this.animationDeath);
-                this.currentAnimation = this.animationDeath
-                this.healthBar.kill();
-                this.body.collisionType = CollisionType.PreventCollision
-                this.TimerGameover(this)
+            if (!evt.other.isExplosive) {
+                Resources.Impact.play(1);
+                this.spawnBlood();
+                this.health -= evt.other.damage / 3;
+                this.healthBar.reduceHealth(evt.other.damage / 3);
+                this.damageTaken = true
+                if (this.health <= 0.01) {
+                    this.graphics.use(this.animationDeath);
+                    this.currentAnimation = this.animationDeath
+                    this.healthBar.kill();
+                    this.body.collisionType = CollisionType.PreventCollision
+                    this.TimerGameover(this)
+                }
+                evt.other.kill();
+            } else{
+                this.takeExplosionDamage(0.10)
+                evt.other.kill()
             }
-            evt.other.kill();
         }
     }
 
