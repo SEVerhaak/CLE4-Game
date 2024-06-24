@@ -78,9 +78,6 @@ export class Game extends Engine {
         // Create and add the new scene
         const overWorldScene = new OverworldLevel(this);
         this.add('overworld', overWorldScene);
-
-        // Go to the new scene
-        this.goToScene('overworld');
     }
     goToLevel3() {
         // Create and add the new scene

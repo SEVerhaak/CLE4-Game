@@ -19,13 +19,11 @@ export class StoryScene extends Scene {
         this.engine = engine
     }
     onPreUpdate(engine) {
-        setTimeout(() => {
-            if ((engine.input.keyboard.wasPressed(Keys.Space) && this.space) ||
-                (engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) && this.space)) {
-                this.sceneSwitch();
-            }
-        }, 1000)
-
+        
+        if ((engine.input.keyboard.wasPressed(Keys.Space) && this.space) ||
+            (engine.input.gamepads.at(0).wasButtonPressed(Input.Buttons.Face1) && this.space)) {
+            this.game.goToScene('controlScene')
+        }
     }
     onActivate() {
         this.space = true;
