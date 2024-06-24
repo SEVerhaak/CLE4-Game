@@ -47,7 +47,7 @@ export class StoryScene extends Scene {
     sceneSwitch() {
         if (this.space) {
             console.log('ga naar controlscene')
-            this.game.goToScene('controlscene')
+            this.game.goToScene('controlScene')
         }
     }
 
