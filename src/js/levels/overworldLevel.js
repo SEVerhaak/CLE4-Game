@@ -11,6 +11,7 @@ import { Finalboss } from "../enemies/finalboss.js";
 import {FireProjectile4Pickup} from "../pickups/fireProjectile4Pickup.js";
 import {FireProjectile5Pickup} from "../pickups/fireProjectile5Pickup.js";
 import {ProjectilePickup} from "../pickups/pickupProjectileTest.js";
+import {NectarPickup} from "../pickups/nectarPickup.js";
 
 export class OverworldLevel extends Scene {
 
@@ -209,6 +210,7 @@ export class OverworldLevel extends Scene {
             this.finalboss.z = 30;
             this.add(this.finalboss);
             this.player.pos = new Vector(1200, 1200)
+
             Resources.Worldmusic.stop()
             Resources.Finalbossmusic.play()
             this.levelUnlocked = 5;
