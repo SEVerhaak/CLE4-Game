@@ -11,6 +11,7 @@ import { Finalboss } from "../enemies/finalboss.js";
 import {FireProjectile4Pickup} from "../pickups/fireProjectile4Pickup.js";
 import {FireProjectile5Pickup} from "../pickups/fireProjectile5Pickup.js";
 import {ProjectilePickup} from "../pickups/pickupProjectileTest.js";
+import {NectarPickup} from "../pickups/nectarPickup.js";
 
 export class OverworldLevel extends Scene {
 
@@ -113,6 +114,7 @@ export class OverworldLevel extends Scene {
         Resources.Finalbossmusic.stop()
     }
     onActivate(context) {
+        this.playerDeleteTimer();
         super.onActivate(context)
         this.cameraDelay(this.engine)
         this.player = new Player(this.game)
@@ -209,11 +211,26 @@ export class OverworldLevel extends Scene {
             this.finalboss.z = 30;
             this.add(this.finalboss);
             this.player.pos = new Vector(1200, 1200)
+
             Resources.Worldmusic.stop()
             Resources.Finalbossmusic.play()
             this.levelUnlocked = 5;
         }
     }
 
+    playerDeleteTimer(){
+        setTimeout(() => {
+            this.playerDeleter();
+        }, 100)
+    }
 
+    playerDeleter(){
+        let allPlayer = this.actors.filter(actor => actor instanceof Player)
+        if (allPlayer.length > 1){
+            console.log('poepsok')
+            for (let i = 1; i < allPlayer.length; i++) {
+                allPlayer[i].kill()
+            }
+        }
+    }
 }
