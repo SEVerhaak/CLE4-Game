@@ -1,7 +1,7 @@
 import {
     Actor,
     Vector,
-    CollisionType
+    CollisionType, Sprite
 } from "excalibur";
 import { Resources } from "../resources.js";
 import { Player } from "../player.js";
@@ -9,7 +9,9 @@ import { Pickup } from "./pickup.js";
 
 export class SuperNectarPickup extends Pickup {
 
-    sprite = Resources.SuperNectar
+    sprite = new Sprite({
+        image: Resources.SuperNectar,
+    })
     itemName = 'SuperNectar'
     scaleVec = new Vector(0.15, 0.15)
     isSuperNectar = true;

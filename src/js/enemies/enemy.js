@@ -66,6 +66,7 @@ export class Enemy extends Actor {
         this.body.collisionType = CollisionType.PreventCollision
         this.supernectar = new SuperNectarPickup
         this.supernectar.pos = new Vector(-10, -10)
+        this.supernectar.z = 999;
         this.addChild(this.supernectar);
     }
 
