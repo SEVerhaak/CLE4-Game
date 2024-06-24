@@ -8,8 +8,9 @@ import { Chest } from "../chest.js";
 import { Bush } from "../bush.js";
 import { Man } from "../enemies/man.js";
 import { Finalboss } from "../enemies/finalboss.js";
-import { FireProjectile4Pickup } from "../pickups/fireProjectile4Pickup.js";
-import { FireProjectile5Pickup } from "../pickups/fireProjectile5Pickup.js";
+import {FireProjectile4Pickup} from "../pickups/fireProjectile4Pickup.js";
+import {FireProjectile5Pickup} from "../pickups/fireProjectile5Pickup.js";
+import {ProjectilePickup} from "../pickups/pickupProjectileTest.js";
 
 export class OverworldLevel extends Scene {
 
@@ -45,7 +46,6 @@ export class OverworldLevel extends Scene {
         super.onInitialize(engine);
         this.game.inventory.level = this.levelUnlocked;
 
-        console.log(this.game.inventory.level)
         this.FillOverWorld(engine)
         this.engine = engine;
     }
@@ -108,21 +108,16 @@ export class OverworldLevel extends Scene {
             this.finalboss.kill();
         }
         super.onDeactivate(context)
-        console.log('deactivate')
         this.player.kill()
         Resources.Worldmusic.stop()
         Resources.Finalbossmusic.stop()
     }
     onActivate(context) {
         super.onActivate(context)
-        console.log('activate')
         this.cameraDelay(this.engine)
         this.player = new Player(this.game)
         this.player.pos = new Vector(1300, 1200)
         this.add(this.player)
-
-        const projectile = new FireProjectile5Pickup(1250, 1200)
-        this.add(projectile);
 
         Resources.Worldmusic.play(0.5)
         Resources.Ambiance.play(0.5)
@@ -188,7 +183,6 @@ export class OverworldLevel extends Scene {
             this.game.inventory.level = this.levelUnlocked
         }
         if (this.game.inventory.nectarAmount >= this.nectarLevel3 && this.game.inventory.superNecterAmount >= this.superNectarLevel3 && !this.enterlevel3bool) {
-            console.log('enterlevel3 gespawned')
             this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3, 'enterlevel3');
             this.add(this.enterlevel3);
             this.levelUnlocked = 3;

@@ -51,7 +51,6 @@ export class TaskbarUI extends ScreenElement {
     }
 
     updateTasks() {
-        console.log(this.neededNectarArray[this.currentLevel])
         if (this.game.inventory.nectarAmount >= this.neededNectarArray[this.game.inventory.superNecterAmount]) {
             //this.currentLevel = this.game.inventory.level
             this.graphics.use(Resources.Check.toSprite())
@@ -66,7 +65,6 @@ export class TaskbarUI extends ScreenElement {
             this.taskText.text = this.taskArray[this.currentLevel]
             this.taskTextBG.text = this.taskArray[this.currentLevel]
             this.graphics.use(Resources.Cross.toSprite())
-            console.log(this.currentLevel)
         } else {
             this.taskText.text = 'Vecht met de imker'
             this.taskTextBG.text = 'Vecht met de imker'
@@ -75,7 +73,6 @@ export class TaskbarUI extends ScreenElement {
 
     checkLevelUnlocked() {
         this.currentLevel = this.game.inventory.level
-        console.log(this.currentLevel)
     }
 
     initValues() {
@@ -83,7 +80,6 @@ export class TaskbarUI extends ScreenElement {
 
         let scene = this.game.scenes['overworld']
         this.neededNectarArray.push(scene.nectarLevel1, scene.nectarLevel2, scene.nectarLevel3, scene.nectarLevel4)
-        console.log(this.neededNectarArray);
 
         this.task1 = 'Verzamel ' + this.neededNectarArray[0] + ' nectar'
         this.task2 = 'Verzamel ' + this.neededNectarArray[1] + ' nectar'
@@ -103,6 +99,5 @@ export class TaskbarUI extends ScreenElement {
         this.initValues()
         this.initTaskBar()
         //this.initTaskBar()
-        console.log(this.currentLevel)
     }
 }

@@ -16,7 +16,6 @@ export class StartScene extends Scene {
         const startScene = new Actor()
         startScene.graphics.use(Resources.StartScene.toSprite())
         startScene.pos = new Vector(720, 450)
-        startScene.scale = new Vector(3.4, 3.4)
         this.add(startScene)
         this.engine = engine;
 
@@ -38,7 +37,6 @@ export class StartScene extends Scene {
     }
     sceneSwitch() {
         if (this.space) {
-            console.log('ga naar storyscene')
             this.game.goToScene('storyscene')
         }
     }

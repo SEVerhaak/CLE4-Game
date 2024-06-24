@@ -14,7 +14,6 @@ export class Endscene extends Scene {
     
 
     onInitialize(engine) {
-        console.log('eindscenetijd')
         this.endscene = new Actor()
         this.endscene.graphics.use(Resources.EndScene.toSprite())
         this.endscene.pos = new Vector(720, 450)

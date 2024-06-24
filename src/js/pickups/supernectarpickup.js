@@ -18,7 +18,6 @@ export class SuperNectarPickup extends Pickup {
         //this.scale = new Vector(0.005, 0.005);
         this.pos.x = x;
         this.pos.y = y;
-        this.z = 99;
-
+        this.z = 999;
     }
 }

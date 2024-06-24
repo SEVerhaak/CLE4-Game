@@ -37,7 +37,10 @@ export class StoryScene extends Scene {
         setTimeout(() => { this.storyscene1.graphics.use(Resources.StoryScene4.toSprite()) }, 26000)
         setTimeout(() => { this.storyscene1.graphics.use(Resources.StoryScene5.toSprite()) }, 32000)
         setTimeout(() => { this.storyscene1.graphics.use(Resources.StoryScene2.toSprite()) }, 52000)
-        setTimeout(() => { this.sceneSwitch() }, 10000)
+        if (!Resources.Introscenesound.isPlaying()){
+            this.sceneSwitch();
+        }
+        //setTimeout(() => { this.sceneSwitch() }, 10000)
     }
 
     onDeactivate() {
@@ -46,7 +49,6 @@ export class StoryScene extends Scene {
     }
     sceneSwitch() {
         if (this.space) {
-            console.log('ga naar controlscene')
             this.game.goToScene('controlScene')
         }
     }

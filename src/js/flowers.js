@@ -187,7 +187,6 @@ export class Flower extends Actor {
         emitter.z = 1000
         this.addChild(emitter);
         setTimeout(() => {
-            //console.log('clearing')
             this.removeChild(emitter)
         }, 200);
     }

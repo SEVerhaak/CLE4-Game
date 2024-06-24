@@ -78,7 +78,6 @@ export class Inventory extends Actor {
     }
 
     increaseItemAmount(item){
-        console.log(item)
         if (item.itemName === 'Nectar'){
             this.nectarAmount++
         } else{
@@ -89,7 +88,6 @@ export class Inventory extends Actor {
     checkIfProjectileIsEquipped(item){
         for (let i = 0; i < this.projectiles.length; i++) {
             if (this.projectiles[i].itemName === item){
-                console.log('item found')
                 return true
             }
         }
@@ -110,16 +108,13 @@ export class Inventory extends Actor {
             this.currentSelectedItemIndex++
         }
         //this.setSprite();
-        console.log(this.currentSelectedItemIndex)
     }
 
     removeItem(itemName){
         const index = this.inventory.findIndex(item => item === itemName);
         if (index !== -1) {
             const removedItem = this.inventory.splice(index, 1)[0];
-            console.log("Removed from inventory: " + removedItem);
         } else {
-            console.log("Item not found in inventory: " + itemName);
         }
     }
 

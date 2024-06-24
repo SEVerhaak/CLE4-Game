@@ -20,21 +20,16 @@ export class EnterLevel extends Actor {
     }
     onCollisionStart(evt, game, level) {
         if (evt.other instanceof Player) {
-            console.log(game)
             if (level === 1) {
-                console.log('enterlevel1')
                 this.game.goToScene('level1');
             }
             if (level === 2) {
-                console.log('enterlevel2')
                 this.game.goToScene('level2');
             }
             if (level === 3) {
-                console.log('enterleve3')
                 this.game.goToScene('level3');
             }
             if (level === 4) {
-                console.log('enterleve4')
                 this.game.goToScene('level4');
             }
 

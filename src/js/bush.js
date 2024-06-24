@@ -161,7 +161,6 @@ export class Bush extends Actor {
         emitter.z = 80
         this.addChild(emitter);
         setTimeout(() => {
-            //console.log('clearing')
             this.removeChild(emitter)
         }, 200);
     }

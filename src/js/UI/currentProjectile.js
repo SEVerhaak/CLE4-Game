@@ -30,7 +30,6 @@ export class CurrentProjectile extends ScreenElement {
             bugfixHack = 2;
             bugfixHack2 = -1
         }
-        console.log(endFrame)
 
         const spriteAnimationSheet = SpriteSheet.fromImageSource({
             image: projectileSprite,

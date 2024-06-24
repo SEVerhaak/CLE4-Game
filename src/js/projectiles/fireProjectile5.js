@@ -38,7 +38,6 @@ export class FireProjectile5 extends Projectile {
     }
 
     onPostKill(scene){
-        console.log('cheese')
 
         Resources.ExplosionSound.play(0.5)
 
