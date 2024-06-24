@@ -45,7 +45,6 @@ export class OverworldLevel extends Scene {
         super.onInitialize(engine);
         this.game.inventory.level = this.levelUnlocked;
 
-        console.log(this.game.inventory.level)
         this.FillOverWorld(engine)
         this.engine = engine;
     }
@@ -108,14 +107,12 @@ export class OverworldLevel extends Scene {
             this.finalboss.kill();
         }
         super.onDeactivate(context)
-        console.log('deactivate')
         this.player.kill()
         Resources.Worldmusic.stop()
         Resources.Finalbossmusic.stop()
     }
     onActivate(context) {
         super.onActivate(context)
-        console.log('activate')
         this.cameraDelay(this.engine)
         this.player = new Player(this.game)
         this.player.pos = new Vector(1300, 1200)
@@ -186,7 +183,6 @@ export class OverworldLevel extends Scene {
             this.game.inventory.level = this.levelUnlocked
         }
         if (this.game.inventory.nectarAmount >= this.nectarLevel3 && this.game.inventory.superNecterAmount >= this.superNectarLevel3 && !this.enterlevel3bool) {
-            console.log('enterlevel3 gespawned')
             this.enterlevel3 = new EnterLevel(217, 1868, this.game, 3, 'enterlevel3');
             this.add(this.enterlevel3);
             this.levelUnlocked = 3;

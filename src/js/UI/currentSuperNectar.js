@@ -45,7 +45,6 @@ export class CurrentSuperNectar extends ScreenElement {
 
     setScore() {
         let value = this.game.inventory.superNecterAmount
-        console.log(value)
         value = value.toString()
         this.scoreText.text = value
         this.scoreTextBG.text = value

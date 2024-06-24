@@ -76,7 +76,6 @@ export class Enemy extends Actor {
                 this.healthBar.reduceHealth(evt.other.damage);
                 this.graphics.use(this.animationHurt);
                 this.damageTaken = true
-                console.log(this.health)
                 if (this.health <= 0.01) {
                     this.killedEvent()
                 }

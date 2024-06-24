@@ -463,7 +463,6 @@ export class Player extends Actor {
                     this.resetShootTimer(projectile.reloadTime); // Call the method to reset the shoot timer
                 } else {
                     this.resetShootTimer(500); // Call the method to reset the shoot timer
-                    console.log('no items in inventory')
                 }
             }
         }
@@ -498,7 +497,6 @@ export class Player extends Actor {
     }
 
     TimerGameover(enemy) {
-        console.log('timer')
         setTimeout(() => {
             enemy.killedOther = false;
             this.inventory.health = 1;
@@ -543,7 +541,6 @@ export class Player extends Actor {
             this.hats.push(hat)
             this.inventory.hatIndex++
         }
-        console.log(this.inventory.hatIndex)
         this.hatUI.setIcon(this.lastHat);
         //this.hatChanger();
         this.addChild(this.lastHat)

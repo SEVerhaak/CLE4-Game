@@ -106,7 +106,6 @@ export class Finalboss extends Actor {
             this.health -= evt.other.damage / 3;
             this.healthBar.reduceHealth(evt.other.damage / 3);
             this.damageTaken = true
-            console.log(this.health)
             if (this.health <= 0.01) {
                 this.graphics.use(this.animationDeath);
                 this.currentAnimation = this.animationDeath
@@ -230,7 +229,6 @@ export class Finalboss extends Actor {
 
 
     TimerGameover(enemy) {
-        console.log('timer')
         setTimeout(() => {
             enemy.killedOther = false;
             this.body.collisionType = CollisionType.Active
@@ -263,7 +261,6 @@ export class Finalboss extends Actor {
         emitter.scale = new Vector(0.5, 0.5)
         this.addChild(emitter);
         setTimeout(() => {
-            //console.log('clearing')
             this.removeChild(emitter)
         }, 100);
     }

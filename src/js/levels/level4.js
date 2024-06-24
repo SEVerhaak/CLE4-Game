@@ -36,13 +36,11 @@ export class Level4 extends Scene {
     }
     onDeactivate(context) {
         super.onDeactivate(context)
-        console.log('deactivate')
         this.player.kill()
         Resources.Levelbossmusic.stop()
     }
     onActivate(context) {
         super.onActivate(context)
-        console.log('activate')
         this.cameraDelay(this.engine)
         this.player = new Player(this.game)
         this.player.pos = new Vector(300, 110)

@@ -26,7 +26,6 @@ export class GameOverScene extends Scene {
     }
 
     GameOverImageHandler(enemy) {
-        console.log(enemy)
         const gameover = new Actor()
         this.game.scenes['overworld'].RestartOverWorld();
 

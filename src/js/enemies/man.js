@@ -103,7 +103,6 @@ export class Man extends Actor {
             this.healthBar.reduceHealth(evt.other.damage);
             //this.graphics.use(this.animationHurt);
             this.damageTaken = true
-            console.log(this.health)
             if (this.health <= 0.01) {
                 Resources.DeathSoundMan.play(0.8)
                 this.spawnDeathBlood();
@@ -265,7 +264,6 @@ export class Man extends Actor {
         emitter.scale = new Vector(0.5, 0.5)
         this.addChild(emitter);
         setTimeout(() => {
-            //console.log('clearing')
             this.removeChild(emitter)
         }, 100);
     }
@@ -294,7 +292,6 @@ export class Man extends Actor {
         emitter.scale = new Vector(0.5, 0.5)
         this.addChild(emitter);
         setTimeout(() => {
-            //console.log('clearing')
             this.removeChild(emitter)
         }, 2500);
     }
