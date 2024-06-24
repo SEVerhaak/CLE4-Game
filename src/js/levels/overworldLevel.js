@@ -225,8 +225,9 @@ export class OverworldLevel extends Scene {
     }
 
     playerDeleter(){
-        let allPlayer = this.currentScene.actors.filter(actor => actor instanceof Player)
+        let allPlayer = this.actors.filter(actor => actor instanceof Player)
         if (allPlayer.length > 1){
+            console.log('poepsok')
             for (let i = 1; i < allPlayer.length; i++) {
                 allPlayer[i].kill()
             }
