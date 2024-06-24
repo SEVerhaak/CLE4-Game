@@ -119,9 +119,6 @@ export class OverworldLevel extends Scene {
         this.player.pos = new Vector(1300, 1200)
         this.add(this.player)
 
-        const projectile = new ProjectilePickup(1250, 1200)
-        this.add(projectile);
-
         Resources.Worldmusic.play(0.5)
         Resources.Ambiance.play(0.5)
         this.doorLevelHandler()
